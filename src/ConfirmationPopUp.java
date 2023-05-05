@@ -69,6 +69,7 @@ class Header extends JPanel {
 }
 
 class Body extends JPanel {
+  
   Color backgroundColor = new Color(240, 248, 255);
 
   Body(String textFromAudio) {
@@ -98,7 +99,7 @@ class AppFrame extends JFrame {
 
     header = new Header();
     footer = new Footer();
-    body = new Body("hey there sharty");
+    body = new Body("hey there sharty"); /* TODO: How to get audio text? */
 
     this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
     this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
@@ -115,9 +116,11 @@ class AppFrame extends JFrame {
       new MouseAdapter() {
         @override
         public void mousePressed(MouseEvent e) {
-          // TODO: call something that sends question into chat gpt and 
-          // displays text on home screen.
-          dispose();
+          /*
+           * TODO: 
+           * call method that sends question into chat gpt and displays text on home screen.
+           */
+          dispose(); // Close window
         }
       }
     );
@@ -126,7 +129,7 @@ class AppFrame extends JFrame {
       new MouseAdapter() {
         @override
         public void mousePressed(MouseEvent e) {
-          dispose();
+          dispose(); // Close window
         }
       }
     );
