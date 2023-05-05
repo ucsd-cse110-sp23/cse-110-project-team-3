@@ -61,13 +61,16 @@ class Header extends JPanel {
     this.setPreferredSize(new Dimension(400, 60)); // Size of the header
     this.setBackground(backgroundColor);
     JLabel titleText = new JLabel("Accept or Cancel Prompt:"); // Text of the header
-    titleText.setPreferredSize(new Dimension(200, 60));
+    titleText.setPreferredSize(new Dimension(400, 60));
     titleText.setFont(new Font("Sans-serif", Font.BOLD, 20));
     titleText.setHorizontalAlignment(JLabel.CENTER); // Align the text to the center
     this.add(titleText); // Add the text to the header
   }
 }
 
+/*
+ * TODO: Make it so that long bodies of text appear in full
+ */
 class Body extends JPanel {
   
   Color backgroundColor = new Color(240, 248, 255);
@@ -99,7 +102,8 @@ class AppFrame extends JFrame {
 
     header = new Header();
     footer = new Footer();
-    body = new Body("hey there sharty"); /* TODO: How to get audio text? */
+    body = new Body("hey there sharty since this is too long a lot of this wont show up on screen"); 
+    /* TODO: How to get audio text? */
 
     this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
     this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
