@@ -19,9 +19,28 @@ class Header extends JPanel {
     }
 }
 
-class PopUp extends JFrame {
-    
+class resultUI extends JPanel{
+    JLabel qLabel;
+    JLabel aLabel;
 
+    resultUI(){
+        this.setPreferredSize(new Dimension(400, 60));
+        this.setLayout(new GridLayout(2, 1));
+
+        this.qLabel = new JLabel();
+        this.aLabel = new JLabel();
+
+         // add text to label
+        qLabel.setText("User inputted question \n");
+        qLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        qLabel.setFont(new Font("Sans-serif", Font.ITALIC, 20));
+        aLabel.setText("User inputted answer");
+        aLabel.setFont(new Font("Sans-serif", Font.ITALIC, 20));
+        aLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        this.add(qLabel);
+        this.add(aLabel);
+    }
 }
 
 class Footer extends JPanel {
@@ -82,6 +101,7 @@ class Footer extends JPanel {
 class MainPage extends JFrame {
     private Header header;
     private Footer footer;
+    private resultUI resultUI;
 
     private JButton pauseButton;
     private JButton newQuestionButton;
@@ -93,9 +113,11 @@ class MainPage extends JFrame {
 
         header = new Header();
         footer = new Footer();
+        resultUI = new resultUI();
 
         this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
         this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
+        this.add(resultUI, BorderLayout.CENTER); // adds question and response to center of screen
         
         pauseButton = footer.getPauseButton();
         newQuestionButton = footer.getnewQuestionButton();
