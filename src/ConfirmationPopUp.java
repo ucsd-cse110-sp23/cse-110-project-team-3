@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -78,11 +79,13 @@ class Body extends JPanel {
   Body(String textFromAudio) {
     this.setPreferredSize(new Dimension(400, 400)); // Size of the body
     this.setBackground(backgroundColor);
-    JLabel titleText = new JLabel(textFromAudio); // Text of the header
+    JTextArea titleText = new JTextArea(textFromAudio); // Text of the header
     titleText.setPreferredSize(new Dimension(200, 60));
     titleText.setFont(new Font("Sans-serif", Font.PLAIN, 14));
-    titleText.setHorizontalAlignment(JLabel.CENTER); // Align the text to the center
     this.add(titleText); // Add the text to the header
+    titleText.setLineWrap(true);
+    titleText.setWrapStyleWord(true);
+
   }
 }
 
