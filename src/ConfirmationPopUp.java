@@ -21,10 +21,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-class Footer extends JPanel {
+class ConfirmFooter extends JPanel {
 
   JButton acceptButton;
   JButton cancelButton;
@@ -32,7 +33,7 @@ class Footer extends JPanel {
   Color backgroundColor = new Color(240, 248, 255);
   Border emptyBorder = BorderFactory.createEmptyBorder();
 
-  Footer() {
+  ConfirmFooter() {
     this.setPreferredSize(new Dimension(400, 60));
     this.setBackground(backgroundColor);
    
@@ -89,23 +90,30 @@ class Body extends JPanel {
   }
 }
 
-class AppFrame extends JFrame {
+class ConfirmationPopUp extends JFrame {
 
   private Header header;
-  private Footer footer;
+  private ConfirmFooter footer;
   private Body body;
 
   private JButton acceptButton;
   private JButton cancelButton;
 
-  AppFrame() {
+  private MainPage mainPage;
+
+  String promptText;
+
+  ConfirmationPopUp(MainPage m) {
     this.setSize(400, 600); // 400 width and 600 height
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
     this.setVisible(true); // Make visible
 
+    promptText = "there once was a ship that put to sea and the name of the ship was the Billy-O'-Tea";
+    mainPage = m;
+
     header = new Header();
-    footer = new Footer();
-    body = new Body("Insert audio text here"); 
+    footer = new ConfirmFooter();
+    body = new Body(promptText);
     /* TODO: Get and put audio text there */
 
     this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
@@ -125,8 +133,12 @@ class AppFrame extends JFrame {
         public void mousePressed(MouseEvent e) {
           /*
            * TODO: 
-           * call method that sends question into chat gpt and displays text on home screen.
+           * call method that sends question into chat gpt
+           * refactor displaying text on home screen 
+           * (editing the text does nothing to prompt that gets displayed)
+           * (also some kind of design principle is violated by passing mainpage into constructors)
            */
+          mainPage.setQuestionText(promptText);
           dispose(); // Close window
         }
       }
@@ -140,13 +152,6 @@ class AppFrame extends JFrame {
         }
       }
     );
-  }
-}
-
-public class ConfirmationPopUp {
-
-  public static void main(String args[]) {
-    new AppFrame(); // Create the frame
   }
 }
 
