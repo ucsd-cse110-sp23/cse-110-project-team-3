@@ -80,7 +80,7 @@ class Body extends JPanel {
     this.setPreferredSize(new Dimension(400, 400)); // Size of the body
     this.setBackground(backgroundColor);
     JTextArea titleText = new JTextArea(textFromAudio); // Text of the header
-    titleText.setPreferredSize(new Dimension(200, 60));
+    titleText.setPreferredSize(new Dimension(400, 60));
     titleText.setFont(new Font("Sans-serif", Font.PLAIN, 14));
     this.add(titleText); // Add the text to the header
     titleText.setLineWrap(true);
@@ -105,8 +105,8 @@ class AppFrame extends JFrame {
 
     header = new Header();
     footer = new Footer();
-    body = new Body("hey there sharty since this is too long a lot of this wont show up on screen"); 
-    /* TODO: How to get audio text? */
+    body = new Body("Insert audio text here"); 
+    /* TODO: Get and put audio text there */
 
     this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
     this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
@@ -152,4 +152,3 @@ public class ConfirmationPopUp {
 
 @interface override {
 }
-
