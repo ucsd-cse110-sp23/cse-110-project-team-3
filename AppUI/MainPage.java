@@ -89,7 +89,7 @@ class Footer extends JPanel {
         });
     }
 
-    public JButton getnewQuestionButton(){
+    public JButton getNewQuestionButton(){
         return newQuestionButton;
     }
 
@@ -120,6 +120,6 @@ class MainPage extends JFrame {
         this.add(resultUI, BorderLayout.CENTER); // adds question and response to center of screen
         
         pauseButton = footer.getPauseButton();
-        newQuestionButton = footer.getnewQuestionButton();
+        newQuestionButton = footer.getNewQuestionButton();
     }
 }
