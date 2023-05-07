@@ -41,7 +41,7 @@ class resultUI extends JPanel{
         this.add(qLabel);
         this.add(aLabel);
     }
-
+    
 }
 
 class Footer extends JPanel {
@@ -57,7 +57,6 @@ class Footer extends JPanel {
 
         isRecording = false;
         mainPage = m;
-
         this.setPreferredSize(new Dimension(400, 60));
         this.setBackground(backgroundColor);
 
@@ -149,7 +148,6 @@ class MainPage extends JFrame {
         pauseButton = footer.getPauseButton();
         newQuestionButton = footer.getNewQuestionButton();
     }
-    
     // sets question text
     public void setQuestionText(String question) {
         resultUI.qLabel.setText(question);
