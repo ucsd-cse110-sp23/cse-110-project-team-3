@@ -55,11 +55,11 @@ class ConfirmFooter extends JPanel {
   }
 }
 
-class Header extends JPanel {
+class ConfirmHeader extends JPanel {
 
   Color backgroundColor = new Color(240, 248, 255);
 
-  Header() {
+  ConfirmHeader() {
     this.setPreferredSize(new Dimension(400, 60)); // Size of the header
     this.setBackground(backgroundColor);
     JLabel titleText = new JLabel("Accept or Cancel Prompt:"); // Text of the header
@@ -92,7 +92,7 @@ class Body extends JPanel {
 
 class ConfirmationPopUp extends JFrame {
 
-  private Header header;
+  private ConfirmHeader header;
   private ConfirmFooter footer;
   private Body body;
 
@@ -111,7 +111,7 @@ class ConfirmationPopUp extends JFrame {
     promptText = "there once was a ship that put to sea and the name of the ship was the Billy-O'-Tea";
     mainPage = m;
 
-    header = new Header();
+    header = new ConfirmHeader();
     footer = new ConfirmFooter();
     body = new Body(promptText);
     /* TODO: Get and put audio text there */
