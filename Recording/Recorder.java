@@ -35,24 +35,24 @@ public class Recorder {
         Thread t = new Thread(
             () -> {
             try {
-            DataLine.Info dataLineInfo = new DataLine.Info(
-                TargetDataLine.class,
-                audioFormat
-            );
-            targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
-            targetDataLine.open(audioFormat);
-            targetDataLine.start();
+                DataLine.Info dataLineInfo = new DataLine.Info(
+                    TargetDataLine.class,
+                    audioFormat
+                );
+                targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
+                targetDataLine.open(audioFormat);
+                targetDataLine.start();
 
-            AudioInputStream audioInputStream = new AudioInputStream(targetDataLine);
+                AudioInputStream audioInputStream = new AudioInputStream(targetDataLine);
 
-            File audioFile = new File("recording.wav");
-            AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, audioFile);
+                File audioFile = new File("LocalUserData/recording.wav");
+                AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, audioFile);
             } catch (Exception ex) {
             ex.printStackTrace();
             }
         }
         );
-    t.start();
+        t.start();
     }
 
     // stops recording when user clicks pause
