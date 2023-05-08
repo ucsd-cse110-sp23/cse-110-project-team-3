@@ -94,6 +94,15 @@ class ConfirmationPopUp extends JFrame {
 
   private MainPage mainPage;
 
+  // creating whisper object
+  private IWhisper w;
+  // crrate chatgpt object
+  private IGPT gpt;
+  // create variable to store resposne from chat gpt
+  String responseText;
+  // create recordhistory object
+  private RecordHistory rh;
+
   String promptText;
 
   ConfirmationPopUp(MainPage m) {
@@ -101,13 +110,29 @@ class ConfirmationPopUp extends JFrame {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
     this.setVisible(true); // Make visible
 
-    promptText = "there once was a ship that put to sea and the name of the ship was the Billy-O'-Tea";
+    w = new Whisper();
+    gpt = new GPT();
+    rh = new RecordHistory();
+
+    // promptText = "there once was a ship that put to sea and the name of the ship was the Billy-O'-Tea";
+
+    promptText = "default empty prompt";
+
+    // retrieves text from audio using whisper
+    try{
+      promptText = w.generate("AppUtils/recording.wav");
+    } catch(Exception e){
+      e.printStackTrace();
+    }
+
     mainPage = m;
+
 
     header = new ConfirmHeader();
     footer = new ConfirmFooter();
     body = new Body(promptText);
     /* TODO: Get and put audio text there */
+
 
     
 
@@ -134,6 +159,8 @@ class ConfirmationPopUp extends JFrame {
            * (also some kind of design principle is violated by passing mainpage into constructors)
            */
 
+          responseText = gpt.generate(promptText);
+          rh.sendToFile(promptText, promptText);
 
           mainPage.setQuestionText(promptText);
           dispose(); // Close window
