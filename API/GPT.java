@@ -1,6 +1,4 @@
 
-package cse_110_project_team_3.API;
-
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -12,7 +10,7 @@ import java.lang.InterruptedException;
 
 
 
-interface IGPT {
+public interface IGPT {
     public String generate(String prompt);
 }
 
@@ -64,7 +62,11 @@ public class GPT implements IGPT {
     }
 }
 
-public class mockGpt implements IGPT {
+public class MockGpt implements IGPT {
+    int filler;
+    MockGpt() {
+        filler = 0;
+    }
     public String generate(String prompt) {
         return "This is a mock response for prompt: " + prompt + "";
     }
