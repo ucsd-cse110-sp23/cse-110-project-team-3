@@ -30,7 +30,7 @@ public class Recorder {
         );
     }
 
-    private void startListening() {
+    public void startListening() {
 
         Thread t = new Thread(
             () -> {
@@ -56,7 +56,7 @@ public class Recorder {
     }
 
     // stops recording when user clicks pause
-    private void stopListening() {
+    public void stopListening() {
         targetDataLine.stop();
         targetDataLine.close();
     }
