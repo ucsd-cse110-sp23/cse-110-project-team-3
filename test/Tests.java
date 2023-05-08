@@ -26,11 +26,6 @@ public class Tests {
     }
 
     @Test
-    void testTester() {
-        assertEquals(testString, "Ahoy!");
-    }
-
-    @Test
     void testAppUI() {
         MainPage mainPage = new MainPage();
         assertEquals("User inputted question \n",mainPage.getQuestionText());
@@ -82,12 +77,6 @@ public class Tests {
         assertEquals(true, actFile.exists());
         assertEquals(true, expFile.exists());
         assertEquals(exp, act);
-    }
-
-    // interfaces do not play nice with JUnit for some reason
-    // just continue if build fails
-    @Test
-    void testGPT() {
     }
 
     // story 1 test
