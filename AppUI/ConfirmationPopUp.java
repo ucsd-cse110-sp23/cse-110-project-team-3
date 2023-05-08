@@ -1,7 +1,3 @@
-/**
- * This code was refactored from the original code found at:
- * https://copyassignment.com/to-do-list-app-in-java/
- */
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -70,9 +66,6 @@ class ConfirmHeader extends JPanel {
   }
 }
 
-/*
- * TODO: Make it so that long bodies of text appear in full
- */
 class Body extends JPanel {
   
   Color backgroundColor = new Color(240, 248, 255);
