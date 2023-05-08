@@ -89,20 +89,21 @@ class ConfirmationPopUp extends JFrame {
   private ConfirmFooter footer;
   private Body body;
 
+  private MainPage m;
+
   private JButton acceptButton;
   private JButton cancelButton;
 
-  private MainPage mainPage;
-
   String promptText;
 
-  ConfirmationPopUp(MainPage m) {
+  ConfirmationPopUp(MainPage mainPage) {
     this.setSize(400, 600); // 400 width and 600 height
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
     this.setVisible(true); // Make visible
 
+    m = mainPage;
+
     promptText = "there once was a ship that put to sea and the name of the ship was the Billy-O'-Tea";
-    mainPage = m;
 
     header = new ConfirmHeader();
     footer = new ConfirmFooter();
@@ -131,7 +132,7 @@ class ConfirmationPopUp extends JFrame {
            * (editing the text does nothing to prompt that gets displayed)
            * (also some kind of design principle is violated by passing mainpage into constructors)
            */
-          mainPage.setQuestionText(promptText);
+          m.setQuestionText(promptText);
           dispose(); // Close window
         }
       }

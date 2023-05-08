@@ -6,16 +6,28 @@ import javax.swing.*;
 
 class Header extends JPanel {
 
+    public JButton promptHistoryButton;
     Color backgroundColor = new Color(240, 248, 255);
   
     Header() {
       this.setPreferredSize(new Dimension(400, 60)); // Size of the header
       this.setBackground(backgroundColor);
-      JLabel titleText = new JLabel("Saylt Assistant owwef"); // Text of the header
+      
+      promptHistoryButton = new JButton("prompt history");
+      promptHistoryButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
+      this.add(promptHistoryButton);
+
+      JLabel titleText = new JLabel("Saylt Assistant v1.1"); // Text of the header
+
       titleText.setPreferredSize(new Dimension(200, 60));
       titleText.setFont(new Font("Sans-serif", Font.BOLD, 20));
       titleText.setHorizontalAlignment(JLabel.CENTER); // Align the text to the center
       this.add(titleText); // Add the text to the header
+    }
+
+    
+    public JButton getpromptHistoryButton(){
+        return promptHistoryButton;
     }
 }
 
@@ -56,7 +68,6 @@ class Footer extends JPanel {
     Footer(MainPage m) {
 
         isRecording = false;
-        mainPage = m;
         this.setPreferredSize(new Dimension(400, 60));
         this.setBackground(backgroundColor);
 
@@ -77,6 +88,8 @@ class Footer extends JPanel {
         listeningLabel.setVisible(false);
         listeningLabel.setHorizontalAlignment(JLabel.CENTER);
         this.add(listeningLabel);
+
+        mainPage = m;
 
         addListeners();
     }
@@ -124,13 +137,53 @@ class Footer extends JPanel {
     }
 }
 
+class promptHeader extends JPanel{
+    Color backgroundColor = new Color(240, 248, 255);
+    JButton backButton;
+
+    promptHeader(){
+        this.setPreferredSize(new Dimension(400, 60)); // Size of the header
+        this.setBackground(backgroundColor);
+        backButton = new JButton("back");
+        this.add(backButton);
+        JLabel titleText = new JLabel("Prompt History");
+        titleText.setPreferredSize(new Dimension(200, 60));
+        titleText.setFont(new Font("Sans-serif", Font.BOLD, 20));
+        titleText.setHorizontalAlignment(JLabel.CENTER); // Align the text to the center
+        this.add(titleText); // Add the text to the header
+    }
+
+    public JButton getbackButton(){
+        return backButton;
+    }
+}
+
+class promptBody extends JPanel{
+    JLabel tLabel;
+
+    promptBody(){
+        this.tLabel = new JLabel();
+
+        this.setPreferredSize(new Dimension(400, 60));
+        tLabel.setText("Past user inputted questions and answers\n");
+        tLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        tLabel.setFont(new Font("Sans-serif", Font.ITALIC, 20));
+
+        this.add(tLabel);
+    }
+}
+
 class MainPage extends JFrame {
     private Header header;
     private Footer footer;
     private resultUI resultUI;
+    private promptBody promptBody;
+    private promptHeader promptHeader;
 
     private JButton pauseButton;
     private JButton newQuestionButton;
+    private JButton prompthistoryButton;
+    private JButton backButton;
 
     MainPage(){
         this.setSize(600, 600);
@@ -145,9 +198,64 @@ class MainPage extends JFrame {
         this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
         this.add(resultUI, BorderLayout.CENTER); // adds question and response to center of screen
         
+        prompthistoryButton = header.getpromptHistoryButton();
+        pauseButton = footer.getPauseButton();
+        newQuestionButton = footer.getNewQuestionButton();
+
+        buttonLogic();
+    }
+
+    
+    public void openPromptPage(){
+        this.setSize(600, 600);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
+        this.setVisible(true); // Make visible
+
+        promptBody = new promptBody();
+        promptHeader = new promptHeader();
+
+        this.remove(header);
+        this.remove(footer);
+        this.remove(resultUI);
+        this.add(promptHeader, BorderLayout.NORTH);
+        this.add(promptBody, BorderLayout.CENTER);
+
+        backButton = promptHeader.getbackButton();
+    }
+
+    public void openMainPage(){
+        this.setSize(600, 600);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
+        this.setVisible(true); // Make visible
+
+        this.remove(promptHeader);
+        this.remove(promptBody);
+        this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
+        this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
+        this.add(resultUI, BorderLayout.CENTER); // adds question and response to center of screen
+
+        prompthistoryButton = header.getpromptHistoryButton();
         pauseButton = footer.getPauseButton();
         newQuestionButton = footer.getNewQuestionButton();
     }
+
+    public void buttonLogic(){
+        prompthistoryButton.addMouseListener(
+            new MouseAdapter() {
+                public void mousePressed(MouseEvent e){
+                    openPromptPage();
+                    backButton.addMouseListener(
+                        new MouseAdapter() {
+                            public void mousePressed(MouseEvent e){
+                                openMainPage();
+                            }
+                        }
+                    );
+                }
+            }
+        );
+    }
+    
     // sets question text
     public void setQuestionText(String question) {
         resultUI.qLabel.setText(question);
