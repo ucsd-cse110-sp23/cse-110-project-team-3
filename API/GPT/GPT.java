@@ -1,3 +1,4 @@
+package GPT;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,11 +11,7 @@ import java.lang.InterruptedException;
 
 
 
-public interface IGPT {
-    public String generate(String prompt);
-}
-
-public class GPT implements IGPT {
+class GPT implements IGPT {
     private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
     private static final String API_KEY = "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";
     private static final String MODEL = "text-davinci-003";
@@ -59,16 +56,6 @@ public class GPT implements IGPT {
         } catch (IOException | InterruptedException e) {
             return "Error: " + e.getMessage();
         }
-    }
-}
-
-public class MockGpt implements IGPT {
-    int filler;
-    MockGpt() {
-        filler = 0;
-    }
-    public String generate(String prompt) {
-        return "This is a mock response for prompt: " + prompt + "";
     }
 }
 

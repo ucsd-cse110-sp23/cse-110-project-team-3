@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import GPT.IGPT;
+import GPT.MockGPT;
+
 public class Tests {
 
     private String testString;
@@ -27,7 +30,7 @@ public class Tests {
 
     @Test
     void testGPT() {
-        MockGpt mockGpt = new mockGpt();
+        IGPT mockGpt = new MockGPT();
         // i can't get it to f*cking resolve the type and i don't know how
         // censored for the sake of graders
     }
