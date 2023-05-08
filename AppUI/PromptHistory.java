@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-class Question extends JPanel {
+class Task extends JPanel {
 
   JLabel index;
   JTextField taskName;
@@ -129,7 +129,7 @@ class List extends JPanel {
   public ArrayList<Task> loadTasks() {
     BufferedReader reader;
 		try {
-			reader = new BufferedReader(new FileReader("tasks.txt"));
+			reader = new BufferedReader(new FileReader("prompt_history.txt"));
 			String line;
       ArrayList<Task> tasks = new ArrayList<>();
 
