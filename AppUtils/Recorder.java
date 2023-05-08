@@ -45,7 +45,7 @@ public class Recorder {
 
                 AudioInputStream audioInputStream = new AudioInputStream(targetDataLine);
 
-                File audioFile = new File("LocalUserData/recording.wav");
+                File audioFile = new File("AppUtils/recording.wav");
                 AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, audioFile);
             } catch (Exception ex) {
             ex.printStackTrace();
