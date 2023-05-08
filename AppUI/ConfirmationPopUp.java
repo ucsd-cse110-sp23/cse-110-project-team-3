@@ -89,6 +89,8 @@ class ConfirmationPopUp extends JFrame {
   private ConfirmFooter footer;
   private Body body;
 
+  private MainPage m;
+
   private JButton acceptButton;
   private JButton cancelButton;
 
@@ -105,7 +107,7 @@ class ConfirmationPopUp extends JFrame {
 
   String promptText;
 
-  ConfirmationPopUp(MainPage m) {
+  ConfirmationPopUp(MainPage mainPage) {
     this.setSize(400, 600); // 400 width and 600 height
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
     this.setVisible(true); // Make visible
@@ -124,8 +126,7 @@ class ConfirmationPopUp extends JFrame {
     } catch(Exception e){
       e.printStackTrace();
     }
-
-    mainPage = m;
+    m = mainPage;
 
 
     header = new ConfirmHeader();
@@ -161,8 +162,7 @@ class ConfirmationPopUp extends JFrame {
 
           responseText = gpt.generate(promptText);
           rh.sendToFile(promptText, promptText);
-
-          mainPage.setQuestionText(promptText);
+          m.setQuestionText(promptText);
           dispose(); // Close window
         }
       }
