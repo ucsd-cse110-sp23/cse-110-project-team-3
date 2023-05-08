@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -132,7 +133,7 @@ public class MainPage extends JFrame {
     private JButton pauseButton;
     private JButton newQuestionButton;
 
-    MainPage(){
+    public MainPage(){
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
         this.setVisible(true); // Make visible
