@@ -34,22 +34,29 @@ class resultUI extends JPanel{
         qLabel.setText("User inputted question \n");
         qLabel.setHorizontalAlignment(SwingConstants.CENTER);
         qLabel.setFont(new Font("Sans-serif", Font.ITALIC, 20));
-        aLabel.setText("User inputted answer");
+        aLabel.setText("Answer to user question");
         aLabel.setFont(new Font("Sans-serif", Font.ITALIC, 20));
         aLabel.setHorizontalAlignment(SwingConstants.CENTER);
         
         this.add(qLabel);
         this.add(aLabel);
     }
+    
 }
 
 class Footer extends JPanel {
     private JButton newQuestionButton;
     private JButton pauseButton;
     private JLabel listeningLabel;
+    private boolean isRecording;
     Color backgroundColor = new Color(240, 248, 255);
 
-    Footer() {
+    MainPage mainPage;
+
+    Footer(MainPage m) {
+
+        isRecording = false;
+        mainPage = m;
         this.setPreferredSize(new Dimension(400, 60));
         this.setBackground(backgroundColor);
 
@@ -78,15 +85,34 @@ class Footer extends JPanel {
         // if the new question button is clicked, then display the Listening label
         newQuestionButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                listeningLabel.setVisible(true);
+                if (!isRecording) {
+                    startRecording();
+                }
+                // TODO: start "listening state"
             }
         });
         // if the pause button is clicked, then stop displaying the listenign label
         pauseButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                listeningLabel.setVisible(false);
+                if (isRecording) {
+                    stopRecording();
+                }
+                // TODO: end "listening state"
             }
         });
+    }
+
+    // recording related methods
+    // starts recording when user clicks "New Question"
+    private void startRecording() {
+        isRecording = true;
+        listeningLabel.setVisible(true);
+    }
+    // stops recording when user clicks pause
+    private void stopRecording() {
+        isRecording = false;
+        listeningLabel.setVisible(false);
+        new ConfirmationPopUp(mainPage);
     }
 
     public JButton getNewQuestionButton(){
@@ -112,7 +138,7 @@ class MainPage extends JFrame {
         this.setVisible(true); // Make visible
 
         header = new Header();
-        footer = new Footer();
+        footer = new Footer(this);
         resultUI = new resultUI();
 
         this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
@@ -121,5 +147,9 @@ class MainPage extends JFrame {
         
         pauseButton = footer.getPauseButton();
         newQuestionButton = footer.getNewQuestionButton();
+    }
+    // sets question text
+    public void setQuestionText(String question) {
+        resultUI.qLabel.setText(question);
     }
 }
