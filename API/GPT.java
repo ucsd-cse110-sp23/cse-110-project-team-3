@@ -1,3 +1,6 @@
+
+package cse_110_project_team_3.API;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -6,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.InterruptedException;
+
 
 
 interface IGPT {
@@ -60,7 +64,7 @@ public class GPT implements IGPT {
     }
 }
 
-class mockGpt implements IGPT {
+public class mockGpt implements IGPT {
     public String generate(String prompt) {
         return "This is a mock response for prompt: " + prompt + "";
     }
