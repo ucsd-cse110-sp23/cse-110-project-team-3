@@ -89,7 +89,7 @@ class ConfirmationPopUp extends JFrame {
   private ConfirmFooter footer;
   private Body body;
 
-  private JButton acceptButton;
+  public JButton acceptButton; // TODO: make private
   private JButton cancelButton;
 
   private MainPage mainPage;

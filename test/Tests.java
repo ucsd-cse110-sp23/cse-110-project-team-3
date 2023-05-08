@@ -27,11 +27,10 @@ public class Tests {
         assertEquals(testString, "Ahoy!");
     }
 
-    // @Test
-    // void testGPT() {
-    //     IGPT mockGpt = new MockGPT();
-    //     String testString1 = mockGpt.generate("What's the fourth most populous country?");
-    //     assertEquals(testString1, "This is a mock response for prompt: What's the fourth most populous country?");
-    // }
+    @Test
+    void testAppUI() {
+        MainPage mainPage = new MainPage();
+        assertEquals("User inputted question \n",mainPage.getQuestionText());
+    }
 
 }

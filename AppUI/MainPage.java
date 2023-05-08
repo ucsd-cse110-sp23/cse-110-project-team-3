@@ -124,7 +124,7 @@ class Footer extends JPanel {
     }
 }
 
-class MainPage extends JFrame {
+public class MainPage extends JFrame {
     private Header header;
     private Footer footer;
     private resultUI resultUI;
@@ -151,5 +151,10 @@ class MainPage extends JFrame {
     // sets question text
     public void setQuestionText(String question) {
         resultUI.qLabel.setText(question);
+    }
+
+    // gets question text
+    public String getQuestionText() {
+        return resultUI.qLabel.getText();
     }
 }
