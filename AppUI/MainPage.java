@@ -11,7 +11,7 @@ class Header extends JPanel {
     Header() {
       this.setPreferredSize(new Dimension(400, 60)); // Size of the header
       this.setBackground(backgroundColor);
-      JLabel titleText = new JLabel("Saylt Assistant"); // Text of the header
+      JLabel titleText = new JLabel("Saylt Assistant owwef"); // Text of the header
       titleText.setPreferredSize(new Dimension(200, 60));
       titleText.setFont(new Font("Sans-serif", Font.BOLD, 20));
       titleText.setHorizontalAlignment(JLabel.CENTER); // Align the text to the center
