@@ -94,6 +94,17 @@ class ConfirmationPopUp extends JFrame {
   private JButton acceptButton;
   private JButton cancelButton;
 
+  private MainPage mainPage;
+
+  // creating whisper object
+  private IWhisper w;
+  // crrate chatgpt object
+  private IGPT gpt;
+  // create variable to store resposne from chat gpt
+  String responseText;
+  // create recordhistory object
+  private RecordHistory rh;
+
   String promptText;
 
   ConfirmationPopUp(MainPage mainPage) {
@@ -101,14 +112,30 @@ class ConfirmationPopUp extends JFrame {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
     this.setVisible(true); // Make visible
 
+    w = new Whisper();
+    gpt = new GPT();
+    rh = new RecordHistory();
+
+    // promptText = "there once was a ship that put to sea and the name of the ship was the Billy-O'-Tea";
+
+    promptText = "default empty prompt";
+
+    // retrieves text from audio using whisper
+    try{
+      promptText = w.generate("AppUtils/recording.wav");
+    } catch(Exception e){
+      e.printStackTrace();
+    }
     m = mainPage;
 
-    promptText = "there once was a ship that put to sea and the name of the ship was the Billy-O'-Tea";
 
     header = new ConfirmHeader();
     footer = new ConfirmFooter();
     body = new Body(promptText);
     /* TODO: Get and put audio text there */
+
+
+    
 
     this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
     this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
@@ -132,6 +159,9 @@ class ConfirmationPopUp extends JFrame {
            * (editing the text does nothing to prompt that gets displayed)
            * (also some kind of design principle is violated by passing mainpage into constructors)
            */
+
+          responseText = gpt.generate(promptText);
+          rh.sendToFile(promptText, promptText);
           m.setQuestionText(promptText);
           dispose(); // Close window
         }

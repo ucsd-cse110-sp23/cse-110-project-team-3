@@ -63,6 +63,9 @@ class Footer extends JPanel {
     private boolean isRecording;
     Color backgroundColor = new Color(240, 248, 255);
 
+    // adding a Recorder object
+    private Recorder r;
+
     MainPage mainPage;
 
     Footer(MainPage m) {
@@ -89,6 +92,9 @@ class Footer extends JPanel {
         listeningLabel.setHorizontalAlignment(JLabel.CENTER);
         this.add(listeningLabel);
 
+        // initializing recorder object
+
+        r = new Recorder();
         mainPage = m;
 
         addListeners();
@@ -101,7 +107,10 @@ class Footer extends JPanel {
                 if (!isRecording) {
                     startRecording();
                 }
-                // TODO: start "listening state"
+
+                // added recording function
+
+                r.startListening();
             }
         });
         // if the pause button is clicked, then stop displaying the listenign label
@@ -110,7 +119,10 @@ class Footer extends JPanel {
                 if (isRecording) {
                     stopRecording();
                 }
-                // TODO: end "listening state"
+
+                // added recording function
+
+                r.stopListening();
             }
         });
     }
