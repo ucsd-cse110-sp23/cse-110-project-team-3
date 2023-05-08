@@ -116,6 +116,8 @@ class ConfirmationPopUp extends JFrame {
     body = new Body(promptText);
     /* TODO: Get and put audio text there */
 
+    
+
     this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
     this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
     this.add(body, BorderLayout.CENTER); // Add list in middle of footer and title
@@ -138,6 +140,8 @@ class ConfirmationPopUp extends JFrame {
            * (editing the text does nothing to prompt that gets displayed)
            * (also some kind of design principle is violated by passing mainpage into constructors)
            */
+
+
           mainPage.setQuestionText(promptText);
           dispose(); // Close window
         }

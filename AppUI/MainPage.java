@@ -95,7 +95,8 @@ class Footer extends JPanel {
                 if (!isRecording) {
                     startRecording();
                 }
-                // TODO: start "listening state"
+
+                // added recording function
 
                 r.startListening();
             }
@@ -106,7 +107,8 @@ class Footer extends JPanel {
                 if (isRecording) {
                     stopRecording();
                 }
-                // TODO: end "listening state"
+
+                // added recording function
 
                 r.stopListening();
             }
