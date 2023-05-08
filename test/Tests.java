@@ -27,7 +27,7 @@ public class Tests {
 
     @Test
     void testGPT() {
-        //MockGpt mockGpt = new mockGpt();
+        MockGpt mockGpt = new mockGpt();
         // i can't get it to f*cking resolve the type and i don't know how
         // censored for the sake of graders
     }
