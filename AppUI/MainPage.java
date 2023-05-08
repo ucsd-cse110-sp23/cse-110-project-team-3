@@ -12,7 +12,7 @@ class Header extends JPanel {
     Header() {
       this.setPreferredSize(new Dimension(400, 60)); // Size of the header
       this.setBackground(backgroundColor);
-
+      
       promptHistoryButton = new JButton("prompt history");
       promptHistoryButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
       this.add(promptHistoryButton);
