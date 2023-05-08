@@ -57,5 +57,6 @@ public class Recorder {
     private void stopListening() {
         targetDataLine.stop();
         targetDataLine.close();
+        
     }
 }
