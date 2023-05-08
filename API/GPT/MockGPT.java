@@ -6,6 +6,6 @@ public class MockGPT implements IGPT {
         filler = 0;
     }
     public String generate(String prompt) {
-        return "This is a mock response for prompt: " + prompt + "";
+        return prompt;
     }
 }

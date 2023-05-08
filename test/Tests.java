@@ -31,8 +31,8 @@ public class Tests {
     @Test
     void testGPT() {
         IGPT mockGpt = new MockGPT();
-        // i can't get it to f*cking resolve the type and i don't know how
-        // censored for the sake of graders
+        String testString1 = mockGpt.generate("What's the fourth most populous country?");
+        assertEquals(testString1, "This is a mock response for prompt: What's the fourth most populous country?");
     }
 
 }
