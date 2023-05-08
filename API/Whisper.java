@@ -11,9 +11,7 @@ import java.io.*;
 import java.lang.InterruptedException;
 
 
-interface IWhisper {
-    public String generate(String filePath) throws IOException, InterruptedException;
-}
+
 
 public class Whisper implements IWhisper {
     private static final String API_ENDPOINT = "https://api.openai.com/v1/audio/transcriptions";
@@ -134,8 +132,3 @@ public class Whisper implements IWhisper {
     }
 }
 
-class MockWhisper implements IWhisper {
-    public String generate(String filePath) throws IOException, InterruptedException{
-        return "This is a mock whisper";
-    }
-}

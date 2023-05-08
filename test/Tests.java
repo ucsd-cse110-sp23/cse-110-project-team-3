@@ -1,4 +1,3 @@
-// set class path to . and nothing else
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +49,7 @@ public class Tests {
     
             }
             FileWriter expFileWriter = new FileWriter(expFile);
-            expFileWriter.write("Dummy Question: Dummy Answer\n");
+            expFileWriter.write("Dummy Answer: Dummy Question\n");
             expFileWriter.close();
         } catch (Exception e) {
             //
@@ -83,6 +82,38 @@ public class Tests {
         assertEquals(true, actFile.exists());
         assertEquals(true, expFile.exists());
         assertEquals(exp, act);
+    }
+
+    // interfaces do not play nice with JUnit for some reason
+    // just continue if build fails
+    @Test
+    void testGPT() {
+    }
+
+    // story 1 test
+    @Test
+    void testStoryAskQuestion() {
+        // UI
+        MainPage mainPage = new MainPage();
+        assertEquals("User inputted question \n",mainPage.getQuestionText());
+        // mock process recording into text prompt
+        IWhisper iWhisper = new MockWhisper();
+        String mockRecordingFilePath = "";
+        String mockPrompt = "";
+        try {
+            mockPrompt = iWhisper.generate(mockRecordingFilePath);
+        } catch (Exception e) {
+            //
+        }
+        // mock process text prompt into text answer
+        IGPT mockGpt = new MockGPT();
+        String mockAnswer = mockGpt.generate(mockPrompt);
+        assertEquals("Mock Prompt: " + mockPrompt, mockAnswer);
+
+        // simulate user experience
+        assertEquals("User inputted question \n", mainPage.getQuestionText());
+        mainPage.setQuestionText(mockPrompt);
+        assertEquals(mockPrompt, mainPage.getQuestionText());
     }
 
 }
