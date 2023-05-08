@@ -93,9 +93,11 @@ public class Tests {
     // story 1 test
     @Test
     void testStoryAskQuestion() {
+
         // UI
         MainPage mainPage = new MainPage();
         assertEquals("User inputted question \n",mainPage.getQuestionText());
+
         // mock process recording into text prompt
         IWhisper iWhisper = new MockWhisper();
         String mockRecordingFilePath = "";
@@ -105,6 +107,7 @@ public class Tests {
         } catch (Exception e) {
             //
         }
+        
         // mock process text prompt into text answer
         IGPT mockGpt = new MockGPT();
         String mockAnswer = mockGpt.generate(mockPrompt);
