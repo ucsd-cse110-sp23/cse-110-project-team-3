@@ -28,7 +28,7 @@ test {
 sourceSets {
     main {
         java {
-            srcDirs = ["AppUtils"]
+            srcDirs = ["API", "AppUI", "AppUtils"]
         }
     }
     test {
