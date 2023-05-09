@@ -8,7 +8,7 @@ public class RecordHistory {
     public void sendToFile(String prompt, String question) {
         try {
             String outtext = removeNewLines(prompt) + ": " + removeNewLines(question) + "\n";
-            BufferedWriter out = new BufferedWriter(new FileWriter("prompt_history.txt", true));
+            BufferedWriter out = new BufferedWriter(new FileWriter("UserData/prompt_history.txt", true));
             
             out.write(outtext);
             out.flush();
@@ -37,4 +37,6 @@ public class RecordHistory {
         rh.sendToFile("Dummy\n answer\n", "Dummy question");
         // TODO: put question and answer text in here ^^
     }
+
+    // ^ you don't need a main method, but we can keep it for testing
 }

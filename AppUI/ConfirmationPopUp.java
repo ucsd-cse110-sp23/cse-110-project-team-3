@@ -79,6 +79,7 @@ class Body extends JPanel {
     this.add(titleText); // Add the text to the header
     titleText.setLineWrap(true);
     titleText.setWrapStyleWord(true);
+    titleText.setEditable(false);
 
   }
 }
@@ -122,7 +123,7 @@ class ConfirmationPopUp extends JFrame {
 
     // retrieves text from audio using whisper
     try{
-      promptText = w.generate("AppUtils/recording.wav");
+      promptText = w.generate("UserData/recording.wav");
     } catch(Exception e){
       e.printStackTrace();
     }
@@ -161,8 +162,13 @@ class ConfirmationPopUp extends JFrame {
            */
 
           responseText = gpt.generate(promptText);
-          rh.sendToFile(promptText, promptText);
+          rh.sendToFile(promptText, responseText);
+
           m.setQuestionText(promptText);
+
+          // store answer
+          m.setAnswerText(responseText);
+
           dispose(); // Close window
         }
       }
