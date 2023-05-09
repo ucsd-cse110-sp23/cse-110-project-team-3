@@ -1,12 +1,13 @@
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
-public class Recorder {
-    private TargetDataLine targetDataLine;
-    private AudioFormat audioFormat;
+public class Recorder implements IRecorder {
+    public TargetDataLine targetDataLine;
+    public AudioFormat audioFormat;
 
     
 
