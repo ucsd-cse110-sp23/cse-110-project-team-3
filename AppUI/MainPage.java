@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
+
 import javax.sound.sampled.*;
 import javax.swing.*;
 
@@ -170,18 +172,83 @@ class promptHeader extends JPanel{
     }
 }
 
+class Prompt extends JPanel {
+
+    JTextField taskName;
+    
+    Color gray = new Color(218, 229, 234);
+    Color green = new Color(188, 226, 158);
+  
+    Prompt(String s) {
+      this.setPreferredSize(new Dimension(400, 20)); // set size of task
+      this.setBackground(gray); // set background color of task
+  
+      this.setLayout(new BorderLayout()); // set layout of task
+  
+      taskName = new JTextField(s); // create task name text field
+      taskName.setBorder(BorderFactory.createEmptyBorder()); // remove border of text field
+      taskName.setBackground(gray); // set background color of text field
+  
+      this.add(taskName, BorderLayout.CENTER);
+    }
+}
+  
+  class List extends JPanel {
+  
+    Color backgroundColor = new Color(240, 248, 255);
+  
+    List() {
+      GridLayout layout = new GridLayout(10, 1);
+      layout.setVgap(5); // Vertical gap
+  
+      this.setLayout(layout); // 10 tasks
+      this.setPreferredSize(new Dimension(400, 560));
+      this.setBackground(backgroundColor);
+    }
+  
+  }
+
 class promptBody extends JPanel{
     JLabel tLabel;
+    List list;
+    Color backgroundColor = new Color(240, 248, 255);
 
     promptBody(){
         this.tLabel = new JLabel();
+        this.list = new List();
 
-        this.setPreferredSize(new Dimension(400, 60));
-        tLabel.setText("Past user inputted questions and answers\n");
-        tLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        tLabel.setFont(new Font("Sans-serif", Font.ITALIC, 20));
+        String history = "";
+
+        ArrayList<String> qa = (new LoadHistory()).loadHistory();
+        
+        if (qa != null) {
+            for (String s: qa) {
+                list.add(new Prompt(s));
+                revalidate();
+                history += s + "\n";
+            }
+            repaint();
+        } else {
+            System.out.println("qa is null");
+        }
+
+        //this.setPreferredSize(new Dimension(400, 60));
+        //tLabel.setText(history);
+        //tLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        //tLabel.setFont(new Font("Sans-serif", Font.ITALIC, 20));
+
+        this.setPreferredSize(new Dimension(400, 400)); // Size of the body
+        this.setBackground(backgroundColor);
+        JTextArea titleText = new JTextArea(history); // Text of the header
+        titleText.setPreferredSize(new Dimension(600, 600));
+        titleText.setFont(new Font("Sans-serif", Font.PLAIN, 14));
+        this.add(titleText); // Add the text to the header
+        titleText.setLineWrap(true);
+        titleText.setWrapStyleWord(true);
+        titleText.setEditable(false);
 
         this.add(tLabel);
+        
     }
 }
 
@@ -271,10 +338,5 @@ class MainPage extends JFrame {
     // sets question text
     public void setQuestionText(String question) {
         resultUI.qLabel.setText(question);
-    }
-
-    // sets answer text
-    public void setAnswerText(String answer) {
-        resultUI.aLabel.setText(answer);
     }
 }
