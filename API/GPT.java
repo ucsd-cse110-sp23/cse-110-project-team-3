@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.lang.InterruptedException;
 
 
-interface IGPT {
-    public String generate(String prompt);
-}
+
 
 public class GPT implements IGPT {
     private static final String API_ENDPOINT = "https://api.openai.com/v1/completions";
@@ -60,9 +58,5 @@ public class GPT implements IGPT {
     }
 }
 
-class mockGpt implements IGPT {
-    public String generate(String prompt) {
-        return "This is a mock response for prompt: " + prompt + "";
-    }
-}
+
 
