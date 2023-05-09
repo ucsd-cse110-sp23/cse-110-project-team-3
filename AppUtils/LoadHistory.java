@@ -12,7 +12,7 @@ public class LoadHistory {
     public ArrayList<String> loadHistory() {
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader("prompt_history.txt"));
+            reader = new BufferedReader(new FileReader("UserData/prompt_history.txt"));
             String line;
             ArrayList<String> history = new ArrayList<>();
 

@@ -272,4 +272,9 @@ class MainPage extends JFrame {
     public void setQuestionText(String question) {
         resultUI.qLabel.setText(question);
     }
+
+    // sets answer text
+    public void setAnswerText(String answer) {
+        resultUI.aLabel.setText(answer);
+    }
 }
