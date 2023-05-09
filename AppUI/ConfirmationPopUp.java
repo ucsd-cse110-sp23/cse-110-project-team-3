@@ -79,6 +79,7 @@ class Body extends JPanel {
     this.add(titleText); // Add the text to the header
     titleText.setLineWrap(true);
     titleText.setWrapStyleWord(true);
+    titleText.setEditable(false);
 
   }
 }
@@ -89,25 +90,53 @@ class ConfirmationPopUp extends JFrame {
   private ConfirmFooter footer;
   private Body body;
 
-  public JButton acceptButton; // TODO: make private
+  private MainPage m;
+
+  private JButton acceptButton;
   private JButton cancelButton;
 
   private MainPage mainPage;
 
+  // creating whisper object
+  private IWhisper w;
+  // crrate chatgpt object
+  private IGPT gpt;
+  // create variable to store resposne from chat gpt
+  String responseText;
+  // create recordhistory object
+  private RecordHistory rh;
+
   String promptText;
 
-  ConfirmationPopUp(MainPage m) {
+  ConfirmationPopUp(MainPage mainPage) {
     this.setSize(400, 600); // 400 width and 600 height
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
     this.setVisible(true); // Make visible
 
-    promptText = "there once was a ship that put to sea and the name of the ship was the Billy-O'-Tea";
-    mainPage = m;
+    w = new Whisper();
+    gpt = new GPT();
+    rh = new RecordHistory();
+
+    // promptText = "there once was a ship that put to sea and the name of the ship was the Billy-O'-Tea";
+
+    promptText = "default empty prompt";
+
+    // retrieves text from audio using whisper
+    try{
+      promptText = w.generate("UserData/recording.wav");
+    } catch(Exception e){
+      e.printStackTrace();
+    }
+    m = mainPage;
+
 
     header = new ConfirmHeader();
     footer = new ConfirmFooter();
     body = new Body(promptText);
     /* TODO: Get and put audio text there */
+
+
+    
 
     this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
     this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
@@ -131,7 +160,15 @@ class ConfirmationPopUp extends JFrame {
            * (editing the text does nothing to prompt that gets displayed)
            * (also some kind of design principle is violated by passing mainpage into constructors)
            */
-          mainPage.setQuestionText(promptText);
+
+          responseText = gpt.generate(promptText);
+          rh.sendToFile(promptText, responseText);
+
+          m.setQuestionText(promptText);
+
+          // store answer
+          m.setAnswerText(responseText);
+
           dispose(); // Close window
         }
       }

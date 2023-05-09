@@ -46,7 +46,7 @@ public class Recorder implements IRecorder {
 
                 AudioInputStream audioInputStream = new AudioInputStream(targetDataLine);
 
-                File audioFile = new File("LocalUserData/recording.wav");
+                File audioFile = new File("UserData/recording.wav");
                 AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, audioFile);
             } catch (Exception ex) {
             ex.printStackTrace();
@@ -63,34 +63,34 @@ public class Recorder implements IRecorder {
     }
 
 
-    // public static void main(String[] args) {
-    //     Recorder recorder = new Recorder();
-    //     JFrame frame = new JFrame("Recorder");
-    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //     frame.setSize(300, 300);
-    //     frame.setLayout(new FlowLayout());
+    public static void main(String[] args) {
+        Recorder recorder = new Recorder();
+        JFrame frame = new JFrame("Recorder");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 300);
+        frame.setLayout(new FlowLayout());
 
-    //     JButton startButton = new JButton("Start");
-    //     JButton stopButton = new JButton("Stop");
+        JButton startButton = new JButton("Start");
+        JButton stopButton = new JButton("Stop");
 
-    //     startButton.addActionListener(
-    //         new ActionListener() {
-    //             public void actionPerformed(ActionEvent e) {
-    //                 recorder.startListening();
-    //             }
-    //         }
-    //     );
+        startButton.addActionListener(
+            new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    recorder.startListening();
+                }
+            }
+        );
 
-    //     stopButton.addActionListener(
-    //         new ActionListener() {
-    //             public void actionPerformed(ActionEvent e) {
-    //                 recorder.stopListening();
-    //             }
-    //         }
-    //     );
+        stopButton.addActionListener(
+            new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    recorder.stopListening();
+                }
+            }
+        );
 
-    //     frame.add(startButton);
-    //     frame.add(stopButton);
-    //     frame.setVisible(true);
-    // }
+        frame.add(startButton);
+        frame.add(stopButton);
+        frame.setVisible(true);
+    }
 }

@@ -28,11 +28,6 @@ public class Whisper implements IWhisper {
         outputStream.write((parameterValue + "\r\n").getBytes());
     }
 
-
-
-
-
-
    private static void writeFileToOutputStream(OutputStream outputStream, File file, String boundary) throws IOException {
        // Helper method to write a file to the output stream in multipart form data format private static void writeFileToOutputStream(
        outputStream.write(("--" + boundary + "\r\n").getBytes());
