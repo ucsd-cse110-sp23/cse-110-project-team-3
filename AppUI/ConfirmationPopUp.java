@@ -153,14 +153,6 @@ class ConfirmationPopUp extends JFrame {
       new MouseAdapter() {
         @override
         public void mousePressed(MouseEvent e) {
-          /*
-           * TODO: 
-           * call method that sends question into chat gpt
-           * refactor displaying text on home screen 
-           * (editing the text does nothing to prompt that gets displayed)
-           * (also some kind of design principle is violated by passing mainpage into constructors)
-           */
-
           responseText = gpt.generate(promptText);
           rh.sendToFile(promptText, responseText);
 

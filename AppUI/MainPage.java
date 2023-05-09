@@ -228,8 +228,6 @@ class promptBody extends JPanel{
                 history += s + "\n";
             }
             repaint();
-        } else {
-            System.out.println("qa is null");
         }
 
         //this.setPreferredSize(new Dimension(400, 60));
@@ -338,5 +336,10 @@ class MainPage extends JFrame {
     // sets question text
     public void setQuestionText(String question) {
         resultUI.qLabel.setText(question);
+    }
+
+    // sets answer text
+    public void setAnswerText(String answer) {
+        resultUI.aLabel.setText(answer);
     }
 }

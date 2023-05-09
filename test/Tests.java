@@ -3,18 +3,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.junit.jupiter.api.Assertions.assertTrue;
-// import static org.junit.jupiter.api.Assertions.assertFalse;
-// import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
-// import java.util.Scanner;
 import java.io.FileWriter;
 import java.util.Scanner;
-
-// import API.GPT.IGPT;
-// import API.GPT.MockGPT;
-// import AppUI.MainPage;
 
 public class Tests {
 
