@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
-
 import javax.sound.sampled.*;
 import javax.swing.*;
 
@@ -171,43 +170,6 @@ class promptHeader extends JPanel {
         return backButton;
     }
 }
-
-// class Prompt extends JPanel {
-
-// JTextField taskName;
-
-// Color gray = new Color(218, 229, 234);
-// Color green = new Color(188, 226, 158);
-
-// Prompt(String s) {
-// this.setPreferredSize(new Dimension(400, 20)); // set size of task
-// this.setBackground(gray); // set background color of task
-
-// this.setLayout(new BorderLayout()); // set layout of task
-
-// taskName = new JTextField(s); // create task name text field
-// taskName.setBorder(BorderFactory.createEmptyBorder()); // remove border of
-// text field
-// taskName.setBackground(gray); // set background color of text field
-
-// this.add(taskName, BorderLayout.CENTER);
-// }
-// }
-
-// class List extends JPanel {
-
-// Color backgroundColor = new Color(240, 248, 255);
-
-// List() {
-// GridLayout layout = new GridLayout(10, 1);
-// layout.setVgap(5); // Vertical gap
-
-// this.setLayout(layout); // 10 tasks
-// this.setPreferredSize(new Dimension(400, 560));
-// this.setBackground(backgroundColor);
-// }
-
-// }
 
 class promptBody extends JPanel {
     JLabel tLabel;
