@@ -109,10 +109,6 @@ class Footer extends JPanel {
                 if (!isRecording) {
                     startRecording();
                 }
-
-                // added recording function
-
-                r.startListening();
             }
         });
         // if the pause button is clicked, then stop displaying the listenign label
@@ -121,10 +117,6 @@ class Footer extends JPanel {
                 if (isRecording) {
                     stopRecording();
                 }
-
-                // added recording function
-
-                r.stopListening();
             }
         });
     }
@@ -134,11 +126,13 @@ class Footer extends JPanel {
     private void startRecording() {
         isRecording = true;
         listeningLabel.setVisible(true);
+        r.startListening();
     }
     // stops recording when user clicks pause
     private void stopRecording() {
         isRecording = false;
         listeningLabel.setVisible(false);
+        r.stopListening();
         new ConfirmationPopUp(mainPage, new MockWhisper(), new MockGPT());
     }
 
