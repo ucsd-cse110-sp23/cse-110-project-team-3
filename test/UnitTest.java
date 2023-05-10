@@ -34,7 +34,7 @@ public class UnitTest {
             //
         }
         // open actually created file
-        File actFile = new File("prompt_history.txt");
+        File actFile = new File("UserData/prompt_history.txt");
         
         // reads content of expected and actual file
         String exp = "";
@@ -58,8 +58,8 @@ public class UnitTest {
             //
         }
         
-        // assertEquals(true, actFile.exists());
-        // assertEquals(true, expFile.exists());
-        assertEquals(true, true);
+        assertEquals(true, actFile.exists());
+        assertEquals(true, expFile.exists());
+        assertEquals(act, exp);
     }
 }

@@ -29,12 +29,5 @@ public class LoadHistory {
         System.out.println("loadHistory() not implemented");
         return null;
     }
-
-    public static void main(String[] args) {
-        LoadHistory lh = new LoadHistory();
-        ArrayList<String> history = lh.loadHistory();
-        for (String s: history) {
-            System.out.print(s + "\n");
-        }
-    }
+    
 }
