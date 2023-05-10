@@ -139,7 +139,7 @@ class Footer extends JPanel {
     private void stopRecording() {
         isRecording = false;
         listeningLabel.setVisible(false);
-        new ConfirmationPopUp(mainPage);
+        new ConfirmationPopUp(mainPage, new MockWhisper(), new MockGPT());
     }
 
     public JButton getNewQuestionButton(){
