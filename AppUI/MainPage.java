@@ -10,52 +10,51 @@ class Header extends JPanel {
 
     public JButton promptHistoryButton;
     Color backgroundColor = new Color(240, 248, 255);
-  
+
     Header() {
-      this.setPreferredSize(new Dimension(400, 60)); // Size of the header
-      this.setBackground(backgroundColor);
-      
-      promptHistoryButton = new JButton("prompt history");
-      promptHistoryButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
-      this.add(promptHistoryButton);
+        this.setPreferredSize(new Dimension(400, 60)); // Size of the header
+        this.setBackground(backgroundColor);
 
-      JLabel titleText = new JLabel("Saylt Assistant v1.1"); // Text of the header
+        promptHistoryButton = new JButton("prompt history");
+        promptHistoryButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
+        this.add(promptHistoryButton);
 
-      titleText.setPreferredSize(new Dimension(200, 60));
-      titleText.setFont(new Font("Sans-serif", Font.BOLD, 20));
-      titleText.setHorizontalAlignment(JLabel.CENTER); // Align the text to the center
-      this.add(titleText); // Add the text to the header
+        JLabel titleText = new JLabel("Saylt Assistant v1.1"); // Text of the header
+
+        titleText.setPreferredSize(new Dimension(200, 60));
+        titleText.setFont(new Font("Sans-serif", Font.BOLD, 20));
+        titleText.setHorizontalAlignment(JLabel.CENTER); // Align the text to the center
+        this.add(titleText); // Add the text to the header
     }
 
-    
-    public JButton getpromptHistoryButton(){
+    public JButton getpromptHistoryButton() {
         return promptHistoryButton;
     }
 }
 
-class resultUI extends JPanel{
+class resultUI extends JPanel {
     JLabel qLabel;
     JLabel aLabel;
 
-    resultUI(){
+    resultUI() {
         this.setPreferredSize(new Dimension(400, 60));
         this.setLayout(new GridLayout(2, 1));
 
         this.qLabel = new JLabel();
         this.aLabel = new JLabel();
 
-         // add text to label
+        // add text to label
         qLabel.setText("User inputted question \n");
         qLabel.setHorizontalAlignment(SwingConstants.CENTER);
         qLabel.setFont(new Font("Sans-serif", Font.ITALIC, 20));
         aLabel.setText("Answer to user question");
         aLabel.setFont(new Font("Sans-serif", Font.ITALIC, 20));
         aLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         this.add(qLabel);
         this.add(aLabel);
     }
-    
+
 }
 
 class Footer extends JPanel {
@@ -102,10 +101,10 @@ class Footer extends JPanel {
         addListeners();
     }
 
-    private void addListeners(){
+    private void addListeners() {
         // if the new question button is clicked, then display the Listening label
-        newQuestionButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
+        newQuestionButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 if (!isRecording) {
                     startRecording();
                 }
@@ -116,8 +115,8 @@ class Footer extends JPanel {
             }
         });
         // if the pause button is clicked, then stop displaying the listenign label
-        pauseButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
+        pauseButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 if (isRecording) {
                     stopRecording();
                 }
@@ -135,6 +134,7 @@ class Footer extends JPanel {
         isRecording = true;
         listeningLabel.setVisible(true);
     }
+
     // stops recording when user clicks pause
     private void stopRecording() {
         isRecording = false;
@@ -142,20 +142,20 @@ class Footer extends JPanel {
         new ConfirmationPopUp(mainPage);
     }
 
-    public JButton getNewQuestionButton(){
+    public JButton getNewQuestionButton() {
         return newQuestionButton;
     }
 
-    public JButton getPauseButton(){
+    public JButton getPauseButton() {
         return pauseButton;
     }
 }
 
-class promptHeader extends JPanel{
+class promptHeader extends JPanel {
     Color backgroundColor = new Color(240, 248, 255);
     JButton backButton;
 
-    promptHeader(){
+    promptHeader() {
         this.setPreferredSize(new Dimension(400, 60)); // Size of the header
         this.setBackground(backgroundColor);
         backButton = new JButton("back");
@@ -167,72 +167,72 @@ class promptHeader extends JPanel{
         this.add(titleText); // Add the text to the header
     }
 
-    public JButton getbackButton(){
+    public JButton getbackButton() {
         return backButton;
     }
 }
 
 // class Prompt extends JPanel {
 
-//     JTextField taskName;
-    
-//     Color gray = new Color(218, 229, 234);
-//     Color green = new Color(188, 226, 158);
-  
-//     Prompt(String s) {
-//       this.setPreferredSize(new Dimension(400, 20)); // set size of task
-//       this.setBackground(gray); // set background color of task
-  
-//       this.setLayout(new BorderLayout()); // set layout of task
-  
-//       taskName = new JTextField(s); // create task name text field
-//       taskName.setBorder(BorderFactory.createEmptyBorder()); // remove border of text field
-//       taskName.setBackground(gray); // set background color of text field
-  
-//       this.add(taskName, BorderLayout.CENTER);
-//     }
-// }
-  
-//   class List extends JPanel {
-  
-//     Color backgroundColor = new Color(240, 248, 255);
-  
-//     List() {
-//       GridLayout layout = new GridLayout(10, 1);
-//       layout.setVgap(5); // Vertical gap
-  
-//       this.setLayout(layout); // 10 tasks
-//       this.setPreferredSize(new Dimension(400, 560));
-//       this.setBackground(backgroundColor);
-//     }
-  
-//   }
+// JTextField taskName;
 
-class promptBody extends JPanel{
+// Color gray = new Color(218, 229, 234);
+// Color green = new Color(188, 226, 158);
+
+// Prompt(String s) {
+// this.setPreferredSize(new Dimension(400, 20)); // set size of task
+// this.setBackground(gray); // set background color of task
+
+// this.setLayout(new BorderLayout()); // set layout of task
+
+// taskName = new JTextField(s); // create task name text field
+// taskName.setBorder(BorderFactory.createEmptyBorder()); // remove border of
+// text field
+// taskName.setBackground(gray); // set background color of text field
+
+// this.add(taskName, BorderLayout.CENTER);
+// }
+// }
+
+// class List extends JPanel {
+
+// Color backgroundColor = new Color(240, 248, 255);
+
+// List() {
+// GridLayout layout = new GridLayout(10, 1);
+// layout.setVgap(5); // Vertical gap
+
+// this.setLayout(layout); // 10 tasks
+// this.setPreferredSize(new Dimension(400, 560));
+// this.setBackground(backgroundColor);
+// }
+
+// }
+
+class promptBody extends JPanel {
     JLabel tLabel;
     List list;
     Color backgroundColor = new Color(240, 248, 255);
 
-    promptBody(){
+    promptBody() {
         this.tLabel = new JLabel();
         this.list = new List();
 
-        for (Prompt c: list.loadPrompts()) {
+        for (Prompt c : list.loadPrompts()) {
             list.add(c);
             JButton doneButton = c.getDone();
             doneButton.addMouseListener(
-              new MouseAdapter() {
-                @override
-                public void mousePressed(MouseEvent e) {
-                  c.changeState(); // Change color of task
-                  list.updateNumbers(); // Updates the numbers of the tasks
-                  revalidate(); // Updates the frame
-                }
-              }
-            );
-          }
-          list.updateNumbers(); // Updates the numbers of the tasks;
-          repaint(); // Repaints the list
+                    new MouseAdapter() {
+                        @override
+                        public void mousePressed(MouseEvent e) {
+                            c.changeState(); // Change color of task
+                            list.updateNumbers(); // Updates the numbers of the tasks
+                            revalidate(); // Updates the frame
+                        }
+                    });
+        }
+        list.updateNumbers(); // Updates the numbers of the tasks;
+        repaint(); // Repaints the list
 
         this.setPreferredSize(new Dimension(400, 400)); // Size of the body
         this.setBackground(backgroundColor);
@@ -258,7 +258,7 @@ class MainPage extends JFrame {
     private JButton prompthistoryButton;
     private JButton backButton;
 
-    MainPage(){
+    MainPage() {
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
         this.setVisible(true); // Make visible
@@ -270,7 +270,7 @@ class MainPage extends JFrame {
         this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
         this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
         this.add(resultUI, BorderLayout.CENTER); // adds question and response to center of screen
-        
+
         prompthistoryButton = header.getpromptHistoryButton();
         pauseButton = footer.getPauseButton();
         newQuestionButton = footer.getNewQuestionButton();
@@ -278,8 +278,7 @@ class MainPage extends JFrame {
         buttonLogic();
     }
 
-    
-    public void openPromptPage(){
+    public void openPromptPage() {
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
         this.setVisible(true); // Make visible
@@ -296,7 +295,7 @@ class MainPage extends JFrame {
         backButton = promptHeader.getbackButton();
     }
 
-    public void openMainPage(){
+    public void openMainPage() {
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
         this.setVisible(true); // Make visible
@@ -312,23 +311,21 @@ class MainPage extends JFrame {
         newQuestionButton = footer.getNewQuestionButton();
     }
 
-    public void buttonLogic(){
+    public void buttonLogic() {
         prompthistoryButton.addMouseListener(
-            new MouseAdapter() {
-                public void mousePressed(MouseEvent e){
-                    openPromptPage();
-                    backButton.addMouseListener(
-                        new MouseAdapter() {
-                            public void mousePressed(MouseEvent e){
-                                openMainPage();
-                            }
-                        }
-                    );
-                }
-            }
-        );
+                new MouseAdapter() {
+                    public void mousePressed(MouseEvent e) {
+                        openPromptPage();
+                        backButton.addMouseListener(
+                                new MouseAdapter() {
+                                    public void mousePressed(MouseEvent e) {
+                                        openMainPage();
+                                    }
+                                });
+                    }
+                });
     }
-    
+
     // sets question text
     public void setQuestionText(String question) {
         resultUI.qLabel.setText(question);

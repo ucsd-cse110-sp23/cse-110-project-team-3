@@ -2,14 +2,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
-
 import javax.sound.sampled.*;
 import javax.swing.*;
 
 class Prompt extends JPanel {
 
   JLabel index;
-  JTextField promptName;
+  JTextArea promptName;
   JButton doneButton;
 
   Color gray = new Color(218, 229, 234);
@@ -30,9 +29,12 @@ class Prompt extends JPanel {
     index.setHorizontalAlignment(JLabel.CENTER); // set alignment of index label
     this.add(index, BorderLayout.WEST); // add index label to prompt
 
-    promptName = new JTextField(prompt); // create prompt name text field
+    promptName = new JTextArea(prompt); // create prompt name text field
     promptName.setBorder(BorderFactory.createEmptyBorder()); // remove border of text field
     promptName.setBackground(gray); // set background color of text field
+    promptName.setLineWrap(true);
+    promptName.setWrapStyleWord(true);
+    promptName.setEditable(false);
 
     this.add(promptName, BorderLayout.CENTER);
 
@@ -114,7 +116,7 @@ class List extends JPanel {
     ArrayList<String> promptStrings = (new LoadHistory()).loadHistory();
     ArrayList<Prompt> prompts = new ArrayList<>();
 
-    for (String promptString: promptStrings) {
+    for (String promptString : promptStrings) {
       Prompt prompt = new Prompt(promptString);
       prompts.add(prompt);
     }
