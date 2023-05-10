@@ -1,31 +1,32 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.BufferedWriter;
-
+import java.io.IOException;
 
 public class ClearHistory {
 
     public void clearHistory() {
-    
+
         try { 
-            /* TODO: open prompt_history.txt from UserApps folder */
+            //gets file to edit
+            FileWriter ph_file = new FileWriter("UserData/prompt_history.txt");
+            BufferedWriter writer = new BufferedWriter(ph_file);
 
-            /* TODO: delete prompt_history */
-            // delete file then make a new one?
-
-            // edit file to be an empty string?
-            BufferedWriter writer = new BufferedWriter(new FileWriter("UserData/prompt_history.txt", true));
+            //writes an empty string to clear content
+            writer.write("");
+            writer.flush();
+            writer.close();
 
         } catch (IOException e) {
+            System.out.println("Error in clearHistory()");
             e.printStackTrace();
         }
 
     }
 
     public static void main(String[] args) {
-
+        //Test
+        ClearHistory cl = new ClearHistory();
+        cl.clearHistory();
     }
     
 }
