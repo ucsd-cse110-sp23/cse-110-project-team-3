@@ -95,42 +95,32 @@ class ConfirmationPopUp extends JFrame {
   private JButton acceptButton;
   private JButton cancelButton;
 
-  private MainPage mainPage;
-
-  // creating whisper object
-  private IWhisper w;
-  // crrate chatgpt object
-  private IGPT gpt;
-  // create variable to store resposne from chat gpt
-  String responseText;
   // create recordhistory object
   private RecordHistory rh;
 
-  String promptText;
+  private String question;
 
-  ConfirmationPopUp(MainPage mainPage, IWhisper w, IGPT gpt) {
+  // mediator handles question and answer, api
+  private Mediator mediator;
+
+  ConfirmationPopUp(Mediator mediator) {
     this.setSize(400, 600); // 400 width and 600 height
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
     this.setVisible(true); // Make visible
 
     // TODO: get backend away from frontend
-    this.w = w;
-    this.gpt = gpt;
     rh = new RecordHistory();
 
-    promptText = "default empty prompt";
+    this.mediator = mediator;
 
     // retrieves text from audio using whisper
-    try {
-      promptText = w.generate("UserData/recording.wav");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    m = mainPage;
+    mediator.generateQuestion();
+
+    question = mediator.getNewQuestion();
 
     header = new ConfirmHeader();
     footer = new ConfirmFooter();
-    body = new Body(promptText);
+    body = new Body(question);
     /* TODO: Get and put audio text there */
 
     this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
@@ -148,13 +138,10 @@ class ConfirmationPopUp extends JFrame {
         new MouseAdapter() {
           @override
           public void mousePressed(MouseEvent e) {
-            responseText = gpt.generate(promptText);
-            rh.sendToFile(promptText, responseText);
+            mediator.generateAnswer();
+            rh.sendToFile(question, mediator.getAnswer());
 
-            m.setQuestionText(promptText);
-
-            // store answer
-            m.setAnswerText(responseText);
+            mediator.updateQuestionAndAnswer();
 
             dispose(); // Close window
           }

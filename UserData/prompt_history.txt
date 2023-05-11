@@ -1,6 +1,1 @@
-Dummy Answer: Dummy Question
-Dummy Answer: Dummy Question
-Dummy Answer: Dummy Question
-Dummy Answer: Dummy Question
-Bruh.:  you know this is a bad memeYes, I do know this is a bad meme. Memes can be a fun way to express yourself, but some memes can be insensitive or judgmental of others. When sharing memes, be sure to consider the content and who will be reading it.
-UserData/recording.wav: Mock Prompt: UserData/recording.wavUserData/recording.wav: Mock Prompt: UserData/recording.wav
+UserData/recording.wav: Answer to user question

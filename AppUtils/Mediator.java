@@ -1,19 +1,47 @@
+// holds state of question and answer, handles voice recording and api calls
+
 public class Mediator {
+
+    /*
+     * The mediator is aware of the following values:
+     *  - voice recording
+     *  - user's question and gpt's answer
+     */
 
     // voice recording variables
     private VoiceRecorder voiceRecorder;
     private boolean isRecording;
 
+    // api variables
+    IGPT gpt;
+    IWhisper whisper;
+
+    // question and answer variables
+    private String question;
+    private String answer;
+
+    // new question and answer variables
+    private String newQuestion;
+    private String newAnswer;
+
     Mediator() {
+
         isRecording = false;
         voiceRecorder = new VoiceRecorder();
+
+        gpt = new MockGPT();
+        whisper = new MockWhisper();
+
+        question = "User inputted question \n";
+        answer = "Answer to user question";
+        
     }
 
     // voice recording functions
     public boolean isRecording() {
         return isRecording;
     }
-    public void switchRecording() {
+    public void switchIsRecording() {
         isRecording = !isRecording;
     }
     public void startRecording() {
@@ -21,6 +49,46 @@ public class Mediator {
     }
     public void stopRecording() {
         voiceRecorder.stopListening();
+    }
+
+    // question and answer functions
+    public String getQuestion() {
+        return question;
+    }
+    public void setQuestion(String s) {
+        question = s;
+    }
+    public String getAnswer() {
+        return answer;
+    }
+    public void setAnswer(String s) {
+        answer = s;
+    }
+
+    public String getNewQuestion() {
+        return newQuestion;
+    }
+
+    // api calls
+    public void generateQuestion() {
+        try {
+            newQuestion = whisper.generate("UserData/recording.wav");
+        } catch (Exception e) {
+            //
+        }
+    }
+    public void generateAnswer() {
+        try {
+            newAnswer = gpt.generate(question);
+        } catch (Exception e) {
+            //
+        }
+    }
+
+    // ui interactions
+    public void updateQuestionAndAnswer() {
+        question = newQuestion;
+        answer = newAnswer;
     }
 
 }

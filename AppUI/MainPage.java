@@ -64,15 +64,8 @@ class Footer extends JPanel {
     private JLabel listeningLabel;
     Color backgroundColor = new Color(240, 248, 255);
 
-    // VoiceRecorder object is now in mediator
-    // Footer itself is unaware of recording
-    private Mediator mediator;
-
-    MainPage mainPage;
-
-    Footer(MainPage m) {
-
-        mediator = new Mediator();
+    Footer() {
+        
         this.setPreferredSize(new Dimension(400, 60));
         this.setBackground(backgroundColor);
 
@@ -94,44 +87,10 @@ class Footer extends JPanel {
         listeningLabel.setHorizontalAlignment(JLabel.CENTER);
         this.add(listeningLabel);
 
-        mainPage = m;
-
-        addListeners();
-
     }
 
-    private void addListeners(){
-        // if the new question button is clicked, then display the Listening label
-        newQuestionButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                if (!mediator.isRecording()) {
-                    startRecording();
-                }
-            }
-        });
-        // if the pause button is clicked, then stop displaying the listenign label
-        pauseButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                if (mediator.isRecording()) {
-                    stopRecording();
-                }
-            }
-        });
-    }
-
-    // recording related methods
-    // starts recording when user clicks "New Question"
-    private void startRecording() {
-        mediator.switchRecording();;
-        listeningLabel.setVisible(true);
-        mediator.startRecording();
-    }
-    // stops recording when user clicks pause
-    private void stopRecording() {
-        listeningLabel.setVisible(false);
-        mediator.stopRecording();
-        new ConfirmationPopUp(mainPage, new MockWhisper(), new MockGPT());
-        mediator.switchRecording();
+    public JLabel getListeningLabel() {
+        return listeningLabel;
     }
 
     public JButton getNewQuestionButton(){
@@ -141,6 +100,7 @@ class Footer extends JPanel {
     public JButton getPauseButton(){
         return pauseButton;
     }
+
 }
 
 class PromptHeader extends JPanel {
@@ -254,13 +214,16 @@ public class MainPage extends JFrame {
     private JButton prompthistoryButton;
     private JButton backButton;
 
+    private Mediator mediator;
+
     MainPage(){
+        mediator = new Mediator();
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
         this.setVisible(true); // Make visible
 
         header = new Header();
-        footer = new Footer(this);
+        footer = new Footer();
         resultUI = new ResultUI();
 
         this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
@@ -323,15 +286,51 @@ public class MainPage extends JFrame {
                 }
             }
         );
-    }
-    
-    // sets question text
-    public void setQuestionText(String question) {
-        resultUI.qLabel.setText(question);
+        footer.getNewQuestionButton().addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                if (!mediator.isRecording()) {
+                    startRecording();
+                }
+            }
+        });
+        footer.getPauseButton().addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                if (mediator.isRecording()) {
+                    stopRecording();
+                }
+            }
+        });
     }
 
-    // sets answer text
-    public void setAnswerText(String answer) {
-        resultUI.aLabel.setText(answer);
+    // recording related methods
+    // starts recording when user clicks "New Question"
+    private void startRecording() {
+        mediator.switchIsRecording();;
+        footer.getListeningLabel().setVisible(true);
+        mediator.startRecording();
     }
+    // stops recording when user clicks pause
+    private void stopRecording() {
+        footer.getListeningLabel().setVisible(false);
+        mediator.stopRecording();
+        mediator.switchIsRecording();
+        ConfirmationPopUp c = new ConfirmationPopUp(mediator);
+        // once c is closed
+        c.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                updateUI();
+            }
+            public void windowClosing(WindowEvent e) {
+                updateUI(); // will update to new question and answer; q and a are only changed by mediatior if accept is clicked in confirmationpopup
+            }
+        });
+
+    }
+
+    // update question and answer
+    public void updateUI() {
+        resultUI.qLabel.setText(mediator.getQuestion());
+        resultUI.aLabel.setText(mediator.getAnswer());
+    }
+
 }
