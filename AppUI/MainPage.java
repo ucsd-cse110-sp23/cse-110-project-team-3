@@ -62,17 +62,17 @@ class Footer extends JPanel {
     private JButton newQuestionButton;
     private JButton pauseButton;
     private JLabel listeningLabel;
-    private boolean isRecording;
     Color backgroundColor = new Color(240, 248, 255);
 
-    // adding a VoiceRecorder object
-    private VoiceRecorder r;
+    // VoiceRecorder object is now in mediator
+    // Footer itself is unaware of recording
+    private Mediator mediator;
 
     MainPage mainPage;
 
     Footer(MainPage m) {
 
-        isRecording = false;
+        mediator = new Mediator();
         this.setPreferredSize(new Dimension(400, 60));
         this.setBackground(backgroundColor);
 
@@ -94,19 +94,17 @@ class Footer extends JPanel {
         listeningLabel.setHorizontalAlignment(JLabel.CENTER);
         this.add(listeningLabel);
 
-        // initializing VoiceRecorder object
-
-        r = new VoiceRecorder();
         mainPage = m;
 
         addListeners();
+
     }
 
     private void addListeners(){
         // if the new question button is clicked, then display the Listening label
         newQuestionButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if (!isRecording) {
+                if (!mediator.isRecording()) {
                     startRecording();
                 }
             }
@@ -114,7 +112,7 @@ class Footer extends JPanel {
         // if the pause button is clicked, then stop displaying the listenign label
         pauseButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if (isRecording) {
+                if (mediator.isRecording()) {
                     stopRecording();
                 }
             }
@@ -124,16 +122,16 @@ class Footer extends JPanel {
     // recording related methods
     // starts recording when user clicks "New Question"
     private void startRecording() {
-        isRecording = true;
+        mediator.switchRecording();;
         listeningLabel.setVisible(true);
-        r.startListening();
+        mediator.startRecording();
     }
     // stops recording when user clicks pause
     private void stopRecording() {
-        isRecording = false;
         listeningLabel.setVisible(false);
-        r.stopListening();
+        mediator.stopRecording();
         new ConfirmationPopUp(mainPage, new MockWhisper(), new MockGPT());
+        mediator.switchRecording();
     }
 
     public JButton getNewQuestionButton(){
@@ -145,7 +143,7 @@ class Footer extends JPanel {
     }
 }
 
-class PromptHeader extends JPanel{
+class PromptHeader extends JPanel {
     Color backgroundColor = new Color(240, 248, 255);
     JButton backButton;
 
@@ -187,7 +185,7 @@ class Prompt extends JPanel {
     }
 }
   
-  class List extends JPanel {
+class List extends JPanel {
   
     Color backgroundColor = new Color(240, 248, 255);
   
@@ -244,7 +242,7 @@ class PromptBody extends JPanel{
     }
 }
 
-class MainPage extends JFrame {
+public class MainPage extends JFrame {
     private Header header;
     private Footer footer;
     private ResultUI resultUI;
