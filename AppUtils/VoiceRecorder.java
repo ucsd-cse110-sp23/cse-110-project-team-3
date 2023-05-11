@@ -1,8 +1,5 @@
-import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import javax.sound.sampled.*;
-import javax.swing.*;
 
 public class VoiceRecorder {
     public TargetDataLine targetDataLine;
