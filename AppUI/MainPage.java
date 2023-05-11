@@ -65,8 +65,8 @@ class Footer extends JPanel {
     private boolean isRecording;
     Color backgroundColor = new Color(240, 248, 255);
 
-    // adding a Recorder object
-    private Recorder r;
+    // adding a VoiceRecorder object
+    private VoiceRecorder r;
 
     MainPage mainPage;
 
@@ -94,9 +94,9 @@ class Footer extends JPanel {
         listeningLabel.setHorizontalAlignment(JLabel.CENTER);
         this.add(listeningLabel);
 
-        // initializing recorder object
+        // initializing VoiceRecorder object
 
-        r = new Recorder();
+        r = new VoiceRecorder();
         mainPage = m;
 
         addListeners();
