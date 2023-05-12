@@ -1,3 +1,4 @@
+package VoiceRecorder;
 import java.io.*;
 import javax.sound.sampled.*;
 
@@ -7,7 +8,7 @@ public class VoiceRecorder {
 
     
 
-    VoiceRecorder(){
+    public VoiceRecorder(){
         audioFormat = getAudioFormat();
     }
 

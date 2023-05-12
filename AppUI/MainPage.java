@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
+import LoadHistory.LoadHistory;
+import Mediator.Mediator;
+
 class Header extends JPanel {
 
     public JButton promptHistoryButton;

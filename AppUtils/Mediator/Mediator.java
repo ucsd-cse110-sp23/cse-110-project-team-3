@@ -1,4 +1,9 @@
+package Mediator;
 // holds state of question and answer, handles voice recording and api calls
+
+import VoiceRecorder.VoiceRecorder;
+import GPT.*;
+import Whisper.*;
 
 public class Mediator {
 
@@ -24,7 +29,7 @@ public class Mediator {
     private String newQuestion;
     private String newAnswer;
 
-    Mediator() {
+    public Mediator() {
 
         isRecording = false;
         voiceRecorder = new VoiceRecorder();

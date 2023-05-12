@@ -21,6 +21,9 @@ import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import Mediator.Mediator;
+import RecordHistory.RecordHistory;
+
 class ConfirmFooter extends JPanel {
     
   JButton acceptButton;
