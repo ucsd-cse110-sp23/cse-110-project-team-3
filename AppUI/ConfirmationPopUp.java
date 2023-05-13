@@ -22,17 +22,17 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 class ConfirmFooter extends JPanel {
-
+    
   JButton acceptButton;
   JButton cancelButton;
-  
+
   Color backgroundColor = new Color(240, 248, 255);
   Border emptyBorder = BorderFactory.createEmptyBorder();
 
   ConfirmFooter() {
     this.setPreferredSize(new Dimension(400, 60));
     this.setBackground(backgroundColor);
-   
+
     acceptButton = new JButton("Accept"); // add task button
     acceptButton.setFont(new Font("Sans-serif", Font.ITALIC, 10)); // set font
     this.add(acceptButton); // add to footer
@@ -67,7 +67,7 @@ class ConfirmHeader extends JPanel {
 }
 
 class Body extends JPanel {
-  
+
   Color backgroundColor = new Color(240, 248, 255);
 
   Body(String textFromAudio) {
@@ -108,35 +108,30 @@ class ConfirmationPopUp extends JFrame {
 
   String promptText;
 
-  ConfirmationPopUp(MainPage mainPage) {
+  ConfirmationPopUp(MainPage mainPage, IWhisper w, IGPT gpt) {
     this.setSize(400, 600); // 400 width and 600 height
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
     this.setVisible(true); // Make visible
 
-    w = new Whisper();
-    gpt = new GPT();
+    // TODO: get backend away from frontend
+    this.w = w;
+    this.gpt = gpt;
     rh = new RecordHistory();
-
-    // promptText = "there once was a ship that put to sea and the name of the ship was the Billy-O'-Tea";
 
     promptText = "default empty prompt";
 
     // retrieves text from audio using whisper
-    try{
+    try {
       promptText = w.generate("UserData/recording.wav");
-    } catch(Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
     }
     m = mainPage;
-
 
     header = new ConfirmHeader();
     footer = new ConfirmFooter();
     body = new Body(promptText);
     /* TODO: Get and put audio text there */
-
-
-    
 
     this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
     this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
@@ -150,30 +145,28 @@ class ConfirmationPopUp extends JFrame {
 
   public void addListeners() {
     acceptButton.addMouseListener(
-      new MouseAdapter() {
-        @override
-        public void mousePressed(MouseEvent e) {
-          responseText = gpt.generate(promptText);
-          rh.sendToFile(promptText, responseText);
+        new MouseAdapter() {
+          @override
+          public void mousePressed(MouseEvent e) {
+            responseText = gpt.generate(promptText);
+            rh.sendToFile(promptText, responseText);
 
-          m.setQuestionText(promptText);
+            m.setQuestionText(promptText);
 
-          // store answer
-          m.setAnswerText(responseText);
+            // store answer
+            m.setAnswerText(responseText);
 
-          dispose(); // Close window
-        }
-      }
-    );
+            dispose(); // Close window
+          }
+        });
 
     cancelButton.addMouseListener(
-      new MouseAdapter() {
-        @override
-        public void mousePressed(MouseEvent e) {
-          dispose(); // Close window
-        }
-      }
-    );
+        new MouseAdapter() {
+          @override
+          public void mousePressed(MouseEvent e) {
+            dispose(); // Close window
+          }
+        });
   }
 }
 
