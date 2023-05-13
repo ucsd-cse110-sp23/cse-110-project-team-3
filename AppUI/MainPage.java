@@ -31,11 +31,11 @@ class Header extends JPanel {
     }
 }
 
-class resultUI extends JPanel {
+class ResultUI extends JPanel{
     JLabel qLabel;
     JLabel aLabel;
 
-    resultUI() {
+    ResultUI(){
         this.setPreferredSize(new Dimension(400, 60));
         this.setLayout(new GridLayout(2, 1));
 
@@ -76,7 +76,7 @@ class Footer extends JPanel {
 
         this.setLayout(new GridLayout(2, 2));
 
-        pauseButton = new JButton("||");
+        pauseButton = new JButton("Stop Recording");
         pauseButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
         this.add(pauseButton);
 
@@ -107,10 +107,6 @@ class Footer extends JPanel {
                 if (!isRecording) {
                     startRecording();
                 }
-
-                // added recording function
-
-                r.startListening();
             }
         });
         // if the pause button is clicked, then stop displaying the listenign label
@@ -119,10 +115,6 @@ class Footer extends JPanel {
                 if (isRecording) {
                     stopRecording();
                 }
-
-                // added recording function
-
-                r.stopListening();
             }
         });
     }
@@ -132,13 +124,15 @@ class Footer extends JPanel {
     private void startRecording() {
         isRecording = true;
         listeningLabel.setVisible(true);
+        r.startListening();
     }
 
     // stops recording when user clicks pause
     private void stopRecording() {
         isRecording = false;
         listeningLabel.setVisible(false);
-        new ConfirmationPopUp(mainPage);
+        r.stopListening();
+        new ConfirmationPopUp(mainPage, new MockWhisper(), new MockGPT());
     }
 
     public JButton getNewQuestionButton() {
@@ -150,11 +144,11 @@ class Footer extends JPanel {
     }
 }
 
-class promptHeader extends JPanel {
+class PromptHeader extends JPanel{
     Color backgroundColor = new Color(240, 248, 255);
     JButton backButton;
 
-    promptHeader() {
+    PromptHeader(){
         this.setPreferredSize(new Dimension(400, 60)); // Size of the header
         this.setBackground(backgroundColor);
         backButton = new JButton("back");
@@ -171,12 +165,13 @@ class promptHeader extends JPanel {
     }
 }
 
-class promptBody extends JPanel {
+
+class PromptBody extends JPanel{
     JLabel tLabel;
     List list;
     Color backgroundColor = new Color(240, 248, 255);
 
-    promptBody() {
+    PromptBody(){
         this.tLabel = new JLabel();
         this.list = new List();
 
@@ -211,9 +206,9 @@ class promptBody extends JPanel {
 class MainPage extends JFrame {
     private Header header;
     private Footer footer;
-    private resultUI resultUI;
-    private promptBody promptBody;
-    private promptHeader promptHeader;
+    private ResultUI resultUI;
+    private PromptBody promptBody;
+    private PromptHeader promptHeader;
 
     private JButton pauseButton;
     private JButton newQuestionButton;
@@ -227,7 +222,7 @@ class MainPage extends JFrame {
 
         header = new Header();
         footer = new Footer(this);
-        resultUI = new resultUI();
+        resultUI = new ResultUI();
 
         this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
         this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
@@ -245,8 +240,8 @@ class MainPage extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
         this.setVisible(true); // Make visible
 
-        promptBody = new promptBody();
-        promptHeader = new promptHeader();
+        promptBody = new PromptBody();
+        promptHeader = new PromptHeader();
 
         this.remove(header);
         this.remove(footer);
