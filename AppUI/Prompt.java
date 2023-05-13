@@ -10,6 +10,7 @@ class Prompt extends JPanel {
   JLabel index;
   JTextArea promptName;
   JButton doneButton;
+  JButton fullPromptButton;
 
   Color gray = new Color(218, 229, 234);
   Color green = new Color(188, 226, 158);
@@ -29,6 +30,14 @@ class Prompt extends JPanel {
     index.setHorizontalAlignment(JLabel.CENTER); // set alignment of index label
     this.add(index, BorderLayout.WEST); // add index label to prompt
 
+
+    fullPromptButton = new JButton("Full Prompt");
+    fullPromptButton.setPreferredSize(new Dimension(100, 20));
+    fullPromptButton.setBorder(BorderFactory.createEmptyBorder());
+    fullPromptButton.setFocusPainted(false);
+
+    this.add(fullPromptButton, BorderLayout.WEST);
+
     promptName = new JTextArea(prompt); // create prompt name text field
     promptName.setBorder(BorderFactory.createEmptyBorder()); // remove border of text field
     promptName.setBackground(gray); // set background color of text field
@@ -44,6 +53,14 @@ class Prompt extends JPanel {
     doneButton.setFocusPainted(false);
 
     this.add(doneButton, BorderLayout.EAST);
+
+    fullPromptButton.addMouseListener(
+      new MouseAdapter() {
+          @override
+          public void mousePressed(MouseEvent e) {
+              new PromptPopUp(prompt);
+          }
+      });
   }
 
   public void changeIndex(int num) {
