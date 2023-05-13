@@ -84,7 +84,7 @@ public class Mediator {
     }
     public void generateAnswer() {
         try {
-            newAnswer = gpt.generate(question);
+            newAnswer = gpt.generate(newQuestion);
         } catch (Exception e) {
             //
         }

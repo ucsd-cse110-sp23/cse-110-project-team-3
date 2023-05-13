@@ -70,7 +70,13 @@ public class UnitTests {
     @Test
     void testMediator() {
         mediator = new Mediator();
-        //
+        mediator.generateQuestion();
+        mediator.generateAnswer();
+        assertEquals("User inputted question \n", mediator.getQuestion());
+        assertEquals("Answer to user question", mediator.getAnswer());
+        mediator.updateQuestionAndAnswer();
+        assertEquals("UserData/recording.wav", mediator.getQuestion());
+        assertEquals("Mock Prompt: UserData/recording.wav", mediator.getAnswer());
     }
 
 }
