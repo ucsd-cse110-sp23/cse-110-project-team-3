@@ -27,6 +27,3 @@ class PromptPopUp extends JFrame {
     frame.setVisible(true);
   }
 }
-
-@interface override {
-}
