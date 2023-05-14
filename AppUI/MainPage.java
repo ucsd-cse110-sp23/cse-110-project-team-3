@@ -183,12 +183,10 @@ class PromptBody extends JPanel{
                         @override
                         public void mousePressed(MouseEvent e) {
                             c.changeState(); // Change color of task
-                            list.updateNumbers(); // Updates the numbers of the tasks
                             revalidate(); // Updates the frame
                         }
                     });
         }
-        list.updateNumbers(); // Updates the numbers of the tasks;
         repaint(); // Repaints the list
 
         this.setPreferredSize(new Dimension(400, 400)); // Size of the body
@@ -198,8 +196,6 @@ class PromptBody extends JPanel{
         this.add(list, BorderLayout.CENTER);
         this.setSize(400, 600); // 400 width and 600 height
         this.setVisible(true); // Make visible
-
-        this.add(list, BorderLayout.CENTER); // Add list in middle of footer and title
     }
 }
 

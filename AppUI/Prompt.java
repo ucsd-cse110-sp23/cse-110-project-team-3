@@ -7,7 +7,6 @@ import javax.swing.*;
 
 class Prompt extends JPanel {
 
-  JLabel index;
   JTextArea promptName;
   JButton doneButton;
   JButton fullPromptButton;
@@ -20,40 +19,34 @@ class Prompt extends JPanel {
   Prompt(String prompt) {
     this.setPreferredSize(new Dimension(400, 20)); // set size of prompt
     this.setBackground(gray); // set background color of prompt
-
     this.setLayout(new BorderLayout()); // set layout of prompt
 
     markedDone = false;
 
-    index = new JLabel(""); // create index label
-    index.setPreferredSize(new Dimension(20, 20)); // set size of index label
-    index.setHorizontalAlignment(JLabel.CENTER); // set alignment of index label
-    this.add(index, BorderLayout.WEST); // add index label to prompt
-
-
+    // See full prompt: create and add
     fullPromptButton = new JButton("Full Prompt");
     fullPromptButton.setPreferredSize(new Dimension(100, 20));
     fullPromptButton.setBorder(BorderFactory.createEmptyBorder());
     fullPromptButton.setFocusPainted(false);
-
     this.add(fullPromptButton, BorderLayout.WEST);
 
+    // Prompt text: create and add
     promptName = new JTextArea(prompt); // create prompt name text field
     promptName.setBorder(BorderFactory.createEmptyBorder()); // remove border of text field
     promptName.setBackground(gray); // set background color of text field
     promptName.setLineWrap(true);
     promptName.setWrapStyleWord(true);
     promptName.setEditable(false);
-
     this.add(promptName, BorderLayout.CENTER);
 
+    // Select button: create and add
     doneButton = new JButton("Select");
     doneButton.setPreferredSize(new Dimension(80, 20));
     doneButton.setBorder(BorderFactory.createEmptyBorder());
     doneButton.setFocusPainted(false);
-
     this.add(doneButton, BorderLayout.EAST);
 
+    // Mouse Listener for see full prompt
     fullPromptButton.addMouseListener(
       new MouseAdapter() {
           @override
@@ -61,11 +54,6 @@ class Prompt extends JPanel {
               new PromptPopUp(prompt);
           }
       });
-  }
-
-  public void changeIndex(int num) {
-    this.index.setText(num + ""); // num to String
-    this.revalidate(); // refresh
   }
 
   public JButton getDone() {
@@ -95,22 +83,12 @@ class List extends JPanel {
   Color backgroundColor = new Color(240, 248, 255);
 
   List() {
-    GridLayout layout = new GridLayout(10, 1);
+    GridLayout layout = new GridLayout(0, 1);
     layout.setVgap(5); // Vertical gap
 
-    this.setLayout(layout); // 10 prompts
-    this.setPreferredSize(new Dimension(400, 560));
+    this.setLayout(layout);
+    this.setPreferredSize(new Dimension(400, 600));
     this.setBackground(backgroundColor);
-  }
-
-  public void updateNumbers() {
-    Component[] listItems = this.getComponents();
-
-    for (int i = 0; i < listItems.length; i++) {
-      if (listItems[i] instanceof Prompt) {
-        ((Prompt) listItems[i]).changeIndex(i + 1);
-      }
-    }
   }
 
   public void removeCompletedPrompts() {
@@ -118,14 +96,13 @@ class List extends JPanel {
       if (c instanceof Prompt) {
         if (((Prompt) c).getState()) {
           remove(c); // remove the component
-          updateNumbers(); // update the indexing of all items
         }
       }
     }
   }
 
   /**
-   * Loads prompts from a file called "prompts.txt"
+   * Loads prompts from a file called "prompt_history.txt"
    * 
    * @return an ArrayList of Prompt
    */
@@ -142,7 +119,7 @@ class List extends JPanel {
   }
 
   /**
-   * Saves prompts to a file called "prompts.txt"
+   * Saves prompts to a file called "prompt_history.txt"
    */
   public void savePrompts() {
     try {

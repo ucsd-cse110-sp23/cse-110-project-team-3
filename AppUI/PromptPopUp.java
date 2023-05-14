@@ -1,13 +1,10 @@
-import java.awt.Font;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 
 class PromptPopUp extends JFrame {
   PromptPopUp(String prompt) {
-   
+
     JFrame frame = new JFrame ("Full Prompt Text");
     frame.setSize(500,500);
     frame.setResizable(true);
@@ -17,6 +14,7 @@ class PromptPopUp extends JFrame {
     textArea.setSize(400,400);    
     
     textArea.setLineWrap(true);
+    textArea.setWrapStyleWord(true);
     textArea.setEditable(false);
     textArea.setVisible(true);
 
