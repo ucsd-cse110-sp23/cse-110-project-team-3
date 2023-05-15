@@ -182,6 +182,7 @@ class PromptBody extends JPanel{
                     new MouseAdapter() {
                         @override
                         public void mousePressed(MouseEvent e) {
+                            c.changeState();
                             list.removeCompletedPrompts(c);
                         }
                     });
