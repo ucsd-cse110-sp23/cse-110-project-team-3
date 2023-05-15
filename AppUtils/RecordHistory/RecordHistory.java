@@ -1,11 +1,10 @@
-
-import java.io.BufferedReader;
-import java.io.FileReader;
+package RecordHistory;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
 
 public class RecordHistory {
+    
     public void sendToFile(String prompt, String question) {
         try {
             String outtext = removeNewLines(prompt) + ": " + removeNewLines(question) + "\n";
@@ -33,9 +32,4 @@ public class RecordHistory {
         return result;
     }
 
-    public static void main(String[] args) {
-        RecordHistory rh = new RecordHistory();
-        rh.sendToFile("Dummy\n answer\n", "Dummy question");
-        // TODO: put question and answer text in here ^^
-    }
 }

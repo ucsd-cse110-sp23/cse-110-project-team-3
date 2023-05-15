@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
 
+import Whisper.*;
+import GPT.*;
+
 public class StoryTests {
 
     // story 1 test

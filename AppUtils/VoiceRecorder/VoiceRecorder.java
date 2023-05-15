@@ -1,16 +1,14 @@
-import java.awt.*;
-import java.awt.event.*;
+package VoiceRecorder;
 import java.io.*;
 import javax.sound.sampled.*;
-import javax.swing.*;
 
-public class Recorder implements IRecorder {
+public class VoiceRecorder {
     public TargetDataLine targetDataLine;
     public AudioFormat audioFormat;
 
     
 
-    Recorder(){
+    public VoiceRecorder(){
         audioFormat = getAudioFormat();
     }
 
@@ -61,35 +59,4 @@ public class Recorder implements IRecorder {
         targetDataLine.close();
     }
 
-
-    public static void main(String[] args) {
-        Recorder recorder = new Recorder();
-        JFrame frame = new JFrame("Recorder");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 300);
-        frame.setLayout(new FlowLayout());
-
-        JButton startButton = new JButton("Start");
-        JButton stopButton = new JButton("Stop");
-
-        startButton.addActionListener(
-            new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    recorder.startListening();
-                }
-            }
-        );
-
-        stopButton.addActionListener(
-            new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    recorder.stopListening();
-                }
-            }
-        );
-
-        frame.add(startButton);
-        frame.add(stopButton);
-        frame.setVisible(true);
-    }
 }

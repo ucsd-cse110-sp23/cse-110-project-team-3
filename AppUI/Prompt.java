@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
+import LoadHistory.LoadHistory;
+
 class Prompt extends JPanel {
 
   JTextArea promptName;
@@ -78,11 +80,11 @@ class Prompt extends JPanel {
   }
 }
 
-class List extends JPanel {
+class PanelList extends JPanel {
 
   Color backgroundColor = new Color(240, 248, 255);
 
-  List() {
+  PanelList() {
     GridLayout layout = new GridLayout(0, 1);
     layout.setVgap(5); // Vertical gap
 
