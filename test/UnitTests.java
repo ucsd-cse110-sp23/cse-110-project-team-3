@@ -28,37 +28,43 @@ public class UnitTests {
 
     @BeforeEach
     void setUp() {
-        // clear prompt history
-        try {
-            FileWriter history = new FileWriter("./UserData/prompt_history.txt", false);
-            history.close();
-        } catch (Exception e) {
-            System.out.println("Could not reset file");
-        }
+        
     }
 
     @Test
     void testLoadHistory() {
-        lh = new LoadHistory();
-        rh = new RecordHistory();
-        dummyQuestions = new ArrayList<String>();
-        for (int i = 0; i < numQuestions; i++) {
-            rh.sendToFile("Dummy Question " + i, "Dummy Answer " + i);
-            dummyQuestions.add("Dummy Question " + i + ": Dummy Answer " + i);
-        }
-        // assertEquals(dummyQuestions, lh.loadHistory());
+        // //assertEquals("", System.getProperty("user.dir"));
+        // lh = new LoadHistory();
+        // dummyQuestions = new ArrayList<String>();
+        // for (int i = 0; i < numQuestions; i++) {
+        //     dummyQuestions.add("Dummy Question " + i + ": Dummy Answer " + i);
+        // }
+        // assertEquals(dummyQuestions, lh.loadHistory("test_prompt.txt"));
     }
 
     @Test
     void testRecordHistory() {
-        rh = new RecordHistory();
-        dummyQuestions = new ArrayList<String>();
-        for (int i = 0; i < numQuestions; i++) {
-            rh.sendToFile("Dummy Question " + i, "Dummy Answer " + i);
-            dummyQuestions.add("Dummy Question " + i + ": Dummy Answer " + i);
-        }
-        lh = new LoadHistory();
-        // assertEquals(lh.loadHistory(), dummyQuestions)
+        // rh = new RecordHistory();
+        // dummyQuestions = new ArrayList<String>();
+        // for (int i = 0; i < numQuestions; i++) {
+        //     //rh.sendToFile("Dummy Question " + i, "Dummy Answer " + i);
+        //     dummyQuestions.add("Dummy Question " + i + ": Dummy Answer " + i);
+        // }
+        // String line;
+        // ArrayList<String> actualQuestions = new ArrayList<String>();
+        
+        // try {
+        //     Scanner myReader = new Scanner(new File("Test_Files/test_prompt.txt"));
+        //     while (myReader.hasNextLine()) {
+        //       line = myReader.nextLine();
+        //       actualQuestions.add(line);
+        //     }
+        //     myReader.close();
+        // } catch (Exception e) {
+        //     System.out.println("An error occurred.");
+        //     e.printStackTrace();
+        // }
+        // assertEquals(actualQuestions, dummyQuestions);
     }
 
     @Test

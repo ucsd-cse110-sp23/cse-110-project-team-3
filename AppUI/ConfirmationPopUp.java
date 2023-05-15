@@ -142,9 +142,9 @@ class ConfirmationPopUp extends JFrame {
           @override
           public void mousePressed(MouseEvent e) {
             mediator.generateAnswer();
-            rh.sendToFile(question, mediator.getAnswer());
-
             mediator.updateQuestionAndAnswer();
+            rh.sendToFile(question, mediator.getAnswer(), "UserData/prompt_history.txt");
+
 
             dispose(); // Close window
           }

@@ -5,10 +5,10 @@ import java.io.BufferedWriter;
 
 public class RecordHistory {
     
-    public void sendToFile(String prompt, String question) {
+    public void sendToFile(String prompt, String question, String filePath) {
         try {
             String outtext = removeNewLines(prompt) + ": " + removeNewLines(question) + "\n";
-            BufferedWriter out = new BufferedWriter(new FileWriter("UserData/prompt_history.txt", true));
+            BufferedWriter out = new BufferedWriter(new FileWriter(filePath, true));
             
             out.write(outtext);
             out.flush();
