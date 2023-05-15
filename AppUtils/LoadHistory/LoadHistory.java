@@ -17,7 +17,7 @@ public class LoadHistory {
             ArrayList<String> history = new ArrayList<>();
 
             while ((line = reader.readLine()) != null) {
-                history.add(line.substring(0, line.length()-1)); //remove '\n' from end of str
+                history.add(line.substring(0, line.length())); //remove '\n' from end of str
             }
 
             reader.close();
