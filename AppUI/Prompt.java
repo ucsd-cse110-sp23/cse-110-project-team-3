@@ -122,7 +122,7 @@ class PanelList extends JPanel {
    * @return an ArrayList of Prompt
    */
   public ArrayList<Prompt> loadPrompts() {
-    ArrayList<String> promptStrings = (new LoadHistory()).loadHistory();
+    ArrayList<String> promptStrings = (new LoadHistory()).loadHistory("UserData/prompt_history.txt");
     ArrayList<Prompt> prompts = new ArrayList<>();
 
     for (String promptString : promptStrings) {
