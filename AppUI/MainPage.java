@@ -199,8 +199,8 @@ class PromptBody extends JPanel{
                     new MouseAdapter() {
                         @override
                         public void mousePressed(MouseEvent e) {
-                            c.changeState(); // Change color of task
-                            revalidate(); // Updates the frame
+                            c.changeState();
+                            list.removeCompletedPrompts(c);
                         }
                     });
         }

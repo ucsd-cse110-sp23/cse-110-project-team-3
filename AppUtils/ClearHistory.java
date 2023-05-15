@@ -25,6 +25,5 @@ public class ClearHistory {
             System.out.println("Error in clearHistory()");
             e.printStackTrace();
         }
-
     }
 }
