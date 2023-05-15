@@ -40,6 +40,8 @@ public class UnitTests {
         //     dummyQuestions.add("Dummy Question " + i + ": Dummy Answer " + i);
         // }
         // assertEquals(dummyQuestions, lh.loadHistory("test_prompt.txt"));
+        lh = new LoadHistory();
+        assertEquals(lh.loadHistory("test_prompt.txt"), null);
     }
 
     @Test
@@ -65,6 +67,9 @@ public class UnitTests {
         //     e.printStackTrace();
         // }
         // assertEquals(actualQuestions, dummyQuestions);
+
+        rh = new RecordHistory();
+        rh.sendToFile("Dummy Question 0", "Dummy Answer 0", "test_prompt.txt");
     }
 
     @Test
