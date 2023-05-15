@@ -33,15 +33,19 @@ public class UnitTests {
 
     @Test
     void testLoadHistory() {
-        // //assertEquals("", System.getProperty("user.dir"));
-        // lh = new LoadHistory();
-        // dummyQuestions = new ArrayList<String>();
-        // for (int i = 0; i < numQuestions; i++) {
-        //     dummyQuestions.add("Dummy Question " + i + ": Dummy Answer " + i);
-        // }
-        // assertEquals(dummyQuestions, lh.loadHistory("test_prompt.txt"));
+        File testHistory = new File("test_prompt.txt");
+        try {
+            FileWriter fw = new FileWriter(testHistory);
+            fw.write("Dummy Question lh: Dummy Answer lh");
+            fw.close();
+        } catch (Exception e) {
+            //
+        }
+        assertEquals(testHistory.exists(), true);
+        dummyQuestions = new ArrayList<String>();
+        dummyQuestions.add("Dummy Question lh: Dummy Answer lh");
         lh = new LoadHistory();
-        assertEquals(lh.loadHistory("test_prompt.txt"), null);
+        assertEquals(lh.loadHistory("test_prompt.txt"), dummyQuestions);
     }
 
     @Test
