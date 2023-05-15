@@ -34,8 +34,8 @@ public class Mediator {
         isRecording = false;
         voiceRecorder = new VoiceRecorder();
 
-        gpt = new MockGPT();
-        whisper = new MockWhisper();
+        gpt = new GPT();
+        whisper = new Whisper();
 
         question = "User inputted question \n";
         answer = "Answer to user question";
