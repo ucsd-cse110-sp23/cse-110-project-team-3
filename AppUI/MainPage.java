@@ -165,6 +165,23 @@ class PromptHeader extends JPanel{
     }
 }
 
+class PromptFooter extends JPanel {
+    Color backgroundColor = new Color(240, 248, 255);
+    JButton clearAllButton;
+
+    PromptFooter() {
+        this.setPreferredSize(new Dimension(400, 60));
+        this.setBackground(backgroundColor);
+        clearAllButton = new JButton("clear all");
+        clearAllButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
+        this.add(clearAllButton);
+    }
+
+    public JButton getClearAllButton() {
+        return clearAllButton;
+    }
+}
+
 
 class PromptBody extends JPanel{
     JLabel tLabel;
@@ -205,11 +222,13 @@ class MainPage extends JFrame {
     private ResultUI resultUI;
     private PromptBody promptBody;
     private PromptHeader promptHeader;
+    private PromptFooter promptFooter;
 
     private JButton pauseButton;
     private JButton newQuestionButton;
     private JButton prompthistoryButton;
     private JButton backButton;
+    private JButton clearAllButton;
 
     MainPage() {
         this.setSize(600, 600);
@@ -228,7 +247,7 @@ class MainPage extends JFrame {
         pauseButton = footer.getPauseButton();
         newQuestionButton = footer.getNewQuestionButton();
 
-        buttonLogic();
+        buttonLogicMain();
     }
 
     public void openPromptPage() {
@@ -238,14 +257,19 @@ class MainPage extends JFrame {
 
         promptBody = new PromptBody();
         promptHeader = new PromptHeader();
+        promptFooter = new PromptFooter();
 
         this.remove(header);
         this.remove(footer);
         this.remove(resultUI);
         this.add(promptHeader, BorderLayout.NORTH);
         this.add(promptBody, BorderLayout.CENTER);
+        this.add(promptFooter, BorderLayout.SOUTH);
 
         backButton = promptHeader.getbackButton();
+        clearAllButton = promptFooter.getClearAllButton();
+
+        buttonLogicPrompt();
     }
 
     public void openMainPage() {
@@ -255,6 +279,7 @@ class MainPage extends JFrame {
 
         this.remove(promptHeader);
         this.remove(promptBody);
+        this.remove(promptFooter);
         this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
         this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
         this.add(resultUI, BorderLayout.CENTER); // adds question and response to center of screen
@@ -264,19 +289,34 @@ class MainPage extends JFrame {
         newQuestionButton = footer.getNewQuestionButton();
     }
 
-    public void buttonLogic() {
+    public void buttonLogicMain() {
         prompthistoryButton.addMouseListener(
-                new MouseAdapter() {
-                    public void mousePressed(MouseEvent e) {
-                        openPromptPage();
-                        backButton.addMouseListener(
-                                new MouseAdapter() {
-                                    public void mousePressed(MouseEvent e) {
-                                        openMainPage();
-                                    }
-                                });
-                    }
-                });
+            new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    openPromptPage();
+                    backButton.addMouseListener(
+                        new MouseAdapter() {
+                            public void mousePressed(MouseEvent e) {
+                                openMainPage();
+                            }
+                        }
+                    );
+                }
+            }
+        );
+    }
+
+    public void buttonLogicPrompt() {
+        clearAllButton.addMouseListener(
+            new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    ClearHistory clearHistory = new ClearHistory();
+                    clearHistory.clearHistory();
+                    promptBody.list.removeAll();
+                    promptBody.repaint();
+                }
+            }
+        );
     }
 
     // sets question text
