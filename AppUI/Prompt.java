@@ -40,7 +40,7 @@ class Prompt extends JPanel {
     this.add(promptName, BorderLayout.CENTER);
 
     // Select button: create and add
-    doneButton = new JButton("Select");
+    doneButton = new JButton("Delete");
     doneButton.setPreferredSize(new Dimension(80, 20));
     doneButton.setBorder(BorderFactory.createEmptyBorder());
     doneButton.setFocusPainted(false);
@@ -91,12 +91,25 @@ class List extends JPanel {
     this.setBackground(backgroundColor);
   }
 
-  public void removeCompletedPrompts() {
+  public ArrayList<String> getCurrentPrompts() {
+    ArrayList<String> data = new ArrayList<String>();
+
     for (Component c : getComponents()) {
       if (c instanceof Prompt) {
-        if (((Prompt) c).getState()) {
-          remove(c); // remove the component
-        }
+        data.add(((Prompt) c).promptName.getText());
+      }
+    }
+
+    return data;
+  }
+
+  public void removeCompletedPrompts(Component c) {
+    if (c instanceof Prompt) {
+      if (((Prompt) c).getState()) {
+        remove(c); // remove the component
+        ArrayList<String> data = getCurrentPrompts();
+        DeletePrompt delete = new DeletePrompt();
+        delete.deletePrompt(data);
       }
     }
   }
@@ -123,7 +136,7 @@ class List extends JPanel {
    */
   public void savePrompts() {
     try {
-      FileWriter outfile = new FileWriter("prompts.txt");
+      FileWriter outfile = new FileWriter("UserData/prompt_history.txt");
 
       for (Component c : getComponents()) {
         if (c instanceof Prompt) {
