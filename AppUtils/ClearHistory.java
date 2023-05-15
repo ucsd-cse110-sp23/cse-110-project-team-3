@@ -21,12 +21,5 @@ public class ClearHistory {
             e.printStackTrace();
         }
 
-    }
-
-    public static void main(String[] args) {
-        //Test
-        ClearHistory cl = new ClearHistory();
-        cl.clearHistory();
-    }
-    
+    }    
 }
