@@ -4,6 +4,12 @@ import java.io.IOException;
 
 public class ClearHistory {
 
+    /**
+     * Clears the prompt history file
+     */
+    ClearHistory() {
+    }
+
     public void clearHistory() {
 
         try { 
@@ -13,13 +19,11 @@ public class ClearHistory {
 
             //writes an empty string to clear content
             writer.write("");
-            writer.flush();
             writer.close();
 
         } catch (IOException e) {
             System.out.println("Error in clearHistory()");
             e.printStackTrace();
         }
-
-    }    
+    }
 }
