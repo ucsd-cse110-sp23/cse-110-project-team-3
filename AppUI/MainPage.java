@@ -256,12 +256,10 @@ public class MainPage extends JFrame {
             new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     openPromptPage();
-                    revalidate();
                     backButton.addMouseListener(
                         new MouseAdapter() {
                             public void mousePressed(MouseEvent e) {
                                 openMainPage();
-                                revalidate();
                             }
                         }
                     );
