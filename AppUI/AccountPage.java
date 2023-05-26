@@ -117,6 +117,10 @@ class Account extends JFrame {
 }
 
 public class AccountPage extends JFrame {
+
+    // THE page
+    JFrame page;
+
     Account account;
 
     JButton loginButton;
@@ -138,25 +142,31 @@ public class AccountPage extends JFrame {
     }
 
     public void OpenAccountPage() {
-        account = new Account();
+        if (page != null) {
+            page.dispose();
+        }
+        page = new Account();
 
         // Add the login button to the account page
-        loginButton = account.getLoginButton();
+        loginButton = ((Account) page).getLoginButton();
 
         // Add the signup button to the account page
-        signupButton = account.getSignupButton();
+        signupButton = ((Account) page).getSignupButton();
 
         ButtonLogicAccount(); // Add logic to the buttons
     }
 
     public void OpenLoginPage() {
-        loginPage = new LoginPage();
+        if (page != null) {
+            page.dispose();
+        }
+        page = new LoginPage();
 
         // Add the confirm button to the login page
-        confirmButton = loginPage.getConfirmButton();
+        confirmButton = ((LoginPage) page).getConfirmButton();
 
         // Add the back button to the login page
-        backLogin = loginPage.getBackButton();
+        backLogin = ((LoginPage) page).getBackButton();
 
         this.setVisible(false); // Hide the account page
         ButtonLogicLogin(); // Add logic to the buttons
@@ -164,14 +174,16 @@ public class AccountPage extends JFrame {
     }
 
     public void OpenCreateAccountPage() {
-        setVisible(true); // Hide the account page
-        createAccountPage = new CreateAccountPage();
+        if (page != null) {
+            page.dispose();
+        }
+        page = new CreateAccountPage();
 
         // Add the create button to the create account page
-        createButton = createAccountPage.getCreateAccountButton();
+        createButton = ((CreateAccountPage) page).getCreateAccountButton();
 
         // Add the back button to the create account page
-        backCreate = createAccountPage.getBackButton(); //
+        backCreate = ((CreateAccountPage) page).getBackButton(); //
         ButtonLogicCreate(); // Add logic to the buttons
     }
 
