@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.net.*;
 import java.util.ArrayList;
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -191,6 +192,8 @@ public class MainPage extends JFrame {
 
     private Mediator mediator;
 
+    public final String URL = "http://localhost:8101/";
+
     MainPage(){
         mediator = new Mediator();
         this.setSize(600, 600);
@@ -211,6 +214,8 @@ public class MainPage extends JFrame {
 
         buttonLogicMain();
     }
+
+    
 
     public void openPromptPage() {
         this.setSize(600, 600);
@@ -249,6 +254,40 @@ public class MainPage extends JFrame {
         prompthistoryButton = header.getpromptHistoryButton();
         pauseButton = footer.getPauseButton();
         newQuestionButton = footer.getNewQuestionButton();
+
+        pauseButton.addActionListener(
+            new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    try{
+                        URL url = new URL(URL);
+                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                        conn.setRequestMethod("PAUSE");
+
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                    }
+                }
+            }
+        );
+
+        newQuestionButton.addActionListener(
+            new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    try{
+                        URL url = new URL(URL);
+                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                        conn.setRequestMethod("newQuestion");
+
+                    }
+                    catch(Exception ex){
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                    }
+                }
+            }
+        );
     }
 
     public void buttonLogicMain() {

@@ -7,11 +7,11 @@ import java.util.concurrent.*;
 
 public class Server {
     private static final int SERVER_PORT = 8101;
-    private static final String SERVER_HOSTNAME = "Saylt host";
+    private static final String SERVER_HOSTNAME = "SayIt host";
 
     Server(){
         SERVER_PORT = 8101;
-        SERVER_HOSTNAME = "Saylt host";
+        SERVER_HOSTNAME = "SayIt host";
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
 
         // create a server
@@ -20,7 +20,7 @@ public class Server {
             0
         );
 
-        server.createContext("/name", new MyHandler());
+        server.createContext("/", new MyHandler());
         server.setExecutor(threadPoolExecutor);
         server.start();
     }
