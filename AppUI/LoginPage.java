@@ -107,7 +107,6 @@ public class LoginPage extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 600); // Size of the window
         this.setLocationRelativeTo(null); // Center the window
-        this.setLayout(new BorderLayout()); // Use border layout
 
         // Create the header
         header = new LoginHeader();

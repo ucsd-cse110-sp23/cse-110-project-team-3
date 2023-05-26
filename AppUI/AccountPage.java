@@ -79,18 +79,46 @@ class AccountBody extends JPanel {
     }
 }
 
-class Account extends JFrame {
+class AccountFooter extends JPanel {
+    Color backgroundColor = new Color(240, 248, 255);
+
+    AccountFooter() {
+        this.setPreferredSize(new Dimension(400, 60)); // Size of the footer
+        this.setBackground(backgroundColor);
+    }
+}
+
+public class AccountPage extends JFrame {
     AccountHeader header;
     AccountBody body;
+    AccountFooter footer;
 
     JButton loginButton;
     JButton signupButton;
 
-    Account() {
+    LoginHeader loginHeader;
+    LoginBody loginBody;
+    LoginFooter loginFooter;
+
+    JButton confirmButton;
+    JButton backLogin;
+
+    CreateAccountHeader createAccountHeader;
+    CreateAccountBody createAccountBody;
+    CreateAccountFooter createAccountFooter;
+
+    JButton createButton;
+    JButton backCreate;
+
+    AccountPage() {
+        OpenAccountPage();
+    }
+
+    public void OpenAccountPage() {
         this.setSize(600, 600); // Size of the window
-        this.setLocationRelativeTo(null); // Center the window
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close the program when the window is closed
+        this.setLocationRelativeTo(null); // Center the window on the screen
         this.setVisible(true); // Make the window visible
-        this.setLayout(new BorderLayout()); // Use border layout
 
         // Create the header
         header = new AccountHeader();
@@ -100,91 +128,77 @@ class Account extends JFrame {
         body = new AccountBody();
         this.add(body, BorderLayout.CENTER); // Add the body to the window
 
-        // Add the login button to the body
+        // Create the footer
+        footer = new AccountFooter();
+        this.add(footer, BorderLayout.SOUTH); // Add the footer to the window
+
+        // Get the login and signup buttons from the body
         loginButton = body.getLoginButton();
-
-        // Add the signup button to the body
         signupButton = body.getSignupButton();
-    }
 
-    public JButton getLoginButton() {
-        return loginButton;
-    }
-
-    public JButton getSignupButton() {
-        return signupButton;
-    }
-}
-
-public class AccountPage extends JFrame {
-
-    // THE page
-    JFrame page;
-
-    Account account;
-
-    JButton loginButton;
-    JButton signupButton;
-
-    LoginPage loginPage;
-    JButton confirmButton;
-    JButton backLogin;
-
-    CreateAccountPage createAccountPage;
-    JButton createButton;
-    JButton backCreate;
-
-    Mediator mediator;
-
-    public AccountPage() {
-        this.mediator = new Mediator();
-        OpenAccountPage();
-    }
-
-    public void OpenAccountPage() {
-        if (page != null) {
-            page.dispose();
-        }
-        page = new Account();
-
-        // Add the login button to the account page
-        loginButton = ((Account) page).getLoginButton();
-
-        // Add the signup button to the account page
-        signupButton = ((Account) page).getSignupButton();
-
-        ButtonLogicAccount(); // Add logic to the buttons
+        // Add listeners to the buttons
+        ButtonLogicAccount();
     }
 
     public void OpenLoginPage() {
-        if (page != null) {
-            page.dispose();
-        }
-        page = new LoginPage();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(600, 600); // Size of the window
+        this.setLocationRelativeTo(null); // Center the window
+        this.setVisible(true); // Make the window visible
 
-        // Add the confirm button to the login page
-        confirmButton = ((LoginPage) page).getConfirmButton();
+        // Create the header
+        loginHeader = new LoginHeader();
+        this.add(loginHeader, BorderLayout.NORTH); // Add the header to the top of the window
 
-        // Add the back button to the login page
-        backLogin = ((LoginPage) page).getBackButton();
+        // Create the body
+        loginBody = new LoginBody();
+        this.add(loginBody, BorderLayout.CENTER); // Add the body to the center of the window
+        
+        // Create the footer
+        loginFooter = new LoginFooter();
+        this.add(loginFooter, BorderLayout.SOUTH); // Add the footer to the bottom of the window
 
-        this.setVisible(false); // Hide the account page
-        ButtonLogicLogin(); // Add logic to the buttons
+        // Add the confirm button to the footer
+        confirmButton = loginFooter.getConfirmButton();
 
+        // Add the back button to the footer
+        backLogin = loginFooter.getBackButton();
+
+        // Add listeners to the buttons
+        ButtonLogicLogin();
     }
 
-    public void OpenCreateAccountPage() {
-        if (page != null) {
-            page.dispose();
-        }
-        page = new CreateAccountPage();
+    public void OpenSignupPage() {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(600, 600); // Size of the window
+        this.setLocationRelativeTo(null); // Center the window
+        this.setVisible(true); // Make the window visible
 
-        // Add the create button to the create account page
-        createButton = ((CreateAccountPage) page).getCreateAccountButton();
+        // Create the header
+        createAccountHeader = new CreateAccountHeader();
+        this.add(createAccountHeader, BorderLayout.NORTH); // Add the header to the top of the window
 
-        // Add the back button to the create account page
-        backCreate = ((CreateAccountPage) page).getBackButton(); //
-        ButtonLogicCreate(); // Add logic to the buttons
+        // Create the body
+        createAccountBody = new CreateAccountBody();
+        this.add(createAccountBody, BorderLayout.CENTER); // Add the body to the center of the window
+
+        // Create the footer
+        createAccountFooter = new CreateAccountFooter();
+        this.add(createAccountFooter, BorderLayout.SOUTH); // Add the footer to the bottom of the window
+
+        // Add the create button to the footer
+        createButton = createAccountFooter.getCreateAccountButton();
+
+        // Add the back button to the footer
+        backCreate = createAccountFooter.getBackButton();
+
+        // Add listeners to the buttons
+        ButtonLogicCreate();
+    }
+
+    public void ClearPage() {
+        this.getContentPane().removeAll();
+        this.repaint();
     }
 
     public void ButtonLogicAccount() {
@@ -192,7 +206,9 @@ public class AccountPage extends JFrame {
         loginButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                OpenLoginPage();
+                ClearPage();
+                OpenLoginPage(); // Open the login page
+                revalidate();
             }
         });
 
@@ -200,34 +216,55 @@ public class AccountPage extends JFrame {
         signupButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                OpenCreateAccountPage();
+                ClearPage();
+                OpenSignupPage();
+                revalidate();
             }
         });
     }
 
     public void ButtonLogicLogin() {
+        // Add a listener to the confirm button
+        confirmButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                
+            }
+        });
+
         // Add a listener to the back button
         backLogin.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Go back to the account page
+                ClearPage();
                 OpenAccountPage();
+                revalidate();
             }
         });
     }
 
     public void ButtonLogicCreate() {
+        // Add a listener to the create button
+        createButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                
+            }
+        });
+
         // Add a listener to the back button
         backCreate.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Go back to the account page
+                ClearPage();
                 OpenAccountPage();
+                revalidate();
             }
         });
     }
 
     public static void main(String[] args) {
-        new AccountPage();
+        AccountPage a = new AccountPage();
+        a.revalidate();
     }
 }
