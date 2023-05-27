@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import LoadHistory.LoadHistory;
 import Mediator.Mediator;
+import RecordHistory.RecordHistory;
 
 class Header extends JPanel {
 
@@ -159,7 +160,7 @@ class PromptBody extends JPanel{
                         @override
                         public void mousePressed(MouseEvent e) {
                             c.changeState();
-                            list.removeCompletedPrompts(c);
+                            //list.removeCompletedPrompts(c);
                         }
                     });
         }
@@ -172,6 +173,10 @@ class PromptBody extends JPanel{
         this.add(list, BorderLayout.CENTER);
         this.setSize(400, 600); // 400 width and 600 height
         this.setVisible(true); // Make visible
+    }
+
+    public PanelList getPanelList() {
+        return list;
     }
 }
 
@@ -266,6 +271,7 @@ public class MainPage extends JFrame {
                 }
             }
         );
+
         footer.getNewQuestionButton().addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if (!mediator.isRecording()) {
@@ -273,6 +279,7 @@ public class MainPage extends JFrame {
                 }
             }
         });
+
         footer.getPauseButton().addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if (mediator.isRecording()) {
@@ -307,12 +314,45 @@ public class MainPage extends JFrame {
         footer.getListeningLabel().setVisible(true);
         mediator.startRecording();
     }
+
     // stops recording when user clicks pause
     private void stopRecording() {
         footer.getListeningLabel().setVisible(false);
         mediator.stopRecording();
         mediator.switchIsRecording();
         ConfirmationPopUp c = new ConfirmationPopUp(mediator);
+        
+        if (mediator.getIsConfirmed()) {
+            mediator.generateAnswer();
+            mediator.updateQuestionAndAnswer();
+            mediator.setIsConfirmedFalse();
+
+            VoiceCommands vc = new VoiceCommands(mediator.getAnswer());
+             // if is question
+            if (vc.isQuestionCommand()) {               
+                RecordHistory rh = new RecordHistory();
+                rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt");
+            }
+
+            // if is delete prompt
+            else if (vc.isDeletePromptCommand()) { 
+                promptBody.getPanelList().removeCompletedPrompts(c);
+            }
+
+            // if is delete all
+            else if (vc.isDeleteAllCommand()) {
+                ClearHistory clearHistory = new ClearHistory();
+                clearHistory.clearHistory();
+                promptBody.list.removeAll();
+                promptBody.repaint();
+            } 
+            
+            else {
+                // TODO call error message
+            }
+        }
+
+       
         // once c is closed
         c.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent e) {

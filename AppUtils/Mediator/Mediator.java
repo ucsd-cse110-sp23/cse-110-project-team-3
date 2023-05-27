@@ -29,6 +29,9 @@ public class Mediator {
     private String newQuestion;
     private String newAnswer;
 
+    //
+    private boolean isConfirmed;
+
     public Mediator() {
 
         isRecording = false;
@@ -39,6 +42,8 @@ public class Mediator {
 
         question = "User inputted question \n";
         answer = "Answer to user question";
+
+        isConfirmed = false;
         
     }
 
@@ -69,7 +74,6 @@ public class Mediator {
     public void setAnswer(String s) {
         answer = s;
     }
-
     public String getNewQuestion() {
         return newQuestion;
     }
@@ -96,4 +100,15 @@ public class Mediator {
         answer = newAnswer;
     }
 
+    public void setIsConfirmedTrue() {
+        isConfirmed = true;
+    }
+
+    public void setIsConfirmedFalse() {
+        isConfirmed = false;
+    }
+
+    public boolean getIsConfirmed() {
+        return isConfirmed;
+    }
 }

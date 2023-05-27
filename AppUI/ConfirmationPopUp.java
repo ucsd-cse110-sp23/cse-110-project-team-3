@@ -93,8 +93,6 @@ class ConfirmationPopUp extends JFrame {
   private ConfirmFooter footer;
   private Body body;
 
-  private MainPage m;
-
   private JButton acceptButton;
   private JButton cancelButton;
 
@@ -124,8 +122,7 @@ class ConfirmationPopUp extends JFrame {
     header = new ConfirmHeader();
     footer = new ConfirmFooter();
     body = new Body(question);
-    /* TODO: Get and put audio text there */
-
+    
     this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
     this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
     this.add(body, BorderLayout.CENTER); // Add list in middle of footer and title
@@ -141,11 +138,7 @@ class ConfirmationPopUp extends JFrame {
         new MouseAdapter() {
           @override
           public void mousePressed(MouseEvent e) {
-            mediator.generateAnswer();
-            mediator.updateQuestionAndAnswer();
-            rh.sendToFile(question, mediator.getAnswer(), "UserData/prompt_history.txt");
-
-
+            mediator.setIsConfirmedTrue();
             dispose(); // Close window
           }
         });
@@ -154,6 +147,7 @@ class ConfirmationPopUp extends JFrame {
         new MouseAdapter() {
           @override
           public void mousePressed(MouseEvent e) {
+            mediator.setIsConfirmedFalse();
             dispose(); // Close window
           }
         });

@@ -42,7 +42,7 @@ class Prompt extends JPanel {
     this.add(promptName, BorderLayout.CENTER);
 
     // Select button: create and add
-    doneButton = new JButton("Delete");
+    doneButton = new JButton("Select");
     doneButton.setPreferredSize(new Dimension(80, 20));
     doneButton.setBorder(BorderFactory.createEmptyBorder());
     doneButton.setFocusPainted(false);
