@@ -4,22 +4,23 @@ import java.io.*;
 import java.util.ArrayList;
 import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.swing.JScrollPane;
 
 import LoadHistory.LoadHistory;
 import Mediator.Mediator;
 
 class Header extends JPanel {
 
-    public JButton promptHistoryButton;
+ //   public JButton promptHistoryButton;
     Color backgroundColor = new Color(240, 248, 255);
 
     Header() {
         this.setPreferredSize(new Dimension(400, 60)); // Size of the header
         this.setBackground(backgroundColor);
 
-        promptHistoryButton = new JButton("prompt history");
+    /*    promptHistoryButton = new JButton("prompt history");
         promptHistoryButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
-        this.add(promptHistoryButton);
+        this.add(promptHistoryButton); */
 
         JLabel titleText = new JLabel("Saylt Assistant v1.1"); // Text of the header
 
@@ -29,9 +30,9 @@ class Header extends JPanel {
         this.add(titleText); // Add the text to the header
     }
 
-    public JButton getpromptHistoryButton() {
+   /* public JButton getpromptHistoryButton() {
         return promptHistoryButton;
-    }
+    }*/
 }
 
 class ResultUI extends JPanel{
@@ -61,7 +62,6 @@ class ResultUI extends JPanel{
 
 class Footer extends JPanel {
     private JButton newQuestionButton;
-    private JButton pauseButton;
     private JLabel listeningLabel;
     Color backgroundColor = new Color(240, 248, 255);
 
@@ -72,11 +72,7 @@ class Footer extends JPanel {
 
         this.setLayout(new GridLayout(2, 2));
 
-        pauseButton = new JButton("Stop Recording");
-        pauseButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
-        this.add(pauseButton);
-
-        newQuestionButton = new JButton("New Question");
+        newQuestionButton = new JButton("Start");
         newQuestionButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
         this.add(newQuestionButton);
 
@@ -97,9 +93,35 @@ class Footer extends JPanel {
     public JButton getNewQuestionButton() {
         return newQuestionButton;
     }
+}
 
-    public JButton getPauseButton() {
-        return pauseButton;
+class Sidebar extends JPanel {
+    Color backgroundColor = new Color(209, 216, 222);
+    private JLabel sideBarLabel;
+
+    Sidebar() {
+        this.setPreferredSize(new Dimension(250,600));
+        this.setBackground(backgroundColor);
+
+        JScrollPane historyBar = new JScrollPane();
+        historyBar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        sideBarLabel = new JLabel("Prompt History");
+        sideBarLabel.setFont(new Font("Sans-serif", Font.ITALIC, 15));
+        sideBarLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(sideBarLabel, BorderLayout.NORTH);
+        panel.add(historyBar, BorderLayout.WEST);
+
+
+        GridLayout layout = new GridLayout(0, 1);
+        layout.setVgap(5); // Vertical gap
+        this.setLayout(layout);
+
+      //  titleLabel = new JLabel("Prompt History");
+      //  titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
     }
 
 }
@@ -179,13 +201,13 @@ public class MainPage extends JFrame {
     private Header header;
     private Footer footer;
     private ResultUI resultUI;
+    private Sidebar sidebar;
     private PromptBody promptBody;
     private PromptHeader promptHeader;
     private PromptFooter promptFooter;
 
-    private JButton pauseButton;
     private JButton newQuestionButton;
-    private JButton prompthistoryButton;
+  //  private JButton prompthistoryButton;
     private JButton backButton;
     private JButton clearAllButton;
 
@@ -200,13 +222,14 @@ public class MainPage extends JFrame {
         header = new Header();
         footer = new Footer();
         resultUI = new ResultUI();
+        sidebar = new Sidebar();
 
         this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
         this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
         this.add(resultUI, BorderLayout.CENTER); // adds question and response to center of screen
+        this.add(sidebar, BorderLayout.WEST); // adds sidebar for prompt history
 
-        prompthistoryButton = header.getpromptHistoryButton();
-        pauseButton = footer.getPauseButton();
+    //    prompthistoryButton = header.getpromptHistoryButton();
         newQuestionButton = footer.getNewQuestionButton();
 
         buttonLogicMain();
@@ -246,13 +269,12 @@ public class MainPage extends JFrame {
         this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
         this.add(resultUI, BorderLayout.CENTER); // adds question and response to center of screen
 
-        prompthistoryButton = header.getpromptHistoryButton();
-        pauseButton = footer.getPauseButton();
+     //   prompthistoryButton = header.getpromptHistoryButton();
         newQuestionButton = footer.getNewQuestionButton();
     }
 
     public void buttonLogicMain() {
-        prompthistoryButton.addMouseListener(
+       /*  prompthistoryButton.addMouseListener(
             new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     openPromptPage();
@@ -265,18 +287,18 @@ public class MainPage extends JFrame {
                     );
                 }
             }
-        );
+        ); */
         footer.getNewQuestionButton().addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if (!mediator.isRecording()) {
                     startRecording();
+                    mediator.setIsRecording(true);
+                    newQuestionButton.setText("Stop");
                 }
-            }
-        });
-        footer.getPauseButton().addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                if (mediator.isRecording()) {
+                else {
                     stopRecording();
+                    mediator.setIsRecording(false);
+                    newQuestionButton.setText("Start");
                 }
             }
         });
