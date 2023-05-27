@@ -116,6 +116,16 @@ class PanelList extends JPanel {
     }
   }
 
+  public void removeCompletedPrompts() {
+    for (Component c : getComponents()) {
+      if (c instanceof Prompt) {
+        if (((Prompt) c).getState()) {
+          remove(c); // remove the component
+        }
+      }
+    }
+  }
+
   /**
    * Loads prompts from a file called "prompt_history.txt"
    * 

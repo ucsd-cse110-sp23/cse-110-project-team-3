@@ -139,6 +139,7 @@ class ConfirmationPopUp extends JFrame {
           @override
           public void mousePressed(MouseEvent e) {
             mediator.setIsConfirmedTrue();
+            System.out.println("In setIsConfirmedTrue()");
             dispose(); // Close window
           }
         });

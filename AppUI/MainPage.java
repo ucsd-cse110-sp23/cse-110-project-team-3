@@ -160,7 +160,6 @@ class PromptBody extends JPanel{
                         @override
                         public void mousePressed(MouseEvent e) {
                             c.changeState();
-                            //list.removeCompletedPrompts(c);
                         }
                     });
         }
@@ -192,8 +191,7 @@ public class MainPage extends JFrame {
     private JButton newQuestionButton;
     private JButton prompthistoryButton;
     private JButton backButton;
-    private JButton clearAllButton;
-
+    
     private Mediator mediator;
 
     MainPage(){
@@ -227,16 +225,11 @@ public class MainPage extends JFrame {
         promptFooter = new PromptFooter();
 
         this.remove(header);
-        this.remove(footer);
         this.remove(resultUI);
         this.add(promptHeader, BorderLayout.NORTH);
         this.add(promptBody, BorderLayout.CENTER);
-        this.add(promptFooter, BorderLayout.SOUTH);
-
+        
         backButton = promptHeader.getbackButton();
-        clearAllButton = promptFooter.getClearAllButton();
-
-        buttonLogicPrompt();
     }
 
     public void openMainPage() {
@@ -289,19 +282,6 @@ public class MainPage extends JFrame {
         });
     }
 
-    public void buttonLogicPrompt() {
-        clearAllButton.addMouseListener(
-            new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                    ClearHistory clearHistory = new ClearHistory();
-                    clearHistory.clearHistory();
-                    promptBody.list.removeAll();
-                    promptBody.repaint();
-                }
-            }
-        );
-    }
-
     // sets question text
     public void setQuestionText(String question) {
         resultUI.qLabel.setText(question);
@@ -321,22 +301,28 @@ public class MainPage extends JFrame {
         mediator.stopRecording();
         mediator.switchIsRecording();
         ConfirmationPopUp c = new ConfirmationPopUp(mediator);
+        System.out.println("In stopRecording()" + mediator.getIsConfirmed());
         
         if (mediator.getIsConfirmed()) {
+            System.out.println("In mediator.getIsConfirmed()");
             mediator.generateAnswer();
             mediator.updateQuestionAndAnswer();
             mediator.setIsConfirmedFalse();
 
-            VoiceCommands vc = new VoiceCommands(mediator.getAnswer());
+            VoiceCommands vc = new VoiceCommands(mediator.getQuestion());
              // if is question
             if (vc.isQuestionCommand()) {               
+                System.out.println("Isquestion");
                 RecordHistory rh = new RecordHistory();
                 rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt");
             }
 
             // if is delete prompt
             else if (vc.isDeletePromptCommand()) { 
-                promptBody.getPanelList().removeCompletedPrompts(c);
+                System.out.println("In isDeletePromptCommand()");
+                PanelList list = promptBody.getPanelList();
+                list.removeCompletedPrompts();
+                promptBody.repaint();
             }
 
             // if is delete all

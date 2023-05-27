@@ -43,7 +43,7 @@ public class Mediator {
         question = "User inputted question \n";
         answer = "Answer to user question";
 
-        isConfirmed = false;
+        isConfirmed = true;
         
     }
 
@@ -55,10 +55,10 @@ public class Mediator {
         isRecording = !isRecording;
     }
     public void startRecording() {
-        voiceRecorder.startListening();
+        //voiceRecorder.startListening();
     }
     public void stopRecording() {
-        voiceRecorder.stopListening();
+        //voiceRecorder.stopListening();
     }
 
     // question and answer functions

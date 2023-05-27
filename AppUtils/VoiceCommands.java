@@ -7,6 +7,7 @@ public class VoiceCommands {
     
     public VoiceCommands(String inputStr) {
         input = firstFewWords(inputStr);
+        System.out.println("In VoiceCommands");
     }
 
     public boolean isQuestionCommand() {
@@ -39,6 +40,12 @@ public class VoiceCommands {
         List<String> words = Arrays.asList(s.split(" "));
         // TODO, if there are empty spaces before first word, array becomes ["", "", "word"]
 
+        for (int i = 0; i < words.size(); i++) {
+            words.set(i, removeNonAlphabet(words.get(i)));
+        }
+
+        System.out.println(words);
+
         int endIdx;
         
         if (words.size() < maxCommandSize) {
@@ -49,6 +56,11 @@ public class VoiceCommands {
 
         List<String> sub = words.subList(0, endIdx);
         return sub;
+    }
+
+    private String removeNonAlphabet(String input) {
+        // Replace all non-alphabetic characters with an empty string
+        return input.replaceAll("[^a-zA-Z]", "");
     }
 
     // public static void main (String[] args) {
