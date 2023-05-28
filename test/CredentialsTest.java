@@ -8,14 +8,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-import QuickStart.*;
-
 import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
+import Credentials.*;
+
 import org.bson.types.ObjectId;
 
 // testing log in and create account
@@ -38,6 +39,7 @@ public class CredentialsTest {
      */
     @Test
     void testCreateAccount() {
+        
         c.createAccount(testUser, testPassword);
         Document doc = collection.find(eq("username", testUser)).first();
         if (doc != null) {
@@ -46,6 +48,9 @@ public class CredentialsTest {
         } else {
             assertEquals(true, false); // account with username was not added somehow
         }
+
+        c.deleteAccount(testUser, testPassword);
+
     }
 
     /*
@@ -56,7 +61,13 @@ public class CredentialsTest {
      */
     @Test
     void testUsernameTaken() {
-        //
+        c.createAccount(testUser, testPassword);
+        try {
+            c.createAccount(testUser, testPassword);
+        } catch (Exception e) {
+            assertEquals(e.toString(), "Account with username already exists");
+        }
+        c.deleteAccount(testUser, testPassword);
     }
 
     /*
@@ -66,7 +77,25 @@ public class CredentialsTest {
      */
     @Test
     void testLogIn() {
-        //
+
+        c.createAccount(testUser, testPassword);
+        Document doc = collection.find(eq("username", testUser)).first();
+        if (doc != null) {
+            assertEquals(doc.get("username"), testUser);
+            assertEquals(doc.get("password"), testPassword);
+        } else {
+            assertEquals(true, false); // account with username was not added somehow
+        }
+
+        try {
+            ObjectId testId = c.login(testUser, testPassword);
+            assertEquals(testId instanceof ObjectId, true);
+        } catch (Exception e) {
+            assertEquals(true, false);
+        }
+
+        c.deleteAccount(testUser, testPassword);
+
     }
 
     /*
@@ -77,7 +106,32 @@ public class CredentialsTest {
      */
     @Test
     void testLogInFailure() {
-        //
+
+        c.createAccount(testUser, testPassword);
+
+        // wrong password
+        try {
+            c.login(testUser, "etoosd");
+        } catch (Exception e) {
+            assertEquals(e.toString(), "Invalid username or password");
+        }
+
+        // wrong username
+        try {
+            c.login("reeeee", testPassword);
+        } catch (Exception e) {
+            assertEquals(e.toString(), "Invalid username or password");
+        }
+
+        // account never existed
+        try {
+            c.login("random nonsense", "random nonsense 2: an award winning sequel");
+        } catch (Exception e) {
+            assertEquals(e.toString(), "Invalid username or password");
+        }
+
+        c.deleteAccount(testUser, testPassword);
+
     }
 
 }

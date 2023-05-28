@@ -1,4 +1,4 @@
-package QuickStart;
+package Credentials;
 
 /*
  * This class handles dealing with credentials, namely creating an account 
@@ -54,18 +54,60 @@ public class Credentials {
 
     }
 
-    public void login(String username, String password) {
+    public ObjectId login(String username, String password) {
         
+        // returns _id String
+
         try {
-            //
+
+            MongoClient mongoClient = MongoClients.create(uri);
+
+            // check if account with username exists
+            MongoDatabase database = mongoClient.getDatabase("userdata");
+            MongoCollection<Document> collection = database.getCollection("accounts");
+
+            Document doc = collection.find(eq("username", username)).first();
+
+            // check that account exists and password is correct
+            if (doc != null && doc.get("password").equals(password)) {
+                // TODO: do something
+                System.out.println("Logged in successfully");
+                return doc.getObjectId("_id");
+            } else {
+                throw new Exception("Invalid username or password");
+            }
+
         } catch (Exception e) {
             System.err.println(e);
+            return null;
         }
 
     }
 
     public void deleteAccount(String username, String password) {
-        //
+        
+        try {
+
+            MongoClient mongoClient = MongoClients.create(uri);
+
+            // check if account with username exists
+            MongoDatabase database = mongoClient.getDatabase("userdata");
+            MongoCollection<Document> collection = database.getCollection("accounts");
+
+            Document doc = collection.find(eq("username", username)).first();
+
+            // check that account exists and password is correct
+            if (doc != null && doc.get("password").equals(password)) {
+                collection.deleteOne(doc);
+                System.out.println("Deleted account successfully");
+            } else {
+                throw new Exception("Invalid username or password");
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
     }
 
 }
