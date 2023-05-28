@@ -97,31 +97,39 @@ class Footer extends JPanel {
 
 class Sidebar extends JPanel {
     Color backgroundColor = new Color(209, 216, 222);
-    private JLabel sideBarLabel;
+    JLabel tLabel;
+    PanelList list;
+    JScrollPane scroll;
 
     Sidebar() {
-        this.setPreferredSize(new Dimension(250,600));
         this.setBackground(backgroundColor);
+        this.tLabel = new JLabel();
+        this.list = new PanelList();
+        this.scroll = new JScrollPane(list);
 
-        JScrollPane historyBar = new JScrollPane();
-        historyBar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        // sets scrollbar features
+        scroll.setPreferredSize(new Dimension(200, 780));
+        this.add(scroll, BorderLayout.CENTER);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
-        sideBarLabel = new JLabel("Prompt History");
-        sideBarLabel.setFont(new Font("Sans-serif", Font.ITALIC, 15));
-        sideBarLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        for (Prompt c : list.loadPrompts()) {
+            c.setPreferredSize(new Dimension(300, 100));
+            list.add(c);
+            JButton doneButton = c.getDone();
+            doneButton.addMouseListener(
+                    new MouseAdapter() {
+                        @override
+                        public void mousePressed(MouseEvent e) {
+                            c.changeState();
+                            list.removeCompletedPrompts(c);
+                        }
+                    }); 
+        } 
 
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(sideBarLabel, BorderLayout.NORTH);
-        panel.add(historyBar, BorderLayout.WEST);
-
-
-        GridLayout layout = new GridLayout(0, 1);
-        layout.setVgap(5); // Vertical gap
-        this.setLayout(layout);
-
-      //  titleLabel = new JLabel("Prompt History");
-      //  titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
+        repaint();
+        this.add(tLabel);
+        this.setVisible(true);
     }
 
 }
