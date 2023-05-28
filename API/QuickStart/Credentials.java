@@ -1,5 +1,10 @@
 package QuickStart;
 
+/*
+ * This class handles dealing with credentials, namely creating an account 
+ * and logging in.
+ */
+
 import static com.mongodb.client.model.Filters.eq;
 
 
@@ -17,7 +22,7 @@ public class Credentials {
     
     private final String uri = "mongodb+srv://k2chung:suqNIH8XW2du0NId@sayit.gzgbzwy.mongodb.net/?retryWrites=true&w=majority";
 
-    Credentials() {
+    public Credentials() {
         //
     }
 
@@ -47,6 +52,20 @@ public class Credentials {
             System.err.println(e);
         }
 
+    }
+
+    public void login(String username, String password) {
+        
+        try {
+            //
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
+    }
+
+    public void deleteAccount(String username, String password) {
+        //
     }
 
 }
