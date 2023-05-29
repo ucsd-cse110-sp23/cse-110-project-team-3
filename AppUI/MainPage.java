@@ -300,44 +300,8 @@ public class MainPage extends JFrame {
         footer.getListeningLabel().setVisible(false);
         mediator.stopRecording();
         mediator.switchIsRecording();
-        ConfirmationPopUp c = new ConfirmationPopUp(mediator);
-        System.out.println("In stopRecording()" + mediator.getIsConfirmed());
-        
-        if (mediator.getIsConfirmed()) {
-            System.out.println("In mediator.getIsConfirmed()");
-            mediator.generateAnswer();
-            mediator.updateQuestionAndAnswer();
-            mediator.setIsConfirmedFalse();
-
-            VoiceCommands vc = new VoiceCommands(mediator.getQuestion());
-             // if is question
-            if (vc.isQuestionCommand()) {               
-                System.out.println("Isquestion");
-                RecordHistory rh = new RecordHistory();
-                rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt");
-            }
-
-            // if is delete prompt
-            else if (vc.isDeletePromptCommand()) { 
-                System.out.println("In isDeletePromptCommand()");
-                PanelList list = promptBody.getPanelList();
-                list.removeCompletedPrompts();
-                promptBody.repaint();
-            }
-
-            // if is delete all
-            else if (vc.isDeleteAllCommand()) {
-                ClearHistory clearHistory = new ClearHistory();
-                clearHistory.clearHistory();
-                promptBody.list.removeAll();
-                promptBody.repaint();
-            } 
-            
-            else {
-                // TODO call error message
-            }
-        }
-
+        ConfirmationPopUp c = new ConfirmationPopUp(mediator, promptBody);
+        //System.out.println("In stopRecording()" + mediator.getIsConfirmed());
        
         // once c is closed
         c.addWindowListener(new WindowAdapter() {
