@@ -1,13 +1,13 @@
 import java.lang.String;
 import java.util.*;
+import java.util.List;
 
 public class VoiceCommands {
     private int maxCommandSize = 2;
     List<String> input;
     
     public VoiceCommands(String inputStr) {
-        input = firstFewWords(inputStr);
-        System.out.println("In VoiceCommands");
+        this.input = firstFewWords(inputStr);
     }
 
     public boolean isQuestionCommand() {
@@ -18,10 +18,16 @@ public class VoiceCommands {
         return isSameCommand(Arrays.asList("delete", "prompt"), input);
     }
 
-    public boolean isDeleteAllCommand() {
+    public boolean isClearAllCommand() {
         return isSameCommand(Arrays.asList("clear", "all"), input);
     }
     
+    /**
+     * Helper method: isSameCommand
+     * @param command the command in list of strings where each element is one word
+     * @param input list of strings where each element is one word
+     * @returns boolean checking if the input and the command are the same
+     **/
     private boolean isSameCommand(List<String> command, List<String> input) {
         if (command.size() > input.size()) {
             return false;
@@ -35,10 +41,15 @@ public class VoiceCommands {
         return true;
     }
 
+    /** 
+     * Helper method: firstFewWords
+     * @param s: audio in string format
+     * Gets the first maxCommandSize # of words from the input audio text
+    */
     private List<String> firstFewWords(String s) {
         s = s.toLowerCase();
         List<String> words = Arrays.asList(s.split(" "));
-        // TODO, if there are empty spaces before first word, array becomes ["", "", "word"]
+        // TODO, if there are empty spaces before first word, array becomes ["", "", "firstword"]
 
         for (int i = 0; i < words.size(); i++) {
             words.set(i, removeNonAlphabet(words.get(i)));
@@ -62,13 +73,4 @@ public class VoiceCommands {
         // Replace all non-alphabetic characters with an empty string
         return input.replaceAll("[^a-zA-Z]", "");
     }
-
-    // public static void main (String[] args) {
-    //     VoiceCommands vc = new VoiceCommands();
-    //     vc.mediateVoiceCommands("hello");
-    //     vc.mediateVoiceCommands("Question me mo me mo");
-    //     vc.mediateVoiceCommands("Delete Prompt me no mo meo meo");
-    //     vc.mediateVoiceCommands("Clear all boop bo boop bo");
-    // }
-
 }

@@ -29,9 +29,6 @@ public class Mediator {
     private String newQuestion;
     private String newAnswer;
 
-    //
-    private boolean isConfirmed;
-
     public Mediator() {
 
         isRecording = false;
@@ -42,9 +39,6 @@ public class Mediator {
 
         question = "User inputted question \n";
         answer = "Answer to user question";
-
-        isConfirmed = true;
-        
     }
 
     // voice recording functions
@@ -55,10 +49,10 @@ public class Mediator {
         isRecording = !isRecording;
     }
     public void startRecording() {
-        //voiceRecorder.startListening();
+        voiceRecorder.startListening();
     }
     public void stopRecording() {
-        //voiceRecorder.stopListening();
+        voiceRecorder.stopListening();
     }
 
     // question and answer functions
@@ -98,17 +92,5 @@ public class Mediator {
     public void updateQuestionAndAnswer() {
         question = newQuestion;
         answer = newAnswer;
-    }
-
-    public void setIsConfirmedTrue() {
-        isConfirmed = true;
-    }
-
-    public void setIsConfirmedFalse() {
-        isConfirmed = false;
-    }
-
-    public boolean getIsConfirmed() {
-        return isConfirmed;
     }
 }

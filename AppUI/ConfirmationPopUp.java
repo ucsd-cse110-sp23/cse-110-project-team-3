@@ -140,7 +140,6 @@ class ConfirmationPopUp extends JFrame {
         new MouseAdapter() {
           @override
           public void mousePressed(MouseEvent e) {
-            mediator.setIsConfirmedTrue();
             new RunCommands().runVoiceCommand(mediator, promptBody);
             dispose(); // Close window
           }
@@ -150,7 +149,6 @@ class ConfirmationPopUp extends JFrame {
         new MouseAdapter() {
           @override
           public void mousePressed(MouseEvent e) {
-            mediator.setIsConfirmedFalse();
             dispose(); // Close window
           }
         });
