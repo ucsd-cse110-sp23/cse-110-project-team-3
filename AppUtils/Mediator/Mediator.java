@@ -54,6 +54,9 @@ public class Mediator {
     public void stopRecording() {
         voiceRecorder.stopListening();
     }
+    public void setIsRecording(boolean r) {
+        isRecording = r;
+    }
 
     // question and answer functions
     public String getQuestion() {

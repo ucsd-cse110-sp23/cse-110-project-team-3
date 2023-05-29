@@ -92,7 +92,7 @@ class ConfirmationPopUp extends JFrame {
   private ConfirmHeader header;
   private ConfirmFooter footer;
   private Body body;
-  private PromptBody promptBody;
+  private Sidebar sidebar;
 
   private JButton acceptButton;
   private JButton cancelButton;
@@ -105,7 +105,7 @@ class ConfirmationPopUp extends JFrame {
   // mediator handles question and answer, api
   private Mediator mediator;
 
-  ConfirmationPopUp(Mediator mediator, PromptBody promptBody) {
+  ConfirmationPopUp(Mediator mediator, Sidebar sidebar) {
     this.setSize(400, 600); // 400 width and 600 height
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
     this.setVisible(true); // Make visible
@@ -114,7 +114,7 @@ class ConfirmationPopUp extends JFrame {
     rh = new RecordHistory();
 
     this.mediator = mediator;
-    this.promptBody = promptBody;
+    this.sidebar = sidebar;
 
     // retrieves text from audio using whisper
     mediator.generateQuestion();
@@ -140,7 +140,7 @@ class ConfirmationPopUp extends JFrame {
         new MouseAdapter() {
           @override
           public void mousePressed(MouseEvent e) {
-            new RunCommands().runVoiceCommand(mediator, promptBody);
+            new RunCommands().runVoiceCommand(mediator, sidebar);
             dispose(); // Close window
           }
         });

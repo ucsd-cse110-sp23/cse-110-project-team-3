@@ -2,7 +2,7 @@ import Mediator.Mediator;
 import RecordHistory.RecordHistory;
 
 class RunCommands {
-    public void runVoiceCommand(Mediator mediator, PromptBody promptBody) {
+    public void runVoiceCommand(Mediator mediator, Sidebar sidebar) {
         mediator.updateQuestionAndAnswer();
         
         VoiceCommands vc = new VoiceCommands(mediator.getQuestion());
@@ -19,10 +19,10 @@ class RunCommands {
         else if (vc.isDeletePromptCommand()) { 
             mediator.setNewAnswer("");
             mediator.updateQuestionAndAnswer();
-            PanelList list = promptBody.getPanelList();
+            PanelList list = sidebar.list;
             list.removeCompletedPrompts();
             list.savePrompts();
-            promptBody.repaint();
+            sidebar.repaint();
         }
 
         // if command is clear all
@@ -31,8 +31,8 @@ class RunCommands {
             mediator.updateQuestionAndAnswer();
             ClearHistory clearHistory = new ClearHistory();
             clearHistory.clearHistory();
-            promptBody.list.removeAll();
-            promptBody.repaint();
+            sidebar.list.removeAll();
+            sidebar.repaint();
         } 
         
         else {
