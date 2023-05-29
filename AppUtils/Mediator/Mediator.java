@@ -49,10 +49,10 @@ public class Mediator {
         isRecording = !isRecording;
     }
     public void startRecording() {
-        //voiceRecorder.startListening();
+        voiceRecorder.startListening();
     }
     public void stopRecording() {
-        //voiceRecorder.stopListening();
+        voiceRecorder.stopListening();
     }
     public void setIsRecording(boolean r) {
         isRecording = r;
