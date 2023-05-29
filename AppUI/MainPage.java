@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.net.*;
 import java.util.ArrayList;
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -192,7 +191,7 @@ public class MainPage extends JFrame {
 
     private Mediator mediator;
 
-    MainPage() throws IOException{
+    MainPage(){
         mediator = new Mediator();
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
