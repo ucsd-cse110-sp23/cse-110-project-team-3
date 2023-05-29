@@ -141,8 +141,7 @@ class ConfirmationPopUp extends JFrame {
           @override
           public void mousePressed(MouseEvent e) {
             mediator.setIsConfirmedTrue();
-            //System.out.println("In setIsConfirmedTrue()");
-            new RunCommands().acceptButtonPressed(mediator, promptBody);
+            new RunCommands().runVoiceCommand(mediator, promptBody);
             dispose(); // Close window
           }
         });

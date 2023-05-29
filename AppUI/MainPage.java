@@ -301,8 +301,7 @@ public class MainPage extends JFrame {
         mediator.stopRecording();
         mediator.switchIsRecording();
         ConfirmationPopUp c = new ConfirmationPopUp(mediator, promptBody);
-        //System.out.println("In stopRecording()" + mediator.getIsConfirmed());
-       
+        
         // once c is closed
         c.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent e) {
