@@ -13,6 +13,7 @@ class RunCommands {
             mediator.updateQuestionAndAnswer();
             RecordHistory rh = new RecordHistory();
             rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt");
+            sidebar.addPrompt(mediator.getQuestion() + ": " + mediator.getAnswer());
         }
 
         // if command is "delete prompt"

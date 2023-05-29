@@ -101,7 +101,7 @@ class Sidebar extends JPanel {
         this.scroll = new JScrollPane(list);
 
         // sets scrollbar features
-        scroll.setPreferredSize(new Dimension(200, 780));
+        scroll.setPreferredSize(new Dimension(400, 780));
         this.add(scroll, BorderLayout.CENTER);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -122,6 +122,21 @@ class Sidebar extends JPanel {
         repaint();
         this.add(tLabel);
         this.setVisible(true);
+    }
+
+    public void addPrompt(String s) {
+        Prompt c = new Prompt(s);
+        c.setPreferredSize(new Dimension(300, 100));
+        list.add(c);
+        JButton doneButton = c.getDone();
+        doneButton.addMouseListener(
+                new MouseAdapter() {
+                    @override
+                    public void mousePressed(MouseEvent e) {
+                        c.changeState();
+                    }
+                });
+        repaint();
     }
 
 }
