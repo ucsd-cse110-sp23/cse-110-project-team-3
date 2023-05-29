@@ -212,8 +212,6 @@ public class MainPage extends JFrame {
         buttonLogicMain();
     }
 
-    
-
     public void openPromptPage() {
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
@@ -251,7 +249,6 @@ public class MainPage extends JFrame {
         prompthistoryButton = header.getpromptHistoryButton();
         pauseButton = footer.getPauseButton();
         newQuestionButton = footer.getNewQuestionButton();
-
     }
 
     public void buttonLogicMain() {
