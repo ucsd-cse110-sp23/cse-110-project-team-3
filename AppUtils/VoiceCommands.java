@@ -2,10 +2,16 @@ import java.lang.String;
 import java.util.*;
 import java.util.List;
 
+/**
+ * Purpose: For checking if a string input starts with a certain command
+ */
 public class VoiceCommands {
     private int maxCommandSize = 2;
     List<String> input;
     
+    /*
+     * MAIN METHODS: Voice Command Checkers
+     */
     public VoiceCommands(String inputStr) {
         this.input = firstFewWords(inputStr);
     }
@@ -21,6 +27,10 @@ public class VoiceCommands {
     public boolean isClearAllCommand() {
         return isSameCommand(Arrays.asList("clear", "all"), input);
     }
+    
+    /* 
+     * HELPER METHODS 
+     */
     
     /**
      * Helper method: isSameCommand
@@ -54,8 +64,6 @@ public class VoiceCommands {
         for (int i = 0; i < words.size(); i++) {
             words.set(i, removeNonAlphabet(words.get(i)));
         }
-
-        System.out.println(words);
 
         int endIdx;
         
