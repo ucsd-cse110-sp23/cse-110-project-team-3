@@ -71,6 +71,9 @@ public class Mediator {
     public String getNewQuestion() {
         return newQuestion;
     }
+    public void setNewAnswer(String s) {
+        newAnswer = s;
+    }
 
     // api calls
     public void generateQuestion() {
