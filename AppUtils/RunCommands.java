@@ -36,7 +36,12 @@ class RunCommands {
         } 
         
         else {
-            // TODO call error message
+            mediator.setNewQuestion("Error: bad command");
+            mediator.setNewAnswer("Valid Commands: " +
+                                  "Question [your question here], " +
+                                  "Delete prompt, " + 
+                                  "Clear all");
+            mediator.updateQuestionAndAnswer();
         }
     }
 }
