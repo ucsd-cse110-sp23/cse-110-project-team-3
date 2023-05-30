@@ -4,8 +4,13 @@ package Mediator;
 import VoiceRecorder.VoiceRecorder;
 import GPT.*;
 import Whisper.*;
+import java.net.*;
+import java.io.*;
 
 public class Mediator {
+
+    // server url
+    public final String URL = "http://localhost:8101/";
 
     /*
      * The mediator is aware of the following values:
@@ -91,7 +96,32 @@ public class Mediator {
     }
     public void generateAnswer() {
         try {
-            newAnswer = gpt.generate(newQuestion);
+            //newAnswer = gpt.generate(newQuestion);
+            try {
+                URL url = new URL(URL);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setDoOutput(true);
+                OutputStreamWriter out = new OutputStreamWriter(
+                    conn.getOutputStream()
+                );
+                out.write(newQuestion);
+                out.flush();
+                out.close();
+                BufferedReader in = new BufferedReader(
+                  new InputStreamReader(conn.getInputStream())
+                );
+                StringBuilder toReturn = new StringBuilder();
+                String toCheck = in.readLine();
+                while(toCheck !=null){
+                    toReturn.append(toCheck);
+                    toReturn.append("\n");
+                    toCheck = in.readLine();
+                }
+                in.close();
+                newAnswer = toReturn.toString();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         } catch (Exception e) {
             //
         }

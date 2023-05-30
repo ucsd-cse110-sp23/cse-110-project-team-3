@@ -1,4 +1,8 @@
 import com.sun.net.httpserver.*;
+
+import Mediator.Mediator;
+
+import java.util.ArrayList;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
@@ -7,12 +11,11 @@ import java.util.concurrent.*;
 
 public class Server {
     private static final int SERVER_PORT = 8101;
-    private static final String SERVER_HOSTNAME = "Saylt host";
-
-    Server(){
-        SERVER_PORT = 8101;
-        SERVER_HOSTNAME = "Saylt host";
+    private static final String SERVER_HOSTNAME = "localhost";
+    
+    Server() throws IOException{
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
+        ArrayList<String> history = new ArrayList<String>();
 
         // create a server
         HttpServer server = HttpServer.create(
@@ -20,8 +23,11 @@ public class Server {
             0
         );
 
-        server.createContext("/name", new MyHandler());
+        server.createContext("/", new MyHandler(history));
         server.setExecutor(threadPoolExecutor);
         server.start();
+
+        System.out.println("Server started on port " + SERVER_PORT);
     }
+
 }
