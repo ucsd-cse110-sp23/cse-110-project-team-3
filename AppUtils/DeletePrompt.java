@@ -4,9 +4,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 public class DeletePrompt {
-
-    DeletePrompt() {
-    }
     
     public void deletePrompt(List<String> data) {
         // take an array  list of strings clear data from a file and write the new data to the file

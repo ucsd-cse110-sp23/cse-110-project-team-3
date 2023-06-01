@@ -36,13 +36,11 @@ class Prompt extends JPanel {
     promptName = new JTextArea(prompt); // create prompt name text field
     promptName.setBorder(BorderFactory.createEmptyBorder()); // remove border of text field
     promptName.setBackground(gray); // set background color of text field
-    promptName.setLineWrap(true);
-    promptName.setWrapStyleWord(true);
     promptName.setEditable(false);
     this.add(promptName, BorderLayout.CENTER);
 
     // Select button: create and add
-    doneButton = new JButton("Delete");
+    doneButton = new JButton("Select");
     doneButton.setPreferredSize(new Dimension(80, 20));
     doneButton.setBorder(BorderFactory.createEmptyBorder());
     doneButton.setFocusPainted(false);
@@ -85,11 +83,11 @@ class PanelList extends JPanel {
   Color backgroundColor = new Color(240, 248, 255);
 
   PanelList() {
-    GridLayout layout = new GridLayout(0, 1);
-    layout.setVgap(5); // Vertical gap
+
+    FlowLayout layout = new FlowLayout(FlowLayout.CENTER,0, 5);
 
     this.setLayout(layout);
-    this.setPreferredSize(new Dimension(400, 600));
+    this.setPreferredSize(new Dimension(300, 2000));
     this.setBackground(backgroundColor);
   }
 
@@ -112,6 +110,16 @@ class PanelList extends JPanel {
         ArrayList<String> data = getCurrentPrompts();
         DeletePrompt delete = new DeletePrompt();
         delete.deletePrompt(data);
+      }
+    }
+  }
+
+  public void removeCompletedPrompts() {
+    for (Component c : getComponents()) {
+      if (c instanceof Prompt) {
+        if (((Prompt) c).getState()) {
+          remove(c); // remove the component
+        }
       }
     }
   }

@@ -92,8 +92,7 @@ class ConfirmationPopUp extends JFrame {
   private ConfirmHeader header;
   private ConfirmFooter footer;
   private Body body;
-
-  private MainPage m;
+  private Sidebar sidebar;
 
   private JButton acceptButton;
   private JButton cancelButton;
@@ -106,7 +105,7 @@ class ConfirmationPopUp extends JFrame {
   // mediator handles question and answer, api
   private Mediator mediator;
 
-  ConfirmationPopUp(Mediator mediator) {
+  ConfirmationPopUp(Mediator mediator, Sidebar sidebar) {
     this.setSize(400, 600); // 400 width and 600 height
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
     this.setVisible(true); // Make visible
@@ -115,6 +114,7 @@ class ConfirmationPopUp extends JFrame {
     rh = new RecordHistory();
 
     this.mediator = mediator;
+    this.sidebar = sidebar;
 
     // retrieves text from audio using whisper
     mediator.generateQuestion();
@@ -124,8 +124,7 @@ class ConfirmationPopUp extends JFrame {
     header = new ConfirmHeader();
     footer = new ConfirmFooter();
     body = new Body(question);
-    /* TODO: Get and put audio text there */
-
+    
     this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
     this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
     this.add(body, BorderLayout.CENTER); // Add list in middle of footer and title
@@ -141,11 +140,7 @@ class ConfirmationPopUp extends JFrame {
         new MouseAdapter() {
           @override
           public void mousePressed(MouseEvent e) {
-            mediator.generateAnswer();
-            mediator.updateQuestionAndAnswer();
-            rh.sendToFile(question, mediator.getAnswer(), "UserData/prompt_history.txt");
-
-
+            new RunCommands().runVoiceCommand(mediator, sidebar);
             dispose(); // Close window
           }
         });

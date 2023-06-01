@@ -44,7 +44,6 @@ public class Mediator {
 
         question = "User inputted question \n";
         answer = "Answer to user question";
-        
     }
 
     // voice recording functions
@@ -60,6 +59,9 @@ public class Mediator {
     public void stopRecording() {
         voiceRecorder.stopListening();
     }
+    public void setIsRecording(boolean r) {
+        isRecording = r;
+    }
 
     // question and answer functions
     public String getQuestion() {
@@ -74,9 +76,14 @@ public class Mediator {
     public void setAnswer(String s) {
         answer = s;
     }
-
     public String getNewQuestion() {
         return newQuestion;
+    }
+    public void setNewAnswer(String s) {
+        newAnswer = s;
+    }
+    public void setNewQuestion(String s) {
+        newQuestion = s;
     }
 
     // api calls
@@ -125,5 +132,4 @@ public class Mediator {
         question = newQuestion;
         answer = newAnswer;
     }
-
 }
