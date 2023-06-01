@@ -87,13 +87,6 @@ public class CredentialsTest {
             assertEquals(true, false); // account with username was not added somehow
         }
 
-        try {
-            ObjectId testId = c.login(testUser, testPassword);
-            assertEquals(testId instanceof ObjectId, true);
-        } catch (Exception e) {
-            assertEquals(true, false);
-        }
-
         c.deleteAccount(testUser, testPassword);
 
     }

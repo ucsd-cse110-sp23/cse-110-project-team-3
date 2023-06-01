@@ -21,7 +21,6 @@ import org.bson.types.ObjectId;
 public class Credentials {
     
     private final String uri = "mongodb+srv://k2chung:suqNIH8XW2du0NId@sayit.gzgbzwy.mongodb.net/?retryWrites=true&w=majority";
-
     public Credentials() {
         //
     }
