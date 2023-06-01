@@ -26,7 +26,7 @@ public class Credentials {
         //
     }
 
-    public void createAccount(String username, String password) {
+    public Boolean createAccount(String username, String password) {
 
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             
@@ -36,9 +36,7 @@ public class Credentials {
 
             Document doc = collection.find(eq("username", username)).first();
             if (doc != null) {
-                throw new Exception("Account with username already exists");
-            } else {
-                System.out.println("Username is free!");
+                return false;
             }
 
             // add account with username and password
@@ -47,17 +45,17 @@ public class Credentials {
             newAccount.append("password", password);
             
             collection.insertOne(newAccount);
+
+            return true;
             
         } catch (Exception e) {
             System.err.println(e);
+            return false;
         }
 
     }
 
-    public ObjectId login(String username, String password) {
-        
-        // returns _id String
-
+    public Boolean login(String username, String password) {
         try {
 
             MongoClient mongoClient = MongoClients.create(uri);
@@ -67,14 +65,15 @@ public class Credentials {
             MongoCollection<Document> collection = database.getCollection("accounts");
 
             Document doc = collection.find(eq("username", username)).first();
-
+            System.out.println(doc);
+            System.out.println(doc.get("password").equals(password));
             // check that account exists and password is correct
             if (doc != null && doc.get("password").equals(password)) {
                 // TODO: do something
                 System.out.println("Logged in successfully");
-                return doc.getObjectId("_id");
+                return true;
             } else {
-                throw new Exception("Invalid username or password");
+                return false;
             }
 
         } catch (Exception e) {
@@ -108,6 +107,11 @@ public class Credentials {
             System.err.println(e);
         }
 
+    }
+
+    public static void main(String[] args) {
+        Credentials c = new Credentials();
+        c.login("karannnnnn", "hello");
     }
 
 }

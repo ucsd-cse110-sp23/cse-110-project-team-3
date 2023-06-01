@@ -12,7 +12,7 @@ public class App {
     private static final String SERVER_HOSTNAME = "SayIt host";
 
     public static void main(String[] args) throws Exception {
-        new MainPage();
+        new AccountPage();
         new Server();
     }
 }

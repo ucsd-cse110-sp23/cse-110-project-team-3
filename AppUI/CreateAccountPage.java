@@ -69,11 +69,26 @@ class CreateAccountBody extends JPanel {
         confirmPasswordField.setBackground(new Color(255, 255, 255));
         this.add(confirmPasswordField);
     }
+
+    public JTextField getUsernameField() {
+        return usernameField;
+    }
+
+    public JTextField getPasswordField() {
+        return passwordField;
+    }
+
+    public JTextField getConfirmPasswordField() {
+        return confirmPasswordField;
+    }
+
 }
 
 class CreateAccountFooter extends JPanel {
     private JButton createAccountButton;
     private JButton backButton;
+    JLabel incorrectPasswordLabel;
+    JLabel usernameTakenLabel;
 
     CreateAccountFooter() {
         this.setPreferredSize(new Dimension(400, 60)); // Size of the footer
