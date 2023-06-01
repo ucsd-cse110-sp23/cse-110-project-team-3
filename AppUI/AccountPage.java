@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.sound.midi.Track;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +22,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+
+import Credentials.Credentials;
 
 import Mediator.Mediator;
 
@@ -89,6 +93,7 @@ class AccountFooter extends JPanel {
 }
 
 public class AccountPage extends JFrame {
+    MainPage mainPage;
     AccountHeader header;
     AccountBody body;
     AccountFooter footer;
@@ -103,6 +108,9 @@ public class AccountPage extends JFrame {
     JButton confirmButton;
     JButton backLogin;
 
+    JTextField loginField;
+    JTextField verifyField;
+
     CreateAccountHeader createAccountHeader;
     CreateAccountBody createAccountBody;
     CreateAccountFooter createAccountFooter;
@@ -110,8 +118,17 @@ public class AccountPage extends JFrame {
     JButton createButton;
     JButton backCreate;
 
+    JTextField usernameField;
+    JTextField passwordField;
+    JTextField confirmPasswordField;
+
+    AccountPopUp accountPopUp;
+
+    Credentials credentials;
+
     AccountPage() {
         OpenAccountPage();
+        credentials = new Credentials();
     }
 
     public void OpenAccountPage() {
@@ -164,6 +181,10 @@ public class AccountPage extends JFrame {
         // Add the back button to the footer
         backLogin = loginFooter.getBackButton();
 
+        // Get the text fields from the body
+        loginField = loginBody.getUsernameField();
+        verifyField = loginBody.getPasswordField();
+
         // Add listeners to the buttons
         ButtonLogicLogin();
     }
@@ -186,6 +207,11 @@ public class AccountPage extends JFrame {
         createAccountFooter = new CreateAccountFooter();
         this.add(createAccountFooter, BorderLayout.SOUTH); // Add the footer to the bottom of the window
 
+        // Get the text fields from the body
+        usernameField = createAccountBody.getUsernameField();
+        passwordField = createAccountBody.getPasswordField();
+        confirmPasswordField = createAccountBody.getConfirmPasswordField();
+
         // Add the create button to the footer
         createButton = createAccountFooter.getCreateAccountButton();
 
@@ -194,6 +220,11 @@ public class AccountPage extends JFrame {
 
         // Add listeners to the buttons
         ButtonLogicCreate();
+    }
+
+    public void openPopUp(String text) {
+        accountPopUp = new AccountPopUp(text);
+        accountPopUp.setVisible(true);
     }
 
     public void ClearPage() {
@@ -228,10 +259,37 @@ public class AccountPage extends JFrame {
         confirmButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                
+                Boolean check = credentials.login(loginField.getText(), verifyField.getText());
+                if (!check) {
+                    // Display an error message
+                    openPopUp("Username or password is incorrect, please try again!");
+                    loginField.setText("Username");
+                    verifyField.setText("Password");
+                }
+                else {
+                    ClearPage();
+                    dispose();
+                    mainPage = new MainPage();
+                    mainPage.setVisible(true);
+                    revalidate();
+                }
             }
         });
 
+        loginField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                loginField.setText("");
+            }
+        });
+
+        verifyField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                verifyField.setText("");
+            }
+        });
+        
         // Add a listener to the back button
         backLogin.addMouseListener(new MouseAdapter() {
             @Override
@@ -245,10 +303,31 @@ public class AccountPage extends JFrame {
 
     public void ButtonLogicCreate() {
         // Add a listener to the create button
-        createButton.addMouseListener(new MouseAdapter() {
+        createButton.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
-                
+                if(!passwordField.getText().equals(confirmPasswordField.getText())) {
+                    // Display an error message
+                    openPopUp("Passwords do not match, please try again!");
+                    usernameField.setText("Username");
+                    passwordField.setText("Password");
+                    confirmPasswordField.setText("Confirm Password");
+                }
+                else {
+                    boolean check = credentials.createAccount(usernameField.getText(), passwordField.getText());
+                    if (!check) {
+                        // Display an error message
+                        openPopUp("Username already exists, please try again!");
+                        usernameField.setText("Username");
+                        passwordField.setText("Password");
+                        confirmPasswordField.setText("Confirm Password");
+                    }
+                    else {
+                        ClearPage();
+                        OpenAccountPage();
+                        revalidate();
+                    }
+                }
             }
         });
 
@@ -259,6 +338,30 @@ public class AccountPage extends JFrame {
                 ClearPage();
                 OpenAccountPage();
                 revalidate();
+            }
+        });
+
+        // Add a listener to the username field
+        usernameField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                usernameField.setText("");
+            }
+        });
+
+        // Add a listener to the password field
+        passwordField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                passwordField.setText("");
+            }
+        });
+
+        // Add a listener to the confirm password field
+        confirmPasswordField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                confirmPasswordField.setText("");
             }
         });
     }
