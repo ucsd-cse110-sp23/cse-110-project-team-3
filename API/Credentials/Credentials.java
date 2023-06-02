@@ -18,12 +18,15 @@ import com.mongodb.client.MongoDatabase;
 
 import org.bson.types.ObjectId;
 
+import Mediator.*;
+
 public class Credentials {
     
+    Mediator m;
     private final String uri = "mongodb+srv://k2chung:suqNIH8XW2du0NId@sayit.gzgbzwy.mongodb.net/?retryWrites=true&w=majority";
 
-    public Credentials() {
-        //
+    public Credentials(Mediator m) {
+        this.m = m;
     }
 
     public void createAccount(String username, String password) {
@@ -70,8 +73,8 @@ public class Credentials {
 
             // check that account exists and password is correct
             if (doc != null && doc.get("password").equals(password)) {
-                // TODO: do something
                 System.out.println("Logged in successfully");
+                m.setId(doc.getObjectId("_id"));
                 return doc.getObjectId("_id");
             } else {
                 throw new Exception("Invalid username or password");
