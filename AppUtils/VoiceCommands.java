@@ -27,6 +27,18 @@ public class VoiceCommands {
     public boolean isClearAllCommand() {
         return isSameCommand(Arrays.asList("clear", "all"), input);
     }
+
+    public boolean isSendEmailCommand() {
+        return isSameCommand(Arrays.asList("send", "email"), input);
+    }
+
+    public boolean isSetupEmailCommand() {
+        return isSameCommand(Arrays.asList("setup", "email"), input);
+    }
+
+    public boolean isCreateEmailCommand() {
+        return isSameCommand(Arrays.asList("create", "email"), input);
+    }
     
     /* 
      * HELPER METHODS 
