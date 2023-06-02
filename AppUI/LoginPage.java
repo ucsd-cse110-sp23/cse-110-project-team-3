@@ -61,6 +61,14 @@ class LoginBody extends JPanel {
         passwordField.setBackground(new Color(255, 255, 255));
         this.add(passwordField);
     }
+
+    public JTextField getUsernameField() {
+        return usernameField;
+    }
+
+    public JTextField getPasswordField() {
+        return passwordField;
+    }
 }
 
 class LoginFooter extends JPanel {

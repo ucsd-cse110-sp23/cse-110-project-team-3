@@ -4,22 +4,20 @@ import java.io.*;
 import java.util.ArrayList;
 import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.swing.JScrollPane;
 
 import LoadHistory.LoadHistory;
 import Mediator.Mediator;
+import RecordHistory.RecordHistory;
 
 class Header extends JPanel {
 
-    public JButton promptHistoryButton;
+ //   public JButton promptHistoryButton;
     Color backgroundColor = new Color(240, 248, 255);
 
     Header() {
         this.setPreferredSize(new Dimension(400, 60)); // Size of the header
         this.setBackground(backgroundColor);
-
-        promptHistoryButton = new JButton("prompt history");
-        promptHistoryButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
-        this.add(promptHistoryButton);
 
         JLabel titleText = new JLabel("Saylt Assistant v1.1"); // Text of the header
 
@@ -27,10 +25,6 @@ class Header extends JPanel {
         titleText.setFont(new Font("Sans-serif", Font.BOLD, 20));
         titleText.setHorizontalAlignment(JLabel.CENTER); // Align the text to the center
         this.add(titleText); // Add the text to the header
-    }
-
-    public JButton getpromptHistoryButton() {
-        return promptHistoryButton;
     }
 }
 
@@ -61,7 +55,6 @@ class ResultUI extends JPanel{
 
 class Footer extends JPanel {
     private JButton newQuestionButton;
-    private JButton pauseButton;
     private JLabel listeningLabel;
     Color backgroundColor = new Color(240, 248, 255);
 
@@ -72,11 +65,7 @@ class Footer extends JPanel {
 
         this.setLayout(new GridLayout(2, 2));
 
-        pauseButton = new JButton("Stop Recording");
-        pauseButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
-        this.add(pauseButton);
-
-        newQuestionButton = new JButton("New Question");
+        newQuestionButton = new JButton("Start");
         newQuestionButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
         this.add(newQuestionButton);
 
@@ -97,61 +86,29 @@ class Footer extends JPanel {
     public JButton getNewQuestionButton() {
         return newQuestionButton;
     }
-
-    public JButton getPauseButton() {
-        return pauseButton;
-    }
-
 }
 
-class PromptHeader extends JPanel {
-    Color backgroundColor = new Color(240, 248, 255);
-    JButton backButton;
-
-    PromptHeader(){
-        this.setPreferredSize(new Dimension(400, 60)); // Size of the header
-        this.setBackground(backgroundColor);
-        backButton = new JButton("back");
-        this.add(backButton);
-        JLabel titleText = new JLabel("Prompt History");
-        titleText.setPreferredSize(new Dimension(200, 60));
-        titleText.setFont(new Font("Sans-serif", Font.BOLD, 20));
-        titleText.setHorizontalAlignment(JLabel.CENTER); // Align the text to the center
-        this.add(titleText); // Add the text to the header
-    }
-
-    public JButton getbackButton() {
-        return backButton;
-    }
-}
-
-class PromptFooter extends JPanel {
-    Color backgroundColor = new Color(240, 248, 255);
-    JButton clearAllButton;
-
-    PromptFooter() {
-        this.setPreferredSize(new Dimension(400, 60));
-        this.setBackground(backgroundColor);
-        clearAllButton = new JButton("clear all");
-        clearAllButton.setFont(new Font("Sans-serif", Font.ITALIC, 15));
-        this.add(clearAllButton);
-    }
-
-    public JButton getClearAllButton() {
-        return clearAllButton;
-    }
-}
-
-class PromptBody extends JPanel{
+class Sidebar extends JPanel {
+    Color backgroundColor = new Color(209, 216, 222);
     JLabel tLabel;
     PanelList list;
-    Color backgroundColor = new Color(240, 248, 255);
+    JScrollPane scroll;
 
-    PromptBody(){
+    Sidebar() {
+        this.setBackground(backgroundColor);
         this.tLabel = new JLabel();
         this.list = new PanelList();
+        this.scroll = new JScrollPane(list);
 
+        // sets scrollbar features
+        scroll.setPreferredSize(new Dimension(400, 780));
+        this.add(scroll, BorderLayout.CENTER);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        //loads prompts into bar
         for (Prompt c : list.loadPrompts()) {
+            c.setPreferredSize(new Dimension(300, 100));
             list.add(c);
             JButton doneButton = c.getDone();
             doneButton.addMouseListener(
@@ -159,35 +116,38 @@ class PromptBody extends JPanel{
                         @override
                         public void mousePressed(MouseEvent e) {
                             c.changeState();
-                            list.removeCompletedPrompts(c);
                         }
-                    });
-        }
-        repaint(); // Repaints the list
-
-        this.setPreferredSize(new Dimension(400, 400)); // Size of the body
-        this.setBackground(backgroundColor);
-
+                    }); 
+        } 
+        repaint();
         this.add(tLabel);
-        this.add(list, BorderLayout.CENTER);
-        this.setSize(400, 600); // 400 width and 600 height
-        this.setVisible(true); // Make visible
+        this.setVisible(true);
     }
+
+    public void addPrompt(String s) {
+        Prompt c = new Prompt(s);
+        c.setPreferredSize(new Dimension(300, 100));
+        list.add(c);
+        JButton doneButton = c.getDone();
+        doneButton.addMouseListener(
+                new MouseAdapter() {
+                    @override
+                    public void mousePressed(MouseEvent e) {
+                        c.changeState();
+                    }
+                });
+        repaint();
+    }
+
 }
 
 public class MainPage extends JFrame {
     private Header header;
     private Footer footer;
     private ResultUI resultUI;
-    private PromptBody promptBody;
-    private PromptHeader promptHeader;
-    private PromptFooter promptFooter;
+    private Sidebar sidebar;
 
-    private JButton pauseButton;
     private JButton newQuestionButton;
-    private JButton prompthistoryButton;
-    private JButton backButton;
-    private JButton clearAllButton;
 
     private Mediator mediator;
 
@@ -200,38 +160,16 @@ public class MainPage extends JFrame {
         header = new Header();
         footer = new Footer();
         resultUI = new ResultUI();
+        sidebar = new Sidebar();
 
         this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
         this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
         this.add(resultUI, BorderLayout.CENTER); // adds question and response to center of screen
+        this.add(sidebar, BorderLayout.WEST); // adds sidebar for prompt history
 
-        prompthistoryButton = header.getpromptHistoryButton();
-        pauseButton = footer.getPauseButton();
         newQuestionButton = footer.getNewQuestionButton();
 
         buttonLogicMain();
-    }
-
-    public void openPromptPage() {
-        this.setSize(600, 600);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
-        this.setVisible(true); // Make visible
-
-        promptBody = new PromptBody();
-        promptHeader = new PromptHeader();
-        promptFooter = new PromptFooter();
-
-        this.remove(header);
-        this.remove(footer);
-        this.remove(resultUI);
-        this.add(promptHeader, BorderLayout.NORTH);
-        this.add(promptBody, BorderLayout.CENTER);
-        this.add(promptFooter, BorderLayout.SOUTH);
-
-        backButton = promptHeader.getbackButton();
-        clearAllButton = promptFooter.getClearAllButton();
-
-        buttonLogicPrompt();
     }
 
     public void openMainPage() {
@@ -239,60 +177,28 @@ public class MainPage extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
         this.setVisible(true); // Make visible
 
-        this.remove(promptHeader);
-        this.remove(promptBody);
-        this.remove(promptFooter);
         this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
         this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
         this.add(resultUI, BorderLayout.CENTER); // adds question and response to center of screen
 
-        prompthistoryButton = header.getpromptHistoryButton();
-        pauseButton = footer.getPauseButton();
         newQuestionButton = footer.getNewQuestionButton();
     }
 
     public void buttonLogicMain() {
-        prompthistoryButton.addMouseListener(
-            new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                    openPromptPage();
-                    backButton.addMouseListener(
-                        new MouseAdapter() {
-                            public void mousePressed(MouseEvent e) {
-                                openMainPage();
-                            }
-                        }
-                    );
-                }
-            }
-        );
         footer.getNewQuestionButton().addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if (!mediator.isRecording()) {
                     startRecording();
+                    mediator.setIsRecording(true);
+                    newQuestionButton.setText("Stop");
                 }
-            }
-        });
-        footer.getPauseButton().addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                if (mediator.isRecording()) {
+                else {
                     stopRecording();
+                    mediator.setIsRecording(false);
+                    newQuestionButton.setText("Start");
                 }
             }
         });
-    }
-
-    public void buttonLogicPrompt() {
-        clearAllButton.addMouseListener(
-            new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                    ClearHistory clearHistory = new ClearHistory();
-                    clearHistory.clearHistory();
-                    promptBody.list.removeAll();
-                    promptBody.repaint();
-                }
-            }
-        );
     }
 
     // sets question text
@@ -307,12 +213,14 @@ public class MainPage extends JFrame {
         footer.getListeningLabel().setVisible(true);
         mediator.startRecording();
     }
+
     // stops recording when user clicks pause
     private void stopRecording() {
         footer.getListeningLabel().setVisible(false);
         mediator.stopRecording();
         mediator.switchIsRecording();
-        ConfirmationPopUp c = new ConfirmationPopUp(mediator);
+        ConfirmationPopUp c = new ConfirmationPopUp(mediator, sidebar);
+        
         // once c is closed
         c.addWindowListener(new WindowAdapter() {
             public void windowClosed(WindowEvent e) {
@@ -329,6 +237,11 @@ public class MainPage extends JFrame {
     public void updateUI() {
         resultUI.qLabel.setText(mediator.getQuestion());
         resultUI.aLabel.setText(mediator.getAnswer());
+    }
+
+    // get mediator
+    public Mediator getMediator() {
+        return this.mediator;
     }
 
 }

@@ -20,6 +20,9 @@ public class RecordHistory {
     }
 
     private String removeNewLines(String text) {
+        if (text == null) {
+            return "";
+        }
         char[] c = text.toCharArray();
         String result = "";
 
