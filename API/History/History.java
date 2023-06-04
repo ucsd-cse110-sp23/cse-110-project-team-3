@@ -16,6 +16,13 @@ import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.*;
+
+// to be called the moment the user logs in, and the moment the user closes the window
+
 public class History {
     
     private final String uri = "mongodb+srv://k2chung:suqNIH8XW2du0NId@sayit.gzgbzwy.mongodb.net/?retryWrites=true&w=majority";
@@ -95,6 +102,36 @@ public class History {
             System.err.println(e);
         }
 
+    }
+
+    // converts prompt_history file to string
+    public String fileToString(File f) {
+        String rVal = "";
+        try {
+            FileReader fr = new FileReader(f);
+            int i;
+            while ( (i = fr.read()) != -1 ) {
+                rVal = rVal + ((char) i);
+            }
+            fr.close();
+            return rVal;
+        } catch (Exception e) {
+            System.err.println(e);
+            return "fileToString in History.java crashed and burned";
+        }
+    }
+
+    // converts string to be put into file f
+    public void stringToFile(String historyString, File f) {
+        try {
+            FileWriter fw = new FileWriter(f);
+            for (int i = 0; i < historyString.length(); i++) {
+                fw.append(historyString.charAt(i));
+            }
+            fw.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
 }
