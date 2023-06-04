@@ -1,27 +1,17 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.sound.midi.Track;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 class EmailPopUpHeader extends JPanel {
     Color backgroundColor = new Color(240, 248, 255);
@@ -169,6 +159,19 @@ public class EmailSetUpPopUp extends JFrame {
     JButton saveButton;
     JButton cancelButton;
 
+    String firstName;
+    String lastName;
+    String displayName;
+    String emailAddress;
+    String SMTPhost;
+    String TLSport;
+    String emailPassword; 
+
+    SaveEmailPreferences emailPreferences;
+    ArrayList<String> savedEmailPreferences;
+
+  //  SaveEmailPreferences emailPreference = new SaveEmailPreferences();
+
     EmailSetUpPopUp() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(650, 450); // Size of the window
@@ -181,6 +184,8 @@ public class EmailSetUpPopUp extends JFrame {
 
         // Create the body
         body = new EmailPopUpBody();
+        emailPreferences = new SaveEmailPreferences();
+        emailPreferences.loadPreferences("Test_Files/emailpref.txt", body);
         this.add(body, BorderLayout.CENTER);
 
         // Create the footer
@@ -189,7 +194,7 @@ public class EmailSetUpPopUp extends JFrame {
 
         // Create the create account button
         saveButton = footer.getSaveButton();
-        // Create the back button
+        // Create the cancel button
         cancelButton = footer.getCancelButton();
 
         this.setVisible(true); // Make the window visible
@@ -202,7 +207,30 @@ public class EmailSetUpPopUp extends JFrame {
             new MouseAdapter() {
               @override
               public void mousePressed(MouseEvent e) {
-                //email stuff here
+                savedEmailPreferences = new ArrayList<>();
+
+                //saves user input into a string
+                firstName = body.getFirstName().getText();
+                lastName = body.getLastName().getText();
+                displayName = body.getDisplayName().getText();
+                emailAddress = body.getEmailAddress().getText();
+                SMTPhost = body.getSMTPHost().getText();
+                TLSport = body.getTLSPort().getText();
+                emailPassword = body.getEmailPassword().getText();
+
+                //saves email settings to remember
+                savedEmailPreferences.add(firstName);
+                savedEmailPreferences.add(lastName);
+                savedEmailPreferences.add(displayName);
+                savedEmailPreferences.add(emailAddress);
+                savedEmailPreferences.add(SMTPhost);
+                savedEmailPreferences.add(TLSport);
+                savedEmailPreferences.add(emailPassword);
+
+                emailPreferences.savePreferences("UserData/email_preferences.txt", savedEmailPreferences);
+
+                // sets up email
+
                 dispose(); // Close window
               }
             });
@@ -215,6 +243,7 @@ public class EmailSetUpPopUp extends JFrame {
               }
             });
     }
+    
     public static void main(String[] args) {
         new EmailSetUpPopUp();
     }
