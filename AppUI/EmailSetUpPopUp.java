@@ -185,7 +185,7 @@ public class EmailSetUpPopUp extends JFrame {
         // Create the body
         body = new EmailPopUpBody();
         emailPreferences = new SaveEmailPreferences();
-        emailPreferences.loadPreferences("Test_Files/emailpref.txt", body);
+        emailPreferences.loadPreferences("UserData/email_preferences.txt", body);
         this.add(body, BorderLayout.CENTER);
 
         // Create the footer
