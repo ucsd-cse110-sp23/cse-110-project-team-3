@@ -130,7 +130,7 @@ public class AccountPage extends JFrame {
 
     AccountPage() {
         OpenAccountPage();
-        m = mainPage.getMediator();
+        m = new Mediator();
         credentials = new Credentials(m);
     }
 
@@ -272,7 +272,7 @@ public class AccountPage extends JFrame {
                 else {
                     ClearPage();
                     dispose();
-                    mainPage = new MainPage();
+                    mainPage = new MainPage(m);
                     mainPage.setVisible(true);
                     revalidate();
                 }
