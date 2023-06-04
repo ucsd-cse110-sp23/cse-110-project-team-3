@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class UnitTests {
     }
 
     @Test
-    void testMediator() {
+    void testMediator() throws IOException{
         mediator = new Mediator();
         mediator.generateQuestion();
         mediator.generateAnswer();

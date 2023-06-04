@@ -1,8 +1,10 @@
+import java.io.IOException;
+
 import Mediator.Mediator;
 import RecordHistory.RecordHistory;
 
 class RunCommands {
-    public void runVoiceCommand(Mediator mediator, Sidebar sidebar) {
+    public void runVoiceCommand(Mediator mediator, Sidebar sidebar) throws IOException{
         mediator.updateQuestionAndAnswer();
         
         VoiceCommands vc = new VoiceCommands(mediator.getQuestion());
