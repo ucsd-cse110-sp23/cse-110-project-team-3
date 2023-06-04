@@ -85,7 +85,7 @@ class EmailPopUpBody extends JPanel {
         TLSportField.setBackground(new Color(255, 255, 255));
         this.add(TLSportField); // Add the Field to the body
 
-        //Create email password buttob 
+        // Create email password field 
         emailPasswordField = new JTextField("Email Password");
         emailPasswordField.setPreferredSize(new Dimension(200, 60));
         emailPasswordField.setFont(new Font("Sans-serif", Font.ITALIC, 20));
@@ -129,14 +129,14 @@ class EmailPopUpFooter extends JPanel {
         this.setBackground(new Color(240, 248, 255));
         this.setLayout(new GridLayout(1, 2)); // Use grid layout
 
-        // Create the create account button
+        // Create the save button
         saveButton = new JButton("Save");
         saveButton.setPreferredSize(new Dimension(200, 60));
         saveButton.setFont(new Font("Sans-serif", Font.BOLD, 20));
         saveButton.setBackground(new Color(255, 255, 255));
         this.add(saveButton);
 
-        // Create the back button
+        // Create the cancel button
         cancelButton = new JButton("Cancel");
         cancelButton.setPreferredSize(new Dimension(200, 60));
         cancelButton.setFont(new Font("Sans-serif", Font.BOLD, 20));
@@ -170,8 +170,6 @@ public class EmailSetUpPopUp extends JFrame {
     SaveEmailPreferences emailPreferences;
     ArrayList<String> savedEmailPreferences;
 
-  //  SaveEmailPreferences emailPreference = new SaveEmailPreferences();
-
     EmailSetUpPopUp() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(650, 450); // Size of the window
@@ -185,7 +183,7 @@ public class EmailSetUpPopUp extends JFrame {
         // Create the body
         body = new EmailPopUpBody();
         emailPreferences = new SaveEmailPreferences();
-        emailPreferences.loadPreferences("UserData/email_preferences.txt", body);
+        emailPreferences.loadPreferences("UserData/email_preferences.txt", body); //loads email prefrences
         this.add(body, BorderLayout.CENTER);
 
         // Create the footer

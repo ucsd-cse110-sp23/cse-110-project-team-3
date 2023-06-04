@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 
+/*
+ *  Saves and load user's email preferences to Email Setup Popup
+ */
 public class SaveEmailPreferences{
 
     // saves user's email preferences for when setting up email and puts it in text file
@@ -25,6 +28,7 @@ public class SaveEmailPreferences{
     public void loadPreferences(String fileName, EmailPopUpBody body) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            //gets fields from email pop up
             JTextField[] fields = {
                 body.getFirstName(),
                 body.getLastName(),
@@ -35,6 +39,7 @@ public class SaveEmailPreferences{
                 body.getEmailPassword()
             };
 
+            //loads information onto the the fields
             String line;
             int idx = 0;
             while ((line = reader.readLine()) != null && idx < fields.length) {
