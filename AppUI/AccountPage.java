@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import Credentials.Credentials;
+import History.History;
 
 import Mediator.Mediator;
 
@@ -273,8 +274,12 @@ public class AccountPage extends JFrame {
                     ClearPage();
                     dispose();
                     mainPage = new MainPage(m);
+                    // saves credential information to mediator
+                    m.setId(credentials.getId(loginField.getText(), verifyField.getText()));
                     mainPage.setVisible(true);
                     revalidate();
+                    // History history = new History();
+                    // String promptHistory = history.getHistory(m.getId());
                 }
             }
         });

@@ -94,10 +94,13 @@ class Sidebar extends JPanel {
     PanelList list;
     JScrollPane scroll;
 
-    Sidebar() {
+    private Mediator m;
+
+    Sidebar(Mediator m) {
+        this.m = m;
         this.setBackground(backgroundColor);
         this.tLabel = new JLabel();
-        this.list = new PanelList();
+        this.list = new PanelList(m);
         this.scroll = new JScrollPane(list);
 
         // sets scrollbar features
@@ -125,7 +128,7 @@ class Sidebar extends JPanel {
     }
 
     public void addPrompt(String s) {
-        Prompt c = new Prompt(s);
+        Prompt c = new Prompt(s, m);
         c.setPreferredSize(new Dimension(300, 100));
         list.add(c);
         JButton doneButton = c.getDone();
@@ -160,7 +163,7 @@ public class MainPage extends JFrame {
         header = new Header();
         footer = new Footer();
         resultUI = new ResultUI();
-        sidebar = new Sidebar();
+        sidebar = new Sidebar(m);
 
         this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
         this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen

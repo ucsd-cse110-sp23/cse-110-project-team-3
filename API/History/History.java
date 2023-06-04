@@ -21,7 +21,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
 
-// to be called the moment the user logs in, and the moment the user closes the window
+// to be called by LoadHistory and RecordHistory
 
 public class History {
     

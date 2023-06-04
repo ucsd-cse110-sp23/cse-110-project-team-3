@@ -87,6 +87,34 @@ public class Credentials {
 
     }
 
+    // gets id
+    public ObjectId getId(String username, String password) {
+        try {
+
+            MongoClient mongoClient = MongoClients.create(uri);
+
+            // check if account with username exists
+            MongoDatabase database = mongoClient.getDatabase("userdata");
+            MongoCollection<Document> collection = database.getCollection("accounts");
+
+            Document doc = collection.find(eq("username", username)).first();
+            System.out.println(doc);
+            System.out.println(doc.get("password").equals(password));
+            // check that account exists and password is correct
+            if (doc != null && doc.get("password").equals(password)) {
+                System.out.println("Logged in successfully");
+                m.setId(doc.getObjectId("_id"));
+                return doc.getObjectId("_id");
+            } else {
+                throw new Exception("getting id failed");
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            return null;
+        }
+    }
+
     public void deleteAccount(String username, String password) {
         
         try {
