@@ -21,7 +21,6 @@ public class RecordHistory {
             File promptHistory = new File(filePath);
             String recordToDatabase = hist.fileToString(promptHistory);
             hist.putHistory(m.getId(), recordToDatabase);
-            // TODO: delete file after done?
         } catch (IOException e) {
             System.out.println("saveToFile() not implemented");
             e.printStackTrace();
