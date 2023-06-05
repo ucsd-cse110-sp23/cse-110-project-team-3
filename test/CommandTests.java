@@ -28,6 +28,39 @@ public class CommandTests {
         assertEquals(false, vc.isDeletePromptCommand());
         assertEquals(true, vc.isClearAllCommand());
     }
+
+    @Test
+    void testSetupEmailTrue() {
+        vc = new VoiceCommands("setup email. How many chickens in a foot?");
+        assertEquals(false, vc.isQuestionCommand());
+        assertEquals(false, vc.isDeletePromptCommand());
+        assertEquals(false, vc.isClearAllCommand());
+        assertEquals(true, vc.isSetupEmailCommand());
+        assertEquals(false, vc.isSendEmailCommand());
+        assertEquals(false, vc.isCreateEmailCommand());
+    }
+
+    @Test
+    void testSendEmailTrue() {
+        vc = new VoiceCommands("send email. How many chickens in a foot?");
+        assertEquals(false, vc.isQuestionCommand());
+        assertEquals(false, vc.isDeletePromptCommand());
+        assertEquals(false, vc.isClearAllCommand());
+        assertEquals(false, vc.isSetupEmailCommand());
+        assertEquals(true, vc.isSendEmailCommand());
+        assertEquals(false, vc.isCreateEmailCommand());
+    }
+
+    @Test
+    void testCreateEmailTrue() {
+        vc = new VoiceCommands("create email. How many chickens in a foot?");
+        assertEquals(false, vc.isQuestionCommand());
+        assertEquals(false, vc.isDeletePromptCommand());
+        assertEquals(false, vc.isClearAllCommand());
+        assertEquals(false, vc.isSetupEmailCommand());
+        assertEquals(false, vc.isSendEmailCommand());
+        assertEquals(true, vc.isCreateEmailCommand());
+    }
     
     @Test
     void noInput() {
