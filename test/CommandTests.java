@@ -68,13 +68,19 @@ public class CommandTests {
         assertEquals(false, vc.isQuestionCommand());
         assertEquals(false, vc.isDeletePromptCommand());
         assertEquals(false, vc.isClearAllCommand());
+        assertEquals(false, vc.isSetupEmailCommand());
+        assertEquals(false, vc.isSendEmailCommand());
+        assertEquals(false, vc.isCreateEmailCommand());
     }
 
     @Test
-    void testNoCommand() {
+    void testBadCommand() {
         vc = new VoiceCommands("clear delete question. How many chickens in a foot?");
         assertEquals(false, vc.isQuestionCommand());
         assertEquals(false, vc.isDeletePromptCommand());
         assertEquals(false, vc.isClearAllCommand());
+        assertEquals(false, vc.isSetupEmailCommand());
+        assertEquals(false, vc.isSendEmailCommand());
+        assertEquals(false, vc.isCreateEmailCommand());
     }
 }
