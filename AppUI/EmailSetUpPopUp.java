@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Email.EmailSetup;
+
 class EmailPopUpHeader extends JPanel {
     Color backgroundColor = new Color(240, 248, 255);
 
@@ -91,6 +93,16 @@ class EmailPopUpBody extends JPanel {
         emailPasswordField.setFont(new Font("Sans-serif", Font.ITALIC, 20));
         emailPasswordField.setBackground(new Color(255, 255, 255));
         this.add(emailPasswordField); // Add the button to the body
+
+        ArrayList<JTextField> fields = new ArrayList<JTextField>();
+        fields.add(firstNameField);
+        fields.add(lastNameField);
+        fields.add(displayNameField);
+        fields.add(emailAddressField);
+        fields.add(SMTPhostField);
+        fields.add(TLSportField);  
+        fields.add(emailPasswordField);
+        addListeners(fields);
     }
 
     public JTextField getFirstName() {
@@ -115,6 +127,17 @@ class EmailPopUpBody extends JPanel {
     }
     public JTextField getEmailPassword() {
         return emailPasswordField;
+    }
+
+    public void addListeners(ArrayList<JTextField> fields) {
+        for (JTextField field : fields) {
+            field.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    field.setText("");
+                }
+            });
+        }
     }
 }
 
@@ -167,8 +190,7 @@ public class EmailSetUpPopUp extends JFrame {
     String TLSport;
     String emailPassword; 
 
-    SaveEmailPreferences emailPreferences;
-    ArrayList<String> savedEmailPreferences;
+    EmailSetup setup;
 
   //  EmailSetup newEmail;
 
@@ -184,8 +206,6 @@ public class EmailSetUpPopUp extends JFrame {
 
         // Create the body
         body = new EmailPopUpBody();
-        emailPreferences = new SaveEmailPreferences();
-        emailPreferences.loadPreferences(body); // loads email prefrences
         this.add(body, BorderLayout.CENTER);
 
         // Create the footer
@@ -207,8 +227,6 @@ public class EmailSetUpPopUp extends JFrame {
             new MouseAdapter() {
               @override
               public void mousePressed(MouseEvent e) {
-                savedEmailPreferences = new ArrayList<>();
-
                 //saves user input into a string
                 firstName = body.getFirstName().getText();
                 lastName = body.getLastName().getText();
@@ -219,15 +237,7 @@ public class EmailSetUpPopUp extends JFrame {
                 emailPassword = body.getEmailPassword().getText();
 
                 //saves email settings to remember
-                savedEmailPreferences.add(firstName);
-                savedEmailPreferences.add(lastName);
-                savedEmailPreferences.add(displayName);
-                savedEmailPreferences.add(emailAddress);
-                savedEmailPreferences.add(SMTPhost);
-                savedEmailPreferences.add(TLSport);
-                savedEmailPreferences.add(emailPassword);
-
-                emailPreferences.savePreferences(savedEmailPreferences);
+                setup = new EmailSetup(firstName, lastName, displayName, emailAddress, SMTPhost, TLSport, emailPassword);
 
                 // Need to add: sets up email
 
