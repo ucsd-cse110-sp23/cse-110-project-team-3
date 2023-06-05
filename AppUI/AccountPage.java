@@ -264,7 +264,38 @@ public class AccountPage extends JFrame {
         confirmButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Boolean check = credentials.login(loginField.getText(), verifyField.getText());
+                String answer = "false";
+                List<NameValuePair> toQuery = new ArrayList<NameValuePair>();
+                NameValuePair parameter1 = new NameValuePair("cmdType", "login");
+                NameValuePair parameter2 = new NameValuePair("username", loginField.getText());
+                NameValuePair parameter3 = new NameValuePair("password", verifyField.getText());
+
+                toQuery.add(parameter1);
+                toQuery.add(parameter2);
+                toQuery.add(parameter3);
+    
+                KeyValuePairHandler mySorter = new KeyValuePairHandler();
+                String input = "invalid input";
+                try {
+                    input = mySorter.getQuery(toQuery);
+                } catch (UnsupportedEncodingException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+                TalktoServer speaker = new TalktoServer();
+                try {
+                    answer = speaker.sendAndReceive(input);
+                    System.out.println("try answer: " + "(" + answer + ")");
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+                System.out.println("After answer: " + "(" + answer + ")");
+                Boolean check = Boolean.valueOf(answer);
+                System.out.println(check);
+                //Boolean check = credentials.login(loginField.getText(), verifyField.getText());
                 if (!check) {
                     // Display an error message
                     openPopUp("Username or password is incorrect, please try again!");

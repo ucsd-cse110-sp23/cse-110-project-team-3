@@ -94,6 +94,11 @@ public class MyHandler implements HttpHandler{
         }else if(queryInfo.get("cmdType").equals("createAcc")){
             response = credentials.createAccount(queryInfo.get("username"), queryInfo.get("password")).toString();
             System.out.println("createaccountcall: " + response);
+        }else if(queryInfo.get("cmdType").equals("login")){
+            response = credentials.login(queryInfo.get("username"), queryInfo.get("password")).toString();
+            //System.out.println("createaccountcall: " + response);
+        }else {
+            //response = credentials.deleteAccount(queryInfo.get("username"), queryInfo.get("password")).toString();
         }
         
         scanner.close();
