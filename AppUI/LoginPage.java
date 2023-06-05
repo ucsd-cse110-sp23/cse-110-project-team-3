@@ -20,6 +20,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.*;  
+import java.awt.event.*;
 
 import Mediator.Mediator;
 
@@ -41,6 +43,7 @@ class LoginHeader extends JPanel {
 class LoginBody extends JPanel {
     private JTextField usernameField;
     private JTextField passwordField;
+    JCheckBox saveLoginBox;
 
     LoginBody() {
         this.setPreferredSize(new Dimension(400, 400)); // Size of the body
@@ -60,6 +63,12 @@ class LoginBody extends JPanel {
         passwordField.setFont(new Font("Sans-serif", Font.BOLD, 20));
         passwordField.setBackground(new Color(255, 255, 255));
         this.add(passwordField);
+
+
+        // Create save loggin checkbox
+        saveLoginBox = new JCheckBox("Save Login");  
+        saveLoginBox.setBounds(100,100, 50,50);  
+        this.add(saveLoginBox); 
     }
 
     public JTextField getUsernameField() {
@@ -92,7 +101,7 @@ class LoginFooter extends JPanel {
         backButton.setPreferredSize(new Dimension(200, 60));
         backButton.setFont(new Font("Sans-serif", Font.BOLD, 20));
         backButton.setBackground(new Color(255, 255, 255));
-        this.add(backButton);
+        this.add(backButton); 
     }
     
     public JButton getConfirmButton() {
