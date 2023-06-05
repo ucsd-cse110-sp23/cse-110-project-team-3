@@ -286,15 +286,15 @@ public class AccountPage extends JFrame {
                 TalktoServer speaker = new TalktoServer();
                 try {
                     answer = speaker.sendAndReceive(input);
-                    System.out.println("try answer: " + "(" + answer + ")");
+                    //System.out.println("try answer: " + "(" + answer + ")");
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
 
-                System.out.println("After answer: " + "(" + answer + ")");
+                //System.out.println("After answer: " + "(" + answer + ")");
                 Boolean check = Boolean.valueOf(answer);
-                System.out.println(check);
+                //System.out.println(check);
                 //Boolean check = credentials.login(loginField.getText(), verifyField.getText());
                 if (!check) {
                     // Display an error message
@@ -372,15 +372,15 @@ public class AccountPage extends JFrame {
                     TalktoServer speaker = new TalktoServer();
                     try {
                         answer = speaker.sendAndReceive(input);
-                        System.out.println("try answer: " + "(" + answer + ")");
+                        //System.out.println("try answer: " + "(" + answer + ")");
                     } catch (IOException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
 
-                    System.out.println("After answer: " + "(" + answer + ")");
+                    //System.out.println("After answer: " + "(" + answer + ")");
                     Boolean check = Boolean.valueOf(answer);
-                    System.out.println(check);
+                    //System.out.println(check);
                     //boolean check = credentials.createAccount(usernameField.getText(), passwordField.getText());
                     if (!check) {
                         // Display an error message

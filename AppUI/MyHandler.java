@@ -67,10 +67,10 @@ public class MyHandler implements HttpHandler{
         //System.out.println(s);
         String[] encodedEqualVals = s.split("&");
         for(int i = 0; i< encodedEqualVals.length; i++){
-            System.out.println(encodedEqualVals[i]);
+            //System.out.println(encodedEqualVals[i]);
             toDecode = encodedEqualVals[i].split("=");
-            System.out.println(toDecode[0]);
-            System.out.println(toDecode[1]);
+            //System.out.println(toDecode[0]);
+            //System.out.println(toDecode[1]);
             toReturn.put( 
                 URLDecoder.decode(toDecode[0], "UTF-8"), 
                 URLDecoder.decode(toDecode[1], "UTF-8")
@@ -93,12 +93,10 @@ public class MyHandler implements HttpHandler{
             response = gpt.generate(queryInfo.get("question"));
         }else if(queryInfo.get("cmdType").equals("createAcc")){
             response = credentials.createAccount(queryInfo.get("username"), queryInfo.get("password")).toString();
-            System.out.println("createaccountcall: " + response);
+            //System.out.println("createaccountcall: " + response);
         }else if(queryInfo.get("cmdType").equals("login")){
             response = credentials.login(queryInfo.get("username"), queryInfo.get("password")).toString();
             //System.out.println("createaccountcall: " + response);
-        }else {
-            //response = credentials.deleteAccount(queryInfo.get("username"), queryInfo.get("password")).toString();
         }
         
         scanner.close();
@@ -106,11 +104,4 @@ public class MyHandler implements HttpHandler{
         return response;
     }
 
-    /*private boolean handleGet(HttpExchange httpExchange) throws IOException{
-        MongoClient mongoClient = MongoClients.create(uri);
-        MongoDatabase database = mongoClient.getDatabase("userdata");
-        MongoCollection<Document> collection = database.getCollection("accounts");
-
-        Document doc = collection.find(eq("username", username)).first();
-    }*/
 }

@@ -143,6 +143,7 @@ public class Mediator {
         }
     }
     */
+    
     // ui interactions
     public void updateQuestionAndAnswer() {
         question = newQuestion;
