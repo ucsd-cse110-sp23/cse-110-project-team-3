@@ -75,15 +75,10 @@ public class UnitTests {
     }
 
     @Test
-    void testMediator() {
+    void testMediator() throws IOException, NullPointerException{
         mediator = new Mediator();
         mediator.generateQuestion();
-        try {
-            mediator.generateAnswer();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        mediator.generateAnswer();
         assertEquals("User inputted question \n", mediator.getQuestion());
         assertEquals("Answer to user question", mediator.getAnswer());
         //mediator.updateQuestionAndAnswer();

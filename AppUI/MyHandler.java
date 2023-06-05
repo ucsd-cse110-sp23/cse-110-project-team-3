@@ -43,8 +43,6 @@ public class MyHandler implements HttpHandler{
         try {
             if (method.equals("POST")) {
                 response = handlePOST(httpExchange);
-            }else if( method.equals("GET")){
-                //loginresponse = handleGet(httpExchange);
             }else {
                 throw new Exception("Not Valid Request Method");
             }

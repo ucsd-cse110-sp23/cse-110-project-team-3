@@ -1,3 +1,2 @@
 
-Question, what is the shape of Italy?: invalid query
-Question, what is the shape of Italy?: Italy is generally considered to have a boot-like shape.
+Question, what is the shape of Italy?: Answer: Italy is shaped like a boot.
