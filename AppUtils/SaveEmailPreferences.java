@@ -11,9 +11,9 @@ import javax.swing.JTextField;
 public class SaveEmailPreferences{
 
     // saves user's email preferences for when setting up email and puts it in text file
-    public void savePreferences(String txt_file, ArrayList<String> preferences) {
+    public void savePreferences(ArrayList<String> preferences) {
         try {
-            FileWriter writer = new FileWriter(txt_file);
+            FileWriter writer = new FileWriter("UserData/email_preferences.txt");
             for (String line : preferences) {
                 writer.write(line + "\n");
             }
@@ -25,9 +25,9 @@ public class SaveEmailPreferences{
     }
 
     // loads user's email prefernces for when reloading into pop up in EmailSetUpPop
-    public void loadPreferences(String fileName, EmailPopUpBody body) {
+    public void loadPreferences(EmailPopUpBody body) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            BufferedReader reader = new BufferedReader(new FileReader("UserData/email_preferences.txt"));
             //gets fields from email pop up
             JTextField[] fields = {
                 body.getFirstName(),

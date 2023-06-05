@@ -170,6 +170,8 @@ public class EmailSetUpPopUp extends JFrame {
     SaveEmailPreferences emailPreferences;
     ArrayList<String> savedEmailPreferences;
 
+  //  EmailSetup newEmail;
+
     EmailSetUpPopUp() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(650, 450); // Size of the window
@@ -183,7 +185,7 @@ public class EmailSetUpPopUp extends JFrame {
         // Create the body
         body = new EmailPopUpBody();
         emailPreferences = new SaveEmailPreferences();
-        emailPreferences.loadPreferences("UserData/email_preferences.txt", body); //loads email prefrences
+        emailPreferences.loadPreferences(body); // loads email prefrences
         this.add(body, BorderLayout.CENTER);
 
         // Create the footer
@@ -225,9 +227,12 @@ public class EmailSetUpPopUp extends JFrame {
                 savedEmailPreferences.add(TLSport);
                 savedEmailPreferences.add(emailPassword);
 
-                emailPreferences.savePreferences("UserData/email_preferences.txt", savedEmailPreferences);
+                emailPreferences.savePreferences(savedEmailPreferences);
 
                 // sets up email
+             /*   newEmail = new EmailSetUPp(firstName, lastName, displayName, emailAddress, SMTPhost,
+                                            TLSport, emailPassword); */
+
 
                 dispose(); // Close window
               }
