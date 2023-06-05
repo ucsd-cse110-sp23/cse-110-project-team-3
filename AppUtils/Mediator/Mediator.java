@@ -99,18 +99,23 @@ public class Mediator {
         }
     }
     public void generateAnswer() throws IOException {
-        List<NameValuePair> toQuery = new ArrayList<NameValuePair>();
-        NameValuePair parameter1 = new NameValuePair("cmdType", "chatGpt");
-        NameValuePair parameter2 = new NameValuePair("question", newQuestion);
+        try{
+            List<NameValuePair> toQuery = new ArrayList<NameValuePair>();
+            NameValuePair parameter1 = new NameValuePair("cmdType", "chatGpt");
+            NameValuePair parameter2 = new NameValuePair("question", newQuestion);
 
-        toQuery.add(parameter1);
-        toQuery.add(parameter2);
-        
-        KeyValuePairHandler mySorter = new KeyValuePairHandler();
-        String input = mySorter.getQuery(toQuery);
+            toQuery.add(parameter1);
+            toQuery.add(parameter2);
+            
+            KeyValuePairHandler mySorter = new KeyValuePairHandler();
+            String input = mySorter.getQuery(toQuery);
 
-        TalktoServer speaker = new TalktoServer();
-        newAnswer = speaker.sendAndReceive(input);
+            TalktoServer speaker = new TalktoServer();
+            newAnswer = speaker.sendAndReceive(input);
+        }
+        catch (Exception ex) {
+            //
+        }
     }
         /*try {
             try {
@@ -143,7 +148,7 @@ public class Mediator {
         }
     }
     */
-    
+
     // ui interactions
     public void updateQuestionAndAnswer() {
         question = newQuestion;
