@@ -229,10 +229,7 @@ public class EmailSetUpPopUp extends JFrame {
 
                 emailPreferences.savePreferences(savedEmailPreferences);
 
-                // sets up email
-             /*   newEmail = new EmailSetUPp(firstName, lastName, displayName, emailAddress, SMTPhost,
-                                            TLSport, emailPassword); */
-
+                // Need to add: sets up email
 
                 dispose(); // Close window
               }
