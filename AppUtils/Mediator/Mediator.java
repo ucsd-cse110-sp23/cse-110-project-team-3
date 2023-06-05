@@ -7,6 +7,8 @@ import Whisper.*;
 import java.net.*;
 import java.io.*;
 
+import org.bson.types.ObjectId;
+
 public class Mediator {
 
     // server url
@@ -33,6 +35,9 @@ public class Mediator {
     // new question and answer variables
     private String newQuestion;
     private String newAnswer;
+
+    // user id
+    ObjectId id;
 
     public Mediator() {
 
@@ -132,4 +137,13 @@ public class Mediator {
         question = newQuestion;
         answer = newAnswer;
     }
+
+    // id 
+    public void setId(ObjectId o) {
+        this.id = o;
+    }
+    public ObjectId getId() {
+        return this.id;
+    }
+
 }

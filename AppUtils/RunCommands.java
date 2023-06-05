@@ -12,7 +12,7 @@ class RunCommands {
             mediator.generateAnswer();
             mediator.updateQuestionAndAnswer();
             RecordHistory rh = new RecordHistory();
-            rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt");
+            rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt", mediator);
             sidebar.addPrompt(mediator.getQuestion() + ": " + mediator.getAnswer());
         }
 

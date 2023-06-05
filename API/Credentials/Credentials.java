@@ -18,11 +18,15 @@ import com.mongodb.client.MongoDatabase;
 
 import org.bson.types.ObjectId;
 
+import Mediator.*;
+
 public class Credentials {
     
+    Mediator m;
     private final String uri = "mongodb+srv://k2chung:suqNIH8XW2du0NId@sayit.gzgbzwy.mongodb.net/?retryWrites=true&w=majority";
-    public Credentials() {
-        //
+
+    public Credentials(Mediator m) {
+        this.m = m;
     }
 
     public Boolean createAccount(String username, String password) {
@@ -68,9 +72,10 @@ public class Credentials {
             System.out.println(doc.get("password").equals(password));
             // check that account exists and password is correct
             if (doc != null && doc.get("password").equals(password)) {
-                // TODO: do something
                 System.out.println("Logged in successfully");
+                m.setId(doc.getObjectId("_id"));
                 return true;
+                //return doc.getObjectId("_id");
             } else {
                 return false;
             }
@@ -80,6 +85,34 @@ public class Credentials {
             return null;
         }
 
+    }
+
+    // gets id
+    public ObjectId getId(String username, String password) {
+        try {
+
+            MongoClient mongoClient = MongoClients.create(uri);
+
+            // check if account with username exists
+            MongoDatabase database = mongoClient.getDatabase("userdata");
+            MongoCollection<Document> collection = database.getCollection("accounts");
+
+            Document doc = collection.find(eq("username", username)).first();
+            System.out.println(doc);
+            System.out.println(doc.get("password").equals(password));
+            // check that account exists and password is correct
+            if (doc != null && doc.get("password").equals(password)) {
+                System.out.println("Logged in successfully");
+                m.setId(doc.getObjectId("_id"));
+                return doc.getObjectId("_id");
+            } else {
+                throw new Exception("getting id failed");
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            return null;
+        }
     }
 
     public void deleteAccount(String username, String password) {
@@ -109,7 +142,7 @@ public class Credentials {
     }
 
     public static void main(String[] args) {
-        Credentials c = new Credentials();
+        Credentials c = new Credentials(new Mediator());
         c.login("karannnnnn", "hello");
     }
 
