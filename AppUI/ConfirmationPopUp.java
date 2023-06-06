@@ -140,7 +140,12 @@ class ConfirmationPopUp extends JFrame {
         new MouseAdapter() {
           @override
           public void mousePressed(MouseEvent e) {
-            new RunCommands().runVoiceCommand(mediator, sidebar);
+            try {
+              new RunCommands().runVoiceCommand(mediator, sidebar);
+            } catch (IOException e1) {
+              // TODO Auto-generated catch block
+              e1.printStackTrace();
+            }
             dispose(); // Close window
           }
         });
