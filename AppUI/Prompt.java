@@ -6,6 +6,7 @@ import javax.sound.sampled.*;
 import javax.swing.*;
 
 import LoadHistory.LoadHistory;
+import Mediator.Mediator;
 
 class Prompt extends JPanel {
 
@@ -18,7 +19,10 @@ class Prompt extends JPanel {
 
   private boolean markedDone;
 
-  Prompt(String prompt) {
+  private Mediator m;
+
+  Prompt(String prompt, Mediator m) {
+    this.m = m;
     this.setPreferredSize(new Dimension(400, 20)); // set size of prompt
     this.setBackground(gray); // set background color of prompt
     this.setLayout(new BorderLayout()); // set layout of prompt
@@ -82,7 +86,11 @@ class PanelList extends JPanel {
 
   Color backgroundColor = new Color(240, 248, 255);
 
-  PanelList() {
+  private Mediator m;
+
+  PanelList(Mediator m) {
+    
+    this.m = m;
 
     FlowLayout layout = new FlowLayout(FlowLayout.CENTER,0, 5);
 
@@ -130,11 +138,11 @@ class PanelList extends JPanel {
    * @return an ArrayList of Prompt
    */
   public ArrayList<Prompt> loadPrompts() {
-    ArrayList<String> promptStrings = (new LoadHistory()).loadHistory("UserData/prompt_history.txt");
+    ArrayList<String> promptStrings = (new LoadHistory()).loadHistory("UserData/prompt_history.txt", m);
     ArrayList<Prompt> prompts = new ArrayList<>();
 
     for (String promptString : promptStrings) {
-      Prompt prompt = new Prompt(promptString);
+      Prompt prompt = new Prompt(promptString, m);
       prompts.add(prompt);
     }
 

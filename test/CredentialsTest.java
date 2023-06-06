@@ -16,6 +16,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import Credentials.*;
+import Mediator.*;
 
 import org.bson.types.ObjectId;
 
@@ -27,7 +28,7 @@ public class CredentialsTest {
     MongoClient mongoClient = MongoClients.create(uri);
     MongoDatabase database = mongoClient.getDatabase("userdata");
     MongoCollection<Document> collection = database.getCollection("accounts");
-    Credentials c = new Credentials();
+    Credentials c = new Credentials(new Mediator());
 
     String testUser = "kimchung";
     String testPassword = "Kelvin273";

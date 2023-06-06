@@ -1,8 +1,10 @@
+import java.io.IOException;
+
 import Mediator.Mediator;
 import RecordHistory.RecordHistory;
 
 class RunCommands {
-    public void runVoiceCommand(Mediator mediator, Sidebar sidebar) {
+    public void runVoiceCommand(Mediator mediator, Sidebar sidebar) throws IOException{
         mediator.updateQuestionAndAnswer();
         
         VoiceCommands vc = new VoiceCommands(mediator.getQuestion());
@@ -12,7 +14,7 @@ class RunCommands {
             mediator.generateAnswer();
             mediator.updateQuestionAndAnswer();
             RecordHistory rh = new RecordHistory();
-            rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt");
+            rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt", mediator);
             sidebar.addPrompt(mediator.getQuestion() + ": " + mediator.getAnswer());
         }
 

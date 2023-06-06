@@ -6,14 +6,23 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import Mediator.Mediator;
+import History.History;
+import java.io.File;
+
 public class LoadHistory {
     /*
      * Gets ArrayList of Strings where each element is and answer-prompt formatted as
      * [Prompt]: [Answer]
      */
-    public ArrayList<String> loadHistory(String filePath) {
+    public ArrayList<String> loadHistory(String filePath, Mediator m) {
         ArrayList<String> history = new ArrayList<>();
         try {
+            // TODO: test if this even works lmao
+            History histAPI = new History();
+            String histString = histAPI.getHistory(m.getId());
+            histAPI.stringToFile(histString, new File(filePath));
+            //
             BufferedReader reader;
             reader = new BufferedReader(new FileReader(filePath));
             String line;
@@ -39,7 +48,7 @@ public class LoadHistory {
 
     public static void main(String[] args) {
         LoadHistory lh = new LoadHistory();
-        System.out.println(lh.loadHistory("Test_Files/test_prompt.txt"));
+        System.out.println(lh.loadHistory("Test_Files/test_prompt.txt", new Mediator()));
     }
     
 }
