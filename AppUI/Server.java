@@ -12,6 +12,7 @@ import java.util.concurrent.*;
 public class Server {
     private static final int SERVER_PORT = 8101;
     private static final String SERVER_HOSTNAME = "localhost";
+    private final Mediator m = new Mediator();
     
     Server() throws IOException{
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
@@ -23,7 +24,7 @@ public class Server {
             0
         );
 
-        server.createContext("/", new MyHandler(history));
+        server.createContext("/", new MyHandler(history, m));
         server.setExecutor(threadPoolExecutor);
         server.start();
 
