@@ -5,7 +5,11 @@ import VoiceRecorder.VoiceRecorder;
 import GPT.*;
 import Whisper.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import java.io.*;
+import NameValuePair.*;
 
 import org.bson.types.ObjectId;
 
@@ -99,9 +103,26 @@ public class Mediator {
             //
         }
     }
-    public void generateAnswer() {
-        try {
-            //newAnswer = gpt.generate(newQuestion);
+    public void generateAnswer() throws IOException {
+        try{
+            List<NameValuePair> toQuery = new ArrayList<NameValuePair>();
+            NameValuePair parameter1 = new NameValuePair("cmdType", "chatGpt");
+            NameValuePair parameter2 = new NameValuePair("question", newQuestion);
+
+            toQuery.add(parameter1);
+            toQuery.add(parameter2);
+            
+            KeyValuePairHandler mySorter = new KeyValuePairHandler();
+            String input = mySorter.getQuery(toQuery);
+
+            TalktoServer speaker = new TalktoServer();
+            newAnswer = speaker.sendAndReceive(input);
+        }
+        catch (Exception ex) {
+            //
+        }
+    }
+        /*try {
             try {
                 URL url = new URL(URL);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -131,6 +152,7 @@ public class Mediator {
             //
         }
     }
+    */
 
     // ui interactions
     public void updateQuestionAndAnswer() {
