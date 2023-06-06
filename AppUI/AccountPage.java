@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -155,6 +156,27 @@ public class AccountPage extends JFrame {
 
         // Add listeners to the buttons
         ButtonLogicAccount();
+    }
+
+    public void AutomaticLogin() {
+        
+    }
+
+    public void LoginMediator() {
+        File userdatafile = new File("./UserData/user_login_info.txt");
+        
+        if (!userdatafile.exists()) { // txt file doesnt exist
+            OpenLoginPage();
+            return;
+        }
+
+        SavedLoginInfo savedLoginInfo = new SavedLoginInfo();
+        ArrayList<String> elements = savedLoginInfo.loadLogin();
+        if (elements.get(0) == "false") {
+            OpenLoginPage();
+        } else {
+            AutomaticLogin();
+        }
     }
 
     public void OpenLoginPage() {

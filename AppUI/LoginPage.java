@@ -43,7 +43,7 @@ class LoginHeader extends JPanel {
 class LoginBody extends JPanel {
     private JTextField usernameField;
     private JTextField passwordField;
-    JCheckBox saveLoginBox;
+    private JCheckBox saveLoginBox;
 
     LoginBody() {
         this.setPreferredSize(new Dimension(400, 400)); // Size of the body
@@ -64,7 +64,6 @@ class LoginBody extends JPanel {
         passwordField.setBackground(new Color(255, 255, 255));
         this.add(passwordField);
 
-
         // Create save loggin checkbox
         saveLoginBox = new JCheckBox("Save Login");  
         saveLoginBox.setBounds(100,100, 50,50);  
@@ -77,6 +76,10 @@ class LoginBody extends JPanel {
 
     public JTextField getPasswordField() {
         return passwordField;
+    }
+
+    public JCheckBox getSaveLoginBox() {
+        return saveLoginBox;
     }
 }
 
