@@ -12,7 +12,7 @@ import java.util.concurrent.*;
 public class Server {
     private static final int SERVER_PORT = 8101;
     private static final String SERVER_HOSTNAME = "localhost";
-    Mediator m = new Mediator();
+    private final Mediator m = new Mediator();
     
     Server() throws IOException{
         ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(10);
