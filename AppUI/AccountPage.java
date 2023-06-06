@@ -158,27 +158,6 @@ public class AccountPage extends JFrame {
         ButtonLogicAccount();
     }
 
-    public void AutomaticLogin() {
-        
-    }
-
-    public void LoginMediator() {
-        File userdatafile = new File("./UserData/user_login_info.txt");
-        
-        if (!userdatafile.exists()) { // txt file doesnt exist
-            OpenLoginPage();
-            return;
-        }
-
-        SavedLoginInfo savedLoginInfo = new SavedLoginInfo();
-        ArrayList<String> elements = savedLoginInfo.loadLogin();
-        if (elements.get(0) == "false") {
-            OpenLoginPage();
-        } else {
-            AutomaticLogin();
-        }
-    }
-
     public void OpenLoginPage() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 600); // Size of the window
@@ -254,14 +233,55 @@ public class AccountPage extends JFrame {
         this.repaint();
     }
 
+    /**
+     * Automatically login if login is saved else go to normal login page
+     */
+    public void SavedLoginMediator() {
+        File userdatafile = new File("./UserData/user_login_info.txt");
+        
+        if (!userdatafile.exists()) { // txt file doesnt exist
+            OpenLoginPage();
+            return;
+        }
+    
+        SavedLoginInfo savedLoginInfo = new SavedLoginInfo();
+        ArrayList<String> elements = savedLoginInfo.loadLogin();
+        if (elements.size() == 0) {
+            OpenLoginPage();
+            revalidate();
+        }
+        else if (!elements.get(0).equals("true")) {
+            OpenLoginPage();
+            revalidate();
+        } else {
+            AutomaticLogin(elements.get(1), elements.get(2));
+        }
+    }
+    
+    public void AutomaticLogin(String username, String password) {
+        Boolean check = credentials.login(username, password);
+        if (!check) {
+            // Display an error message
+            openPopUp("Saved username or password is incorrect, please try again!");
+            OpenLoginPage();
+            revalidate();
+        }
+        else {
+            ClearPage();
+            dispose();
+            mainPage = new MainPage();
+            mainPage.setVisible(true);
+            revalidate();
+        }
+    }
+
     public void ButtonLogicAccount() {
         // Add a listener to the login button
         loginButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 ClearPage();
-                OpenLoginPage(); // Open the login page
-                revalidate();
+                SavedLoginMediator();
             }
         });
 
@@ -289,6 +309,11 @@ public class AccountPage extends JFrame {
                     verifyField.setText("Password");
                 }
                 else {
+                    if (loginBody.getSaveLoginBox().isSelected()) {
+                        SavedLoginInfo saveLoginInfo = new SavedLoginInfo(loginBody);
+                        saveLoginInfo.saveLogin();
+                    }
+
                     ClearPage();
                     dispose();
                     mainPage = new MainPage();
