@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Email.EmailSetup;
+import Mediator.Mediator;
 
 class EmailPopUpHeader extends JPanel {
     Color backgroundColor = new Color(240, 248, 255);
@@ -176,6 +177,7 @@ class EmailPopUpFooter extends JPanel {
     }
 }
 public class EmailSetUpPopUp extends JFrame {
+    Mediator mediator;
     EmailPopUpHeader header;
     EmailPopUpBody body;
     EmailPopUpFooter footer;
@@ -194,7 +196,8 @@ public class EmailSetUpPopUp extends JFrame {
 
   //  EmailSetup newEmail;
 
-    EmailSetUpPopUp() {
+    EmailSetUpPopUp(Mediator mediator) {
+        this.mediator = mediator;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(650, 450); // Size of the window
         this.setLocationRelativeTo(null); // Center the window
@@ -237,7 +240,7 @@ public class EmailSetUpPopUp extends JFrame {
                 emailPassword = body.getEmailPassword().getText();
 
                 //saves email settings to remember
-                setup = new EmailSetup(firstName, lastName, displayName, emailAddress, SMTPhost, TLSport, emailPassword);
+                setup = new EmailSetup(firstName, lastName, displayName, emailAddress, SMTPhost, TLSport, emailPassword, mediator);
 
                 // Need to add: sets up email
 
@@ -252,9 +255,5 @@ public class EmailSetUpPopUp extends JFrame {
                 dispose(); // Close window
               }
             });
-    }
-    
-    public static void main(String[] args) {
-        new EmailSetUpPopUp();
     }
 }
