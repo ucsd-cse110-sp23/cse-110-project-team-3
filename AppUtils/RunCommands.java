@@ -50,7 +50,7 @@ class RunCommands {
         else if (vc.isSetupEmailCommand()) {
             mediator.setNewAnswer("");
             mediator.updateQuestionAndAnswer();
-            /* TODO: call email popup, update user data */
+            new EmailSetUpPopUp();
         }
 
         /* Create Email Command */ 
@@ -58,7 +58,7 @@ class RunCommands {
             mediator.generateAnswer();
             mediator.updateQuestionAndAnswer();
             RecordHistory rh = new RecordHistory();
-            rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt");
+            rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt", mediator);
             sidebar.addPrompt(mediator.getQuestion() + ": " + mediator.getAnswer());
         }
         
