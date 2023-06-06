@@ -293,7 +293,7 @@ public class AccountPage extends JFrame {
                     //System.out.println("try answer: " + "(" + answer + ")");
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                    System.out.println("Server is down");
                 }
 
                 //System.out.println("After answer: " + "(" + answer + ")");
@@ -383,7 +383,7 @@ public class AccountPage extends JFrame {
                         //System.out.println("try answer: " + "(" + answer + ")");
                     } catch (IOException e1) {
                         // TODO Auto-generated catch block
-                        e1.printStackTrace();
+                        System.out.println("Server is down");
                     }
 
                     //System.out.println("After answer: " + "(" + answer + ")");

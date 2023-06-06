@@ -17,6 +17,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import Mediator.Mediator;
 
 import org.bson.types.ObjectId;
 
@@ -28,10 +29,10 @@ public class MyHandler implements HttpHandler{
 
     private final String uri = "mongodb+srv://k2chung:suqNIH8XW2du0NId@sayit.gzgbzwy.mongodb.net/?retryWrites=true&w=majority";
 
-    MyHandler(ArrayList<String> history){
+    MyHandler(ArrayList<String> history, Mediator m){
         this.history = history;
         gpt = new GPT();
-        credentials = new Credentials();
+        credentials = new Credentials(m);
     }
 
     public void handle(HttpExchange httpExchange) throws IOException{
