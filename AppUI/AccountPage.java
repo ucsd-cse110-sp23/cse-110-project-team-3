@@ -29,12 +29,11 @@ import javax.swing.border.Border;
 import java.util.List;
 
 import NameValuePair.*;
-
+import ServerPopup.ServerPopup;
 import Credentials.Credentials;
 import History.History;
 
 import Mediator.Mediator;
-import Mediator.ServerPopup;
 
 
 /**
