@@ -21,6 +21,8 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     
     implementation files("lib/json-20230227.jar")
+    implementation files("lib/javax.mail.jar")
+    implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
     implementation 'org.mongodb:mongodb-driver-sync:4.9.1'
 }
 
