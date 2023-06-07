@@ -64,11 +64,12 @@ class RunCommands {
         
         /* Error Statement */ 
         else {
-            mediator.setNewQuestion("Error: bad command");
+            mediator.setNewQuestion("Error: bad command, you said, \"" + mediator.getNewQuestion() + "\"");
             mediator.setNewAnswer("Valid Commands: " +
                                   "Question [your question here], " +
                                   "Delete prompt, " + 
-                                  "Clear all");
+                                  "Clear all, " + 
+                                  "Set up email");
             mediator.updateQuestionAndAnswer();
         }
     }
