@@ -44,24 +44,6 @@ public class EmailSetup {
 
         // for each entry in the map, update the corresponding field in the mongoDB document
         ObjectId id = m.getId();
-        // try (MongoClient mongoClient = MongoClients.create(uri)) {
-        //     MongoDatabase database = mongoClient.getDatabase(emailData.getKey());
-        //     MongoCollection<Document> collection = database.getCollection("email");
-
-        //     Document doc = collection.find(eq("_id", id)).first();
-
-        //     if (doc == null) {
-        //         Document newHistory = new Document("_id", id);
-        //         newHistory.append("text", entry.getValue());
-        //         collection.insertOne(newHistory);
-        //     } else {
-        //         Bson update = Updates.set("text", entry.getValue());
-        //         collection.updateOne(doc, update);
-        //     }
-
-        // } catch (Exception e) {
-        //     System.err.println(e);
-        // }
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             
             // check if account with username already exists
