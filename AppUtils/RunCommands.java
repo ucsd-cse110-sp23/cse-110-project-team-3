@@ -50,7 +50,7 @@ class RunCommands {
         else if (vc.isSetupEmailCommand()) {
             mediator.setNewAnswer("");
             mediator.updateQuestionAndAnswer();
-            new EmailSetUpPopUp();
+            new EmailSetUpPopUp(mediator);
         }
 
         /* Create Email Command */ 
