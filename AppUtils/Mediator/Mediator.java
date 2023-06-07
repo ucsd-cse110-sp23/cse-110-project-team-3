@@ -10,7 +10,6 @@ import java.util.List;
 
 import java.io.*;
 import NameValuePair.*;
-
 import org.bson.types.ObjectId;
 
 public class Mediator {
@@ -119,7 +118,7 @@ public class Mediator {
             newAnswer = speaker.sendAndReceive(input);
         }
         catch (Exception ex) {
-            System.out.println("Server is down");
+            new ServerPopup();
         }
     }
         /*try {

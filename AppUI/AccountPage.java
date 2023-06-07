@@ -25,6 +25,7 @@ import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+
 import java.util.List;
 
 import NameValuePair.*;
@@ -335,7 +336,7 @@ public class AccountPage extends JFrame {
                     //System.out.println("try answer: " + "(" + answer + ")");
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
-                    System.out.println("Server is down");
+                    
                 }
 
                 //System.out.println("After answer: " + "(" + answer + ")");
@@ -430,7 +431,7 @@ public class AccountPage extends JFrame {
                         //System.out.println("try answer: " + "(" + answer + ")");
                     } catch (IOException e1) {
                         // TODO Auto-generated catch block
-                        System.out.println("Server is down");
+                        
                     }
 
                     //System.out.println("After answer: " + "(" + answer + ")");
