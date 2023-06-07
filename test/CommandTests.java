@@ -38,6 +38,14 @@ public class CommandTests {
         assertEquals(true, vc.isSetupEmailCommand());
         assertEquals(false, vc.isSendEmailCommand());
         assertEquals(false, vc.isCreateEmailCommand());
+
+        vc = new VoiceCommands("set up email. How many chickens in a foot?");
+        assertEquals(false, vc.isQuestionCommand());
+        assertEquals(false, vc.isDeletePromptCommand());
+        assertEquals(false, vc.isClearAllCommand());
+        assertEquals(true, vc.isSetupEmailCommand());
+        assertEquals(false, vc.isSendEmailCommand());
+        assertEquals(false, vc.isCreateEmailCommand());
     }
 
     @Test
