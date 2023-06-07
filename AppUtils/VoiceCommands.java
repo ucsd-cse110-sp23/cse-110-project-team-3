@@ -6,7 +6,7 @@ import java.util.List;
  * Purpose: For checking if a string input starts with a certain command
  */
 public class VoiceCommands {
-    private int maxCommandSize = 2;
+    private int maxCommandSize = 3;
     List<String> input;
     
     /*
@@ -26,6 +26,19 @@ public class VoiceCommands {
 
     public boolean isClearAllCommand() {
         return isSameCommand(Arrays.asList("clear", "all"), input);
+    }
+
+    public boolean isSendEmailCommand() {
+        return isSameCommand(Arrays.asList("send", "email"), input);
+    }
+
+    public boolean isSetupEmailCommand() {
+        return isSameCommand(Arrays.asList("setup", "email"), input) || 
+               isSameCommand(Arrays.asList("set", "up", "email"), input);
+    }
+
+    public boolean isCreateEmailCommand() {
+        return isSameCommand(Arrays.asList("create", "email"), input);
     }
     
     /* 
@@ -59,7 +72,6 @@ public class VoiceCommands {
     private List<String> firstFewWords(String s) {
         s = s.toLowerCase();
         List<String> words = Arrays.asList(s.split(" "));
-        // TODO, if there are empty spaces before first word, array becomes ["", "", "firstword"]
 
         for (int i = 0; i < words.size(); i++) {
             words.set(i, removeNonAlphabet(words.get(i)));

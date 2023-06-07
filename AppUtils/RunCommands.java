@@ -9,7 +9,7 @@ class RunCommands {
         
         VoiceCommands vc = new VoiceCommands(mediator.getQuestion());
         
-        // if command is "question"
+        /* Question Command */
         if (vc.isQuestionCommand()) {
             mediator.generateAnswer();
             mediator.updateQuestionAndAnswer();
@@ -18,7 +18,7 @@ class RunCommands {
             sidebar.addPrompt(mediator.getQuestion() + ": " + mediator.getAnswer());
         }
 
-        // if command is "delete prompt"
+        /* Delete Prompt Command */
         else if (vc.isDeletePromptCommand()) { 
             mediator.setNewAnswer("");
             mediator.updateQuestionAndAnswer();
@@ -28,7 +28,7 @@ class RunCommands {
             sidebar.repaint();
         }
 
-        // if command is clear all
+        /* Clear All Command */
         else if (vc.isClearAllCommand()) {
             mediator.setNewAnswer("");
             mediator.updateQuestionAndAnswer();
@@ -37,13 +37,39 @@ class RunCommands {
             sidebar.list.removeAll();
             sidebar.repaint();
         } 
+
+        /* Send Email Command */
+        else if (vc.isSendEmailCommand()) {
+            mediator.setNewAnswer("");
+            mediator.updateQuestionAndAnswer();
+            PanelList list = sidebar.list;
+            /* TODO: send selected emails */
+        }
+
+        /* Setup Email Command */ 
+        else if (vc.isSetupEmailCommand()) {
+            mediator.setNewAnswer("");
+            mediator.updateQuestionAndAnswer();
+            new EmailSetUpPopUp();
+        }
+
+        /* Create Email Command */ 
+        else if (vc.isCreateEmailCommand()) {
+            mediator.generateAnswer();
+            mediator.updateQuestionAndAnswer();
+            RecordHistory rh = new RecordHistory();
+            rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt", mediator);
+            sidebar.addPrompt(mediator.getQuestion() + ": " + mediator.getAnswer());
+        }
         
+        /* Error Statement */ 
         else {
-            mediator.setNewQuestion("Error: bad command");
+            mediator.setNewQuestion("Error: bad command, you said, \"" + mediator.getNewQuestion() + "\"");
             mediator.setNewAnswer("Valid Commands: " +
                                   "Question [your question here], " +
                                   "Delete prompt, " + 
-                                  "Clear all");
+                                  "Clear all, " + 
+                                  "Set up email");
             mediator.updateQuestionAndAnswer();
         }
     }
