@@ -278,8 +278,7 @@ public class AccountPage extends JFrame {
         else {
             ClearPage();
             dispose();
-            Mediator mediator = new Mediator();
-            mainPage = new MainPage(mediator);
+            mainPage = new MainPage(m);
             mainPage.setVisible(true);
             revalidate();
         }
