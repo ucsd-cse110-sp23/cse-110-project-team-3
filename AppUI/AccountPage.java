@@ -336,7 +336,7 @@ public class AccountPage extends JFrame {
                     //System.out.println("try answer: " + "(" + answer + ")");
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
-                    new ServerPopup();
+                    //new ServerPopup();
                 }
 
                 //System.out.println("After answer: " + "(" + answer + ")");
@@ -431,7 +431,7 @@ public class AccountPage extends JFrame {
                         //System.out.println("try answer: " + "(" + answer + ")");
                     } catch (IOException e1) {
                         // TODO Auto-generated catch block
-                        new ServerPopup();
+                        //new ServerPopup();
                     }
 
                     //System.out.println("After answer: " + "(" + answer + ")");

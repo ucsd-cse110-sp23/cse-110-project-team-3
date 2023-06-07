@@ -120,7 +120,7 @@ public class Mediator {
             newAnswer = speaker.sendAndReceive(input);
         }
         catch (Exception ex) {
-            new ServerPopup();
+            //new ServerPopup();
         }
     }
         /*try {
