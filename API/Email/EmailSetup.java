@@ -19,11 +19,10 @@ import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 
 import Mediator.Mediator;
+import EmailData.EmailData;
 
 
 public class EmailSetup {
-    private final String uri = "mongodb+srv://k2chung:suqNIH8XW2du0NId@sayit.gzgbzwy.mongodb.net/?retryWrites=true&w=majority";
-
     String firstName;
     String lastName;
     String displayName;
@@ -40,38 +39,11 @@ public class EmailSetup {
         this.SMTP = SMTP;
         this.TLS = TLS;
         this.password = password;
-        Map<String, String> emailData = Map.of("firstName", firstName, "lastName", lastName, "displayName", displayName, "email", email, "SMTP", SMTP, "TLS", TLS, "password", password);
 
         // for each entry in the map, update the corresponding field in the mongoDB document
         ObjectId id = m.getId();
-        try (MongoClient mongoClient = MongoClients.create(uri)) {
-            
-            // check if account with username already exists
-            MongoDatabase database = mongoClient.getDatabase("userdata");
-            MongoCollection<Document> collection = database.getCollection("email");
-
-            Document doc = collection.find(eq("_id", id)).first();
-
-            // resets email if it already exists
-            if (doc != null) {
-                collection.deleteOne(doc);
-            }
-
-            // add account with username and password
-            Document newEmail = new Document("_id", id);
-            newEmail.append("firstName", firstName);
-            newEmail.append("lastName", lastName);
-            newEmail.append("displayName", displayName);
-            newEmail.append("email", email);
-            newEmail.append("SMTP", SMTP);
-            newEmail.append("TLS", TLS);
-            newEmail.append("password", password);
-            
-            collection.insertOne(newEmail);
-            
-        } catch (Exception e) {
-            System.err.println(e);
-        }
+        EmailData emailData = new EmailData();
+        emailData.setEmailData(firstName, lastName, displayName, email, SMTP, TLS, password, id);
     }
 
     public String getFirstName() {
