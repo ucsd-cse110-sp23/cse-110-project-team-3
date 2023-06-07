@@ -279,7 +279,7 @@ public class AccountPage extends JFrame {
         else {
             ClearPage();
             dispose();
-            mainPage = new MainPage();
+            mainPage = new MainPage(m);
             mainPage.setVisible(true);
             revalidate();
         }

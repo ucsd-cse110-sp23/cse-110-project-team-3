@@ -43,26 +43,34 @@ public class EmailSetup {
         Map<String, String> emailData = Map.of("firstName", firstName, "lastName", lastName, "displayName", displayName, "email", email, "SMTP", SMTP, "TLS", TLS, "password", password);
 
         // for each entry in the map, update the corresponding field in the mongoDB document
-        for(Map.Entry<String, String> entry : emailData.entrySet()) {
-            ObjectId id = m.getId();
-            try (MongoClient mongoClient = MongoClients.create(uri)) {
-                MongoDatabase database = mongoClient.getDatabase(entry.getKey());
-                MongoCollection<Document> collection = database.getCollection("histories");
+        ObjectId id = m.getId();
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            
+            // check if account with username already exists
+            MongoDatabase database = mongoClient.getDatabase("userdata");
+            MongoCollection<Document> collection = database.getCollection("email");
 
-                Document doc = collection.find(eq("_id", id)).first();
+            Document doc = collection.find(eq("_id", id)).first();
 
-                if (doc == null) {
-                    Document newHistory = new Document("_id", id);
-                    newHistory.append("text", entry.getValue());
-                    collection.insertOne(newHistory);
-                } else {
-                    Bson update = Updates.set("text", entry.getValue());
-                    collection.updateOne(doc, update);
-                }
-
-            } catch (Exception e) {
-                System.err.println(e);
+            // resets email if it already exists
+            if (doc != null) {
+                collection.deleteOne(doc);
             }
+
+            // add account with username and password
+            Document newEmail = new Document("_id", id);
+            newEmail.append("firstName", firstName);
+            newEmail.append("lastName", lastName);
+            newEmail.append("displayName", displayName);
+            newEmail.append("email", email);
+            newEmail.append("SMTP", SMTP);
+            newEmail.append("TLS", TLS);
+            newEmail.append("password", password);
+            
+            collection.insertOne(newEmail);
+            
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
 
