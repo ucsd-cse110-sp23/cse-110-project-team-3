@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import LoadHistory.LoadHistory;
 import Mediator.Mediator;
 import RecordHistory.RecordHistory;
+import History.History;
 
 class Header extends JPanel {
 
@@ -174,6 +175,19 @@ public class MainPage extends JFrame {
         newQuestionButton = footer.getNewQuestionButton();
 
         buttonLogicMain();
+
+        // does things when window is closed
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                History history = new History();
+                history.putHistory(m.getId(), history.fileToString(new File("UserData/prompt_history.txt")));
+            }
+            public void windowClosing(WindowEvent e) {
+                History history = new History();
+                history.putHistory(m.getId(), history.fileToString(new File("UserData/prompt_history.txt")));
+            }
+        });
+
     }
 
     public void openMainPage() {
