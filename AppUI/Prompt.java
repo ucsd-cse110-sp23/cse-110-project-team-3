@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
+import Email.SendEmail;
 import LoadHistory.LoadHistory;
 import Mediator.Mediator;
 
@@ -127,6 +128,22 @@ class PanelList extends JPanel {
       if (c instanceof Prompt) {
         if (((Prompt) c).getState()) {
           remove(c); // remove the component
+        }
+      }
+    }
+  }
+
+  public void sendSelectedEmail(String toAddress) {
+    for (Component c : getComponents()) {
+      if (c instanceof Prompt) {
+        if (((Prompt) c).getState()) {
+          SendEmail sendEmail = new SendEmail(m);
+          boolean isSent = sendEmail.compose(toAddress, "Email for you", ((Prompt) c).promptName.getText());
+          if (isSent) {
+            remove(c); // remove the component
+          } else {
+            new EmailErrorPopUp();
+          }
         }
       }
     }

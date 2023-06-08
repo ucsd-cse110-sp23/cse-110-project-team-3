@@ -163,7 +163,7 @@ public class MainPage extends JFrame {
         header = new Header();
         footer = new Footer();
         resultUI = new ResultUI();
-        sidebar = new Sidebar(m);
+        sidebar = new Sidebar(mediator);
 
         this.add(header, BorderLayout.NORTH); // Add title bar on top of the screen
         this.add(footer, BorderLayout.SOUTH); // Add footer on bottom of the screen
