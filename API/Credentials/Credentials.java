@@ -68,8 +68,6 @@ public class Credentials {
             MongoCollection<Document> collection = database.getCollection("accounts");
 
             Document doc = collection.find(eq("username", username)).first();
-            System.out.println(doc);
-            System.out.println(doc.get("password").equals(password));
             // check that account exists and password is correct
             if (doc != null && doc.get("password").equals(password)) {
                 System.out.println("Logged in successfully");
@@ -98,8 +96,6 @@ public class Credentials {
             MongoCollection<Document> collection = database.getCollection("accounts");
 
             Document doc = collection.find(eq("username", username)).first();
-            System.out.println(doc);
-            System.out.println(doc.get("password").equals(password));
             // check that account exists and password is correct
             if (doc != null && doc.get("password").equals(password)) {
                 System.out.println("Logged in successfully");
@@ -140,10 +136,4 @@ public class Credentials {
         }
 
     }
-
-    public static void main(String[] args) {
-        Credentials c = new Credentials(new Mediator());
-        c.login("karannnnnn", "hello");
-    }
-
 }
