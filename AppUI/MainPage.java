@@ -156,7 +156,8 @@ public class MainPage extends JFrame {
 
     MainPage(Mediator m){
         mediator = m;
-        this.setSize(600, 600);
+        this.setSize(1000, 1000);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
         this.setVisible(true); // Make visible
 
@@ -176,7 +177,8 @@ public class MainPage extends JFrame {
     }
 
     public void openMainPage() {
-        this.setSize(600, 600);
+        this.setSize(1000, 1000);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close on exit
         this.setVisible(true); // Make visible
 

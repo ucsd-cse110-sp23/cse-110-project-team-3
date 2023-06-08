@@ -142,7 +142,7 @@ public class AccountPage extends JFrame {
     }
 
     public void OpenAccountPage() {
-        this.setSize(600, 600); // Size of the window
+        this.setSize(1000, 1000); // Size of the window
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close the program when the window is closed
         this.setLocationRelativeTo(null); // Center the window on the screen
         this.setVisible(true); // Make the window visible
@@ -169,7 +169,7 @@ public class AccountPage extends JFrame {
 
     public void OpenLoginPage() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(600, 600); // Size of the window
+        this.setSize(1000, 1000); // Size of the window
         this.setLocationRelativeTo(null); // Center the window
         this.setVisible(true); // Make the window visible
 
@@ -201,7 +201,7 @@ public class AccountPage extends JFrame {
 
     public void OpenSignupPage() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(600, 600); // Size of the window
+        this.setSize(1000, 1000); // Size of the window
         this.setLocationRelativeTo(null); // Center the window
         this.setVisible(true); // Make the window visible
 
