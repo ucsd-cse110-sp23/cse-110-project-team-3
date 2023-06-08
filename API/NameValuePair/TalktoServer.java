@@ -2,6 +2,8 @@ package NameValuePair;
 import java.io.*;
 import java.net.*;
 
+import ServerPopup.ServerPopup;
+
 public class TalktoServer {
     public final String URL = "http://localhost:8101/";
     URL url;
@@ -18,7 +20,7 @@ public class TalktoServer {
 
     public String sendAndReceive(String input) throws IOException{
         String answer = "invalid response";
-        try {
+        //try {
             try {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setDoOutput(true);
@@ -41,11 +43,11 @@ public class TalktoServer {
                 in.close();
                 answer = toReturn.toString();
             } catch (Exception ex) {
-                ex.printStackTrace();
+                new ServerPopup();
             }
-        } catch (Exception e) {
-            //
-        }
+        //} catch (Exception e) {
+          //  new ServerPopup();
+        //}
         return answer;
     } 
 }

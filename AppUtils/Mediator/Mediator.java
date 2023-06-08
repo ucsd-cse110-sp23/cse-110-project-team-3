@@ -119,7 +119,7 @@ public class Mediator {
             newAnswer = speaker.sendAndReceive(input);
         }
         catch (Exception ex) {
-            System.out.println("Server is down");
+            //new ServerPopup();
         }
     }
         /*try {
