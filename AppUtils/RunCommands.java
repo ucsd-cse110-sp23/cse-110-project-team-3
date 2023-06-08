@@ -40,6 +40,7 @@ class RunCommands {
 
         /* Send Email Command */
         else if (vc.isSendEmailCommand()) {
+            mediator.setNewQuestion("Send email to " + vc.getEmailAddress());
             mediator.setNewAnswer("");
             mediator.updateQuestionAndAnswer();
             PanelList list = sidebar.list;
