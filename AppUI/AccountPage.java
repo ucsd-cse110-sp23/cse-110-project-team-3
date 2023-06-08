@@ -356,9 +356,10 @@ public class AccountPage extends JFrame {
 
                     ClearPage();
                     dispose();
-                    mainPage = new MainPage(m);
                     // saves credential information to mediator
                     m.setId(credentials.getId(loginField.getText(), verifyField.getText()));
+                    System.out.println(m.getId().toString());
+                    mainPage = new MainPage(m);
                     mainPage.setVisible(true);
                     revalidate();
                     // History history = new History();
