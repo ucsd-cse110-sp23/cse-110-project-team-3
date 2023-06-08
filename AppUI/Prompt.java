@@ -139,9 +139,7 @@ class PanelList extends JPanel {
         if (((Prompt) c).getState()) {
           SendEmail sendEmail = new SendEmail(m);
           boolean isSent = sendEmail.compose(toAddress, "Email for you", ((Prompt) c).promptName.getText());
-          if (isSent) {
-            remove(c); // remove the component
-          } else {
+          if (!isSent) {
             new EmailErrorPopUp();
           }
         }
