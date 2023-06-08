@@ -6,7 +6,7 @@ import java.util.List;
  * Purpose: For checking if a string input starts with a certain command
  */
 public class VoiceCommands {
-    private int maxCommandSize = 3;
+    private int maxCommandSize = 4;
     List<String> input;
     
     /*
@@ -29,7 +29,11 @@ public class VoiceCommands {
     }
 
     public boolean isSendEmailCommand() {
-        return isSameCommand(Arrays.asList("send", "email"), input);
+        if (isSameCommand(Arrays.asList("send", "email", "to"), input) && (input.size() > 3)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean isSetupEmailCommand() {
@@ -39,6 +43,20 @@ public class VoiceCommands {
 
     public boolean isCreateEmailCommand() {
         return isSameCommand(Arrays.asList("create", "email"), input);
+    }
+
+    public String getEmailAddress() {
+        if (input.size() < 4) {
+            return "Bad call to get email address";
+        } else {
+            String address = input.get(3);
+            if (address.length() >= 1) {
+                if (address.charAt(address.length()-1) == '.') {
+                    address = address.substring(0, address.length()-1);
+                }
+            }
+            return address;
+        }
     }
     
     /* 
@@ -74,7 +92,9 @@ public class VoiceCommands {
         List<String> words = Arrays.asList(s.split(" "));
 
         for (int i = 0; i < words.size(); i++) {
-            words.set(i, removeNonAlphabet(words.get(i)));
+            if (i != 3) {
+                words.set(i, removeNonAlphabet(words.get(i)));
+            }
         }
 
         int endIdx;

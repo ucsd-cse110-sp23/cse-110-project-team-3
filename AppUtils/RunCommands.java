@@ -43,7 +43,7 @@ class RunCommands {
             mediator.setNewAnswer("");
             mediator.updateQuestionAndAnswer();
             PanelList list = sidebar.list;
-            /* TODO: send selected emails */
+            list.sendSelectedEmail(vc.getEmailAddress());
         }
 
         /* Setup Email Command */ 
@@ -59,7 +59,7 @@ class RunCommands {
             mediator.updateQuestionAndAnswer();
             RecordHistory rh = new RecordHistory();
             rh.sendToFile(mediator.getQuestion(), mediator.getAnswer(), "UserData/prompt_history.txt", mediator);
-            sidebar.addPrompt(mediator.getQuestion() + ": " + mediator.getAnswer());
+            sidebar.addPrompt(mediator.getAnswer());
         }
         
         /* Error Statement */ 
@@ -69,7 +69,8 @@ class RunCommands {
                                   "Question [your question here], " +
                                   "Delete prompt, " + 
                                   "Clear all, " + 
-                                  "Set up email");
+                                  "Set up email, " + 
+                                  "Send email to [email address here]");
             mediator.updateQuestionAndAnswer();
         }
     }
