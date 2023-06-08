@@ -6,7 +6,7 @@ import java.util.List;
  * Purpose: For checking if a string input starts with a certain command
  */
 public class VoiceCommands {
-    private int maxCommandSize = 4;
+    private int maxCommandSize = 3;
     List<String> input;
     
     /*
@@ -29,7 +29,7 @@ public class VoiceCommands {
     }
 
     public boolean isSendEmailCommand() {
-        if (isSameCommand(Arrays.asList("send", "email", "to"), input) && (input.size() > 3)) {
+        if (isSameCommand(Arrays.asList("send", "email", "to"), input) && (input.size() >= 4)) {
             return true;
         } else {
             return false;
@@ -50,6 +50,19 @@ public class VoiceCommands {
             return "Bad call to get email address";
         } else {
             String address = input.get(3);
+
+            // concatonate everything after command into email address
+            for (int i = 4; i < input.size(); i ++) {
+                if (removeNonAlphabet(input.get(i).toLowerCase()).equals("at")) {
+                    address += "@";
+                } else if (input.get(i).toLowerCase().equals("dot")) {
+                    address += ".";
+                } else {
+                    address += input.get(i);
+                }
+            }
+
+            // get rid of period at the end of email address
             if (address.length() >= 1) {
                 if (address.charAt(address.length()-1) == '.') {
                     address = address.substring(0, address.length()-1);
@@ -90,23 +103,20 @@ public class VoiceCommands {
     private List<String> firstFewWords(String s) {
         s = s.toLowerCase();
         List<String> words = Arrays.asList(s.split(" "));
-
-        for (int i = 0; i < words.size(); i++) {
-            if (i != 3) {
-                words.set(i, removeNonAlphabet(words.get(i)));
-            }
-        }
-
-        int endIdx;
         
+        // Remove non alphabet for maximum maxWordsChanged
+        int maxWordsChanged;
         if (words.size() < maxCommandSize) {
-            endIdx = words.size();
+            maxWordsChanged = words.size();
         } else {
-            endIdx = maxCommandSize;
+            maxWordsChanged = maxCommandSize;
         }
 
-        List<String> sub = words.subList(0, endIdx);
-        return sub;
+        for (int i = 0; i < maxWordsChanged; i++) {
+            words.set(i, removeNonAlphabet(words.get(i)));
+        }
+
+        return words;
     }
 
     private String removeNonAlphabet(String input) {

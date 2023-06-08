@@ -105,7 +105,7 @@ public class CommandTests {
 
     @Test
     void testGetEmailAddress() {
-        vc = new VoiceCommands("send email to mememomo1@gmail.com How many chickens in a foot");
+        vc = new VoiceCommands("send email to mememomo1 at gmail.com");
         assertEquals(false, vc.isQuestionCommand());
         assertEquals(false, vc.isDeletePromptCommand());
         assertEquals(false, vc.isClearAllCommand());
