@@ -5,9 +5,12 @@ import RecordHistory.RecordHistory;
 
 class RunCommands {
     public void runVoiceCommand(Mediator mediator, Sidebar sidebar) throws IOException{
-        mediator.updateQuestionAndAnswer();
-        
         VoiceCommands vc = new VoiceCommands(mediator.getQuestion());
+        
+        if (vc.isSendEmailCommand()) {
+            mediator.setNewQuestion("Send email to " + vc.getEmailAddress());
+        }
+        mediator.updateQuestionAndAnswer();
         
         /* Question Command */
         if (vc.isQuestionCommand()) {
